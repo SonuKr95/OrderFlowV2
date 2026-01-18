@@ -56,6 +56,12 @@ const menu = [
     iconName: "settings",
     access: [ROLES.ADMIN],
   },
+  {
+    text: "Create Order",
+    iconName: "",
+    access: [ROLES.ADMIN],
+    url: "dev",
+  },
 ];
 
 /*
