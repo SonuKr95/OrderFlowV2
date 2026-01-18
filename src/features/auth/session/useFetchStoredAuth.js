@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { setAuthUser } from "../state/userSlice";
+import { setAuthUser } from "../../../store/slices/authSlice";
 import { fetchLoginFromBrowser } from "./fetchLoginFromBrowser";
 import { useEffect } from "react";
 

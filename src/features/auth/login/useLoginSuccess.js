@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setAuthUser } from "../state/userSlice";
+import { setAuthUser } from "../../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { queryClient } from "../../../app/queryClient";
 import toast from "react-hot-toast";

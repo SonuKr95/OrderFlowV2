@@ -4,7 +4,7 @@ import { ListProvider } from "./app/context/listContext.jsx";
 import { EditModalProvider } from "./app/context/editModalContext.jsx";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
-import store from "./app/store.js";
+import store from "./store/store.js";
 import RouterRoot from "./routes/RouterRoot.jsx";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 

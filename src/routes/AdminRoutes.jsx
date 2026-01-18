@@ -23,7 +23,7 @@ const OrderDetailsPage = lazy(
   () => import("../features/orders/pages/OrderDetailsPage"),
 );
 const CreateOrderPage = lazy(
-  () => import("../features/orders/pages/CreateOrderPage"),
+  () => import("../features/orders/pages/createorder/CreateOrderPage"),
 );
 
 export const AdminRoutes = [
