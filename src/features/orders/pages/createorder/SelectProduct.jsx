@@ -1,24 +1,41 @@
 import { useProductList } from "../../../products/hooks/useProductList";
 import { useDispatch } from "react-redux";
-import { setProduct } from "../../../../store/slices/cartSlice";
+import { addProduct } from "../../../../store/slices/cartSlice";
+import { useState } from "react";
+useState;
 
 export function SelectProduct() {
   const products = useProductList();
+  const [selectedProduct, setSelectedProduct] = useState("");
+
   const dispatch = useDispatch();
   const handleChange = (e) => {
-    const selectedProduct = e.target.value;
-    dispatch(setProduct(selectedProduct));
+    const productId = e.target.value;
+    const selectedProduct = products.find((p) => p.product_id === productId);
+
+    console.log(selectedProduct);
+    if (selectedProduct) {
+      dispatch(addProduct(selectedProduct)); // Dispatch the whole object
+    }
   };
   console.log(products);
   return (
     <div className="col-start-2 row-start-1">
-      <p>Select Product</p>
+      <p>Products Selection</p>
 
       {/* <p>quantity</p> */}
-      <select name="" id="" onChange={handleChange}>
-        <option disabled>Select Products</option>
+      <select
+        name=""
+        id=""
+        value={selectedProduct}
+        onChange={handleChange}
+        className="w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:ring-2 focus:ring-green-500 focus:outline-none disabled:text-gray-400"
+      >
+        <option value="" disabled>
+          Select Product
+        </option>
         {products?.map((product) => (
-          <option value={product}>{product.name}</option>
+          <option value={product.product_id}>{product.name}</option>
         ))}
       </select>
     </div>

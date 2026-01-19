@@ -14,7 +14,9 @@ export function SelectCustomer() {
     <div className="w-fit">
       <p>Select a customer</p>
       <select name="" id="" onChange={handleChange}>
-        <option disabled>Select a customer</option>
+        <option defaultValue={`Select a customer`} disabled>
+          Select a customer
+        </option>
         {customers?.map((customer) => (
           <option value={customer.id}>{customer.name}</option>
         ))}
