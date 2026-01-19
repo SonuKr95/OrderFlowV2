@@ -1,6 +1,6 @@
 // import { useSelector } from "react-redux";
 // import { selectCartTotal } from "../../../../store/slices/cartSlice";
-import { selectCartTotal } from "./selectcarttotal";
+// import { selectCartTotal } from "./_selectcarttotal";
 
 // 2. Calculate the Grand Total
 // export const selectCartTotal = createSelector([selectCartItems], (items) =>
@@ -12,14 +12,14 @@ export function OrderSummary() {
   // const selectCartTotal = createSelector([selectCartItems], (items) =>
   //   items.reduce((acc, item) => acc + item.price * item.count, 0),
   // );
-  console.log(selectCartTotal);
+  // console.log(selectCartTotal);
   // const summary = useSelector((state) => state.cart.summary);
   // console.log(summary);
   return (
     <>
       <div>
         <span>Subtotal</span>
-        <span>{selectCartTotal}</span>
+        {/* <span>{selectCartTotal}</span> */}
       </div>
       <div>
         <span>Tax</span>

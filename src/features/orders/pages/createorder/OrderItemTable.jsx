@@ -5,7 +5,7 @@ import { increaseQuantity } from "../../../../store/slices/cartSlice";
 
 export function OrderItemTable() {
   const products = useSelector((state) => state.cart.products);
-  const quantity = useSelector((state) => state.cart.quantity);
+  // const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
   // console.log(product);
 
@@ -29,7 +29,7 @@ export function OrderItemTable() {
       </thead>
 
       <tbody className="divide-y divide-gray-100">
-        {products?.map((product, i) => {
+        {products?.map((product) => {
           return (
             <>
               <tr className="hover:bg-gray-50">
@@ -59,7 +59,7 @@ export function OrderItemTable() {
 
                     {/* Current Count */}
                     <span className="min-w-[20px] text-center font-medium">
-                      {quantity[i]?.count ?? 0}
+                      {product.quantityCount ?? 0}
                     </span>
 
                     {/* Increase Button */}
@@ -74,7 +74,8 @@ export function OrderItemTable() {
                   </div>
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-                  {quantity.at(i).total ?? null}
+                  {product.total ?? 0}
+                  {/* {quantity.at(i).total ?? null} */}
                 </td>
 
                 {/* <td className="px-4 py-2 whitespace-nowrap text-gray-700">

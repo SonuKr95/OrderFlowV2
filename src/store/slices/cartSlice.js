@@ -1,16 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+
+function findProduct(product_id, productsArray) {
+  const selectedProduct = productsArray.find((p) => {
+    return p.product_id === product_id;
+  });
+  return selectedProduct;
+}
+
+function calculateTotal(price, quantity) {
+  return price * quantity;
+}
+
 const initialState = {
   customerId: null,
   products: [],
-  quantity: [],
   taxRate: 18,
   shipping: 199,
-  summary: {
-    subtotal: null,
-    tax: null,
-    shipping: null,
-    totalPayable: null,
-  },
+  // summary: {
+  //   subtotal: null,
+  //   tax: null,
+  //   shipping: null,
+  //   totalPayable: null,
+  // },
 };
 const cartSlice = createSlice({
   name: "cart",
@@ -20,43 +31,50 @@ const cartSlice = createSlice({
       state.customerId = action.payload;
     },
     addProduct(state, action) {
-      const { product_id: id, price } = action.payload;
-      state.products.push(action.payload);
-      state.quantity.push({
-        productId: id,
-        price: price,
-        count: 1,
-        total: price,
+      const {
+        product_id,
+        sku,
+        name,
+        price,
+        quantityCount = 1,
+      } = action.payload;
+      const total = price * quantityCount;
+
+      const ProductAlreadyExisted = findProduct(product_id, state.products);
+      if (ProductAlreadyExisted) {
+        ProductAlreadyExisted.quantityCount++;
+        ProductAlreadyExisted.total = calculateTotal(
+          ProductAlreadyExisted.price,
+          ProductAlreadyExisted.quantityCount,
+        );
+        return;
+      }
+      state.products.push({
+        product_id,
+        sku,
+        name,
+        price,
+        quantityCount,
+        total,
       });
     },
     decreaseQuantity(state, action) {
-      const product_id = action.payload;
-      console.log(product_id);
-      const selectedProduct = state.quantity.find((q) => {
-        return q.productId === product_id;
-      });
-      if (selectedProduct.count === 1) {
-        state.products = state.products.filter((product) => {
-          return product.product_id !== product_id;
+      const product = findProduct(action.payload, state.products);
+      if (!product) return;
+      if (product.quantityCount === 1) {
+        state.products = state.products.filter((p) => {
+          return p.product_id !== action.payload;
         });
-        state.quantity = state.quantity.filter((q) => {
-          return q.productId !== product_id;
-        });
-
         return;
       }
-      selectedProduct.count--;
-      selectedProduct.total = selectedProduct.price * selectedProduct.count;
-      // console.log(action.payload);
+      product.quantityCount--;
+      product.total = calculateTotal(product.price, product.quantityCount);
     },
     increaseQuantity(state, action) {
-      const product_id = action.payload;
-      console.log(product_id);
-      const selectedProduct = state.quantity.find((q) => {
-        return q.productId === product_id;
-      });
-      selectedProduct.count++;
-      selectedProduct.total = selectedProduct.price * selectedProduct.count;
+      const product = findProduct(action.payload, state.products);
+      if (!product) return;
+      product.quantityCount++;
+      product.total = calculateTotal(product.price, product.quantityCount);
     },
 
     deleteProduct(state, action) {
