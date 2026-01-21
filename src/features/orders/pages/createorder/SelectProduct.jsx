@@ -1,7 +1,7 @@
 import { useProductList } from "../../../products/hooks/useProductList";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../../../store/slices/cartSlice";
-import { useState } from "react";
+import { useState, useMemo, useRef } from "react";
 useState;
 
 export function SelectProduct() {

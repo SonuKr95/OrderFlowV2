@@ -16,12 +16,7 @@ const initialState = {
   products: [],
   taxRate: 18,
   shipping: 199,
-  // summary: {
-  //   subtotal: null,
-  //   tax: null,
-  //   shipping: null,
-  //   totalPayable: null,
-  // },
+  paymentMethod: null,
 };
 const cartSlice = createSlice({
   name: "cart",
@@ -83,9 +78,18 @@ const cartSlice = createSlice({
         return product.product_id !== product_id;
       });
     },
+
+    selectPaymentMethod(state, action) {
+      state.paymentMethod = action.payload;
+    },
   },
 });
 
-export const { setCustomer, addProduct, decreaseQuantity, increaseQuantity } =
-  cartSlice.actions;
+export const {
+  setCustomer,
+  addProduct,
+  decreaseQuantity,
+  increaseQuantity,
+  selectPaymentMethod,
+} = cartSlice.actions;
 export default cartSlice.reducer;
