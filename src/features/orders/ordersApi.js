@@ -5,6 +5,16 @@ export async function getOrders() {
   if (error) throw new Error(error.message);
   return orders;
 }
+
+export async function getOrderDetailsByOrderId(orderId) {
+  const { data: orders, error } = await supabase
+    .from("orders")
+    .select("subtotal,tax,shipping_cost,total_amount")
+    .eq("order_id", orderId);
+  if (error) throw new Error(error.message);
+  return orders;
+}
+
 export async function getOrderItemsByOrderId(orderId) {
   const { data, error } = await supabase
     .from("order_items")
@@ -20,13 +30,14 @@ export async function createOrder(orderObj) {
     .insert([orderObj])
     .select();
   if (error) throw new Error(error.message);
+  console.log(data);
   return data;
 }
 
 export async function createOrderItem(orderObj) {
   const { data, error } = await supabase
     .from("order_items")
-    .insert([orderObj])
+    .insert(orderObj)
     .select();
   if (error) throw new Error(error.message);
   return data;

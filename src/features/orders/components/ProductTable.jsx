@@ -1,3 +1,4 @@
+import { useOrderDetails } from "../hooks/useOrderDetails";
 import { useOrderItems } from "../hooks/useOrderItems";
 import { useParams } from "react-router-dom";
 export function ProductTable() {
@@ -5,6 +6,9 @@ export function ProductTable() {
   console.log(orderId);
   // const OrderItem = useOrderItems();
   const { data, isLoading, error } = useOrderItems(orderId);
+  const { data: orderDetails } = useOrderDetails(orderId);
+  // const [{ subtotal, tax, shipping_cost, total }] = orderDetails;
+  console.log(orderDetails);
   if (isLoading) return <p>Loading order items...</p>;
   if (error) return <p>Failed to load items</p>;
   console.log(data);
@@ -49,36 +53,37 @@ export function ProductTable() {
             <td className="px-4 py-2 whitespace-nowrap text-gray-700">
               {price_at_purchase ?? null}
             </td>
-            <td className="text-right whitespace-nowrap text-gray-700">123</td>
-            {/* <td className="px-4 py-2 whitespace-nowrap text-gray-700">123</td> */}
+            <td className="text-right whitespace-nowrap text-gray-700">
+              {orderDetails.subtotal ?? null}
+            </td>
           </tr>
           <tr className="hover:bg-gray-50">
             <td colSpan={2}></td>
             <td className="px-4 py-2 font-bold whitespace-nowrap text-gray-900">
               Subtotal
             </td>
-            <td className="text-right">44</td>
+            <td className="text-right">{orderDetails.subtotal}</td>
           </tr>
           <tr className="hover:bg-gray-50">
             <td colSpan={2}></td>
             <td className="px-4 py-2 font-bold whitespace-nowrap text-gray-900">
               Tax
             </td>
-            <td className="text-right">44</td>
+            <td className="text-right">{orderDetails.tax}</td>
           </tr>
           <tr className="hover:bg-gray-50">
             <td colSpan={2}></td>
             <td className="px-4 py-2 font-bold whitespace-nowrap text-gray-900">
               Shipping
             </td>
-            <td className="text-right">44</td>
+            <td className="text-right">{orderDetails.shipping_cost}</td>
           </tr>
           <tr className="hover:bg-gray-50">
             <td colSpan={2}></td>
             <td className="px-4 py-2 font-bold whitespace-nowrap text-gray-900">
               Total Payable
             </td>
-            <td className="text-right">44</td>
+            <td className="text-right">{orderDetails.total_amount}</td>
           </tr>
 
           {/* <button data-productId=>XX</button> */}

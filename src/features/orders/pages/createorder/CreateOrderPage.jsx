@@ -16,8 +16,11 @@ import { buildOrderPayload } from "./buildOrderPayload";
 import toast from "react-hot-toast";
 // import { selectCart } from "../../../../store/selectors/cartSelectors";
 import { PaymentMethod } from "./PaymentMethod";
+import { Navigate, useNavigate } from "react-router-dom";
+import { useOrderItems } from "../../hooks/useOrderItems";
 
 function CreateOrderPage() {
+  const navigate = useNavigate();
   const customerId = useSelector((state) => state.cart.customerId);
   const product = useSelector(selectCartProducts).length;
   const createOrderMutation = useCreateOrder();
@@ -44,9 +47,22 @@ function CreateOrderPage() {
       toast.error("Cart is empty");
       return;
     }
-    const payload = buildOrderPayload(orderObject);
+    const orderData = buildOrderPayload(orderObject);
+    // const { products } = buildOrderPayload(orderObject);
+    // console.log(payload);
+    // console.log(products);
 
-    createOrderMutation.mutate(payload);
+    createOrderMutation.mutate(orderData, {
+      onSuccess: (order) => {
+        const [{ order_id }] = order;
+        toast.success("Order created successfully");
+        navigate(`/orders/${order_id}`);
+        // clearCart() later
+      },
+      onError: (error) => {
+        toast.error(error.message || "Failed to create order");
+      },
+    });
   }
   // const orderObject = { cart, customerId };
 

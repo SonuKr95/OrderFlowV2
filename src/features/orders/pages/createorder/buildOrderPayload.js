@@ -10,6 +10,8 @@ export function buildOrderPayload(orderObj) {
     paymentMethod,
   } = orderObj;
 
+  console.log(products);
+
   const payload = {
     order_id: crypto.randomUUID(),
     customer_id: customerId,
@@ -23,8 +25,13 @@ export function buildOrderPayload(orderObj) {
 
   console.log(payload);
 
-  return payload;
+  return {
+    payload,
+    products,
+  };
 }
+
+// useOrderItems;
 
 // {
 //     "product_id": "d61d9dcb-f00f-4877-87c7-d426b8a09f28",
