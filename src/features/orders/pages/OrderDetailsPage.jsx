@@ -7,6 +7,7 @@ import { AdminNotes } from "../components/AdminNotes";
 import { PaymentDetails } from "../components/PaymentDetails";
 import { ShippingDetails } from "../components/ShippingDetails";
 import { SidebarCard } from "../components/SidebarCard";
+import { OrderAmountDetails } from "../components/OrderAmountDetails";
 // import { getOrderItemsByOrderId } from "../ordersApi";
 // import { useParams } from "react-router-dom";
 
@@ -20,13 +21,18 @@ function OrderDetailsPage() {
       </div>
 
       <div className="space-y-6">
-        <OrderTimeline />
+        <OrderAmountDetails />
+        <SidebarCard title={"Order Status"}>
+          {/* <PaymentDetails /> */}
+          <OrderTimeline />
+        </SidebarCard>
 
         <SidebarCard title={"Payment Details"}>
           <PaymentDetails />
         </SidebarCard>
 
         <ShippingDetails />
+
         <SidebarCard title={"AdminNotes"}>
           <AdminNotes />
         </SidebarCard>

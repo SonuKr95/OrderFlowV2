@@ -1,5 +1,7 @@
 import { createOrder } from "../ordersApi";
 import { createOrderItem } from "../ordersApi";
+import { createOrderStatusHistory } from "../ordersApi";
+
 import { useMutation } from "@tanstack/react-query";
 
 export function useCreateOrder() {
@@ -7,7 +9,12 @@ export function useCreateOrder() {
     mutationKey: ["createOrder"],
     mutationFn: async ({ payload, products }) => {
       const order = await createOrder(payload);
-      const [{ order_id }] = order;
+      const [{ order_id, status }] = order;
+      const orderStatusHistoryPayload = {
+        order_id: order_id,
+        status: status,
+        changed_by: "system",
+      };
       const orderItemPayload = products.map((p) => ({
         order_id: order_id,
         product_id: p.product_id,
@@ -16,6 +23,7 @@ export function useCreateOrder() {
         quantity: p.quantityCount,
       }));
       await createOrderItem(orderItemPayload);
+      await createOrderStatusHistory(orderStatusHistoryPayload);
       return order;
     },
   });

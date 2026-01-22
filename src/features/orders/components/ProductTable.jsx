@@ -1,27 +1,19 @@
-import { useOrderDetails } from "../hooks/useOrderDetails";
+// import { useOrderDetails } from "../hooks/useOrderDetails";
 import { useOrderItems } from "../hooks/useOrderItems";
 import { useParams } from "react-router-dom";
 export function ProductTable() {
   const { orderId } = useParams();
   console.log(orderId);
-  // const OrderItem = useOrderItems();
   const { data, isLoading, error } = useOrderItems(orderId);
-  const { data: orderDetails } = useOrderDetails(orderId);
-  // const [{ subtotal, tax, shipping_cost, total }] = orderDetails;
-  console.log(orderDetails);
+
   if (isLoading) return <p>Loading order items...</p>;
   if (error) return <p>Failed to load items</p>;
   console.log(data);
-  const [
-    {
-      // order_id,
-      // product_id,
-      quantity,
-      price_at_purchase,
-      // updated_at,
-      product_name,
-    } = {},
-  ] = data || [];
+
+  const orderItems = data.orderItems;
+
+  console.log(orderItems);
+
   return (
     <table className="min-w-full table-fixed divide-y divide-gray-200 bg-white text-sm">
       <thead className="bg-gray-50 text-left">
@@ -39,9 +31,8 @@ export function ProductTable() {
           {/* <th className="px-4 py-2 font-medium text-gray-900">Status</th> */}
         </tr>
       </thead>
-
       <tbody className="divide-y divide-gray-100">
-        <>
+        {orderItems?.map(({ product_name, quantity, price_at_purchase }) => (
           <tr className="hover:bg-gray-50">
             <td className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">
               {product_name ?? null}
@@ -54,37 +45,39 @@ export function ProductTable() {
               {price_at_purchase ?? null}
             </td>
             <td className="text-right whitespace-nowrap text-gray-700">
-              {orderDetails.subtotal ?? null}
+              {price_at_purchase * quantity}
             </td>
           </tr>
-          <tr className="hover:bg-gray-50">
+        ))}
+        <>
+          {/* <tr className="hover:bg-gray-50">
             <td colSpan={2}></td>
             <td className="px-4 py-2 font-bold whitespace-nowrap text-gray-900">
               Subtotal
             </td>
-            <td className="text-right">{orderDetails.subtotal}</td>
+            <td className="text-right">{subtotal}</td>
           </tr>
           <tr className="hover:bg-gray-50">
             <td colSpan={2}></td>
             <td className="px-4 py-2 font-bold whitespace-nowrap text-gray-900">
               Tax
             </td>
-            <td className="text-right">{orderDetails.tax}</td>
+            <td className="text-right">{tax}</td>
           </tr>
           <tr className="hover:bg-gray-50">
             <td colSpan={2}></td>
             <td className="px-4 py-2 font-bold whitespace-nowrap text-gray-900">
               Shipping
             </td>
-            <td className="text-right">{orderDetails.shipping_cost}</td>
+            <td className="text-right">{shipping_cost}</td>
           </tr>
           <tr className="hover:bg-gray-50">
             <td colSpan={2}></td>
             <td className="px-4 py-2 font-bold whitespace-nowrap text-gray-900">
               Total Payable
             </td>
-            <td className="text-right">{orderDetails.total_amount}</td>
-          </tr>
+            <td className="text-right">{total_amount}</td>
+          </tr> */}
 
           {/* <button data-productId=>XX</button> */}
         </>
