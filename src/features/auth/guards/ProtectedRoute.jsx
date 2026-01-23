@@ -63,8 +63,8 @@ export default ProtectedRoute;
 */
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-import { useFetchStoredAuth } from "../session/useFetchStoredAuth";
-import { fetchLoginFromBrowser } from "../session/fetchLoginFromBrowser";
+// import { useFetchStoredAuth } from "../session/useFetchStoredAuth";
+// import { fetchAndValidateSavedLogin } from "../session/fetchLoginFromBrowser";
 
 function ProtectedRoute() {
   const authenticatedStatus = useSelector((state) => state.auth.status);

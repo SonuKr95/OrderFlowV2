@@ -1,7 +1,7 @@
 // import { useEditProductForm } from "../../features/products/hooks/useEditProductForm";
 import { closeicon } from "../../icons/_index";
-import useEditModal from "../../app/context/hook/useEditModal";
-import { useList } from "../../app/context/hook/useList";
+import useEditModal from "../../app/context/hook/_useEditModal";
+import { useList } from "../../app/context/hook/_useList";
 
 export function EditModal({ product, register, onSubmit }) {
   const { list } = useList();

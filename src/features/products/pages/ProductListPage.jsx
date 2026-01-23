@@ -6,10 +6,10 @@ import { editicon } from "../../../icons/_index";
 import { deleteicon } from "../../../icons/_index";
 import CategoryCards from "../..//..//components/cards/CategoryCards";
 import List from "../../../components/ui/List";
-import useEditModal from "../../../app/context/hook/useEditModal";
+import useEditModal from "../../../app/context/hook/_useEditModal";
 // import EditModal from "../../../components/ui/EditModal";
 import EditContainer from "../../../components/ui/EditContainer";
-import { useList } from "../../../app/context/hook/useList";
+import { useList } from "../../../app/context/hook/_useList";
 
 function ProductList() {
   const { editModalClicked, toggleEditModal } = useEditModal();

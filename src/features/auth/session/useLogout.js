@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../store/slices/authSlice";
+import { logout } from "../../../app/store/slices/authSlice";
 import { queryClient } from "..//..//..//app/queryClient";
 
 export function useLogout() {

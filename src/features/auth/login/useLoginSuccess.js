@@ -1,23 +1,21 @@
+import { ROLES } from "../constants/roles";
+import { LOGIN_ROUTES } from "../constants/loginRoutes";
 import { useDispatch } from "react-redux";
-import { setAuthUser } from "../../../store/slices/authSlice";
+import { setAuthUser } from "../../../app/store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
-import { queryClient } from "../../../app/queryClient";
 import toast from "react-hot-toast";
 
 export function useLoginSuccess() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  return function handleLoginSuccess(data) {
-    const { loggerUserRole } = data;
-    const { email } = data.user;
-    const { id } = data.user;
-
-    console.log(loggerUserRole);
+  return function handleLoginSuccess({ email, id, role, status }) {
     dispatch(
       setAuthUser({
-        email: email,
-        loggerUserRole,
+        id,
+        email,
+        role,
+        status,
       }),
     );
     toast.success("Logged In");
@@ -26,17 +24,15 @@ export function useLoginSuccess() {
       "auth",
       JSON.stringify({
         email,
-        role: loggerUserRole,
-        id, // if backend provides one
+        role,
+        id,
+        status,
       }),
     );
-    queryClient.invalidateQueries(["auth"]);
-
-    if (loggerUserRole === "admin") {
-      navigate("/dashboard", { replace: true });
-    }
-    if (loggerUserRole === "staff") {
-      navigate("/productlist", { replace: true });
+    if (role === ROLES.ADMIN) {
+      navigate(LOGIN_ROUTES.ADMIN_DASHBOARD, { replace: true });
+    } else if (role === ROLES.STAFF) {
+      navigate(LOGIN_ROUTES.STAFF_PRODUCTLIST, { replace: true });
     }
   };
 }

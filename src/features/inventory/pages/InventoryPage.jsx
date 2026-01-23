@@ -6,8 +6,8 @@ import { editicon } from "../../../icons/_index";
 import { formatDateTime } from "../../../utils/dateFormat";
 // import OrdersList from "../orders/OrdersList";
 import EditContainer from "../../../components/ui/EditContainer";
-import { useList } from "../../../app/context/hook/useList";
-import useEditModal from "../../../app/context/hook/useEditModal";
+import { useList } from "../../../app/context/hook/_useList";
+import useEditModal from "../../../app/context/hook/_useEditModal";
 
 function InventoryMangement() {
   const inventory = useGetInventory();

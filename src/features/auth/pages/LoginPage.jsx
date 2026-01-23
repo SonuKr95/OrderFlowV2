@@ -5,21 +5,18 @@ import { useMutation } from "@tanstack/react-query";
 import { useLoginSuccess } from "../login/useLoginSuccess";
 
 function LoginPage() {
-  console.log("Login page rendered");
-
   const { register, handleSubmit, reset } = useForm();
-  const loginSuccess = useLoginSuccess();
+  const handleLoginSuccess = useLoginSuccess();
+
   const loginMutation = useMutation({
     mutationFn: loginWithRole,
-    onSuccess: (data) => {
-      loginSuccess(data);
-    },
+    onSuccess: handleLoginSuccess,
     onError: (error) => {
-      toast.error(error.message);
+      toast.error(error?.message || "Login failed");
     },
   });
 
-  function onSubmit(formData) {
+  function handleSubmitLogin(formData) {
     loginMutation.mutate(formData, {
       onSuccess: () => {
         reset();
@@ -37,7 +34,7 @@ function LoginPage() {
           Sign in
         </h1>
         <div className="text-subtle mb-5 flex w-full flex-col gap-[10px]">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(handleSubmitLogin)}>
             <label htmlFor="email">
               <span className="mb-[5px] block font-semibold">E-mail</span>
               <input

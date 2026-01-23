@@ -4,12 +4,10 @@ export function ShippingDetails() {
       {/* Header / Toggle Button */}
 
       <div className="border-t border-gray-100 bg-gray-50/50 p-4">
-        <p>Shipping Details </p>
-        <p>Shipping method </p>
-        <p>Estimated Delivery Date</p>
-        <p>Tracking number </p>
         <p>Courier name</p>
-        <p>Shipment status</p>
+        <p>Tracking number link</p>
+        <p>Shipping Date</p>
+        <p>Estimated Delivery Date</p>
       </div>
     </div>
   );

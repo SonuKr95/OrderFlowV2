@@ -1,4 +1,4 @@
-import { EditModalContext } from "../editModalContext";
+import { EditModalContext } from "../_editModalContext";
 import { useContext } from "react";
 
 function useEditModal() {
