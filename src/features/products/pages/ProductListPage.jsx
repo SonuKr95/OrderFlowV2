@@ -6,21 +6,21 @@ import { editicon } from "../../../icons/_index";
 import { deleteicon } from "../../../icons/_index";
 import CategoryCards from "../..//..//components/cards/CategoryCards";
 import List from "../../../components/ui/List";
-import useEditModal from "../../../app/context/hook/_useEditModal";
+// import useEditModal from "../../../app/context/hook/_useEditModal";
 // import EditModal from "../../../components/ui/EditModal";
 import EditContainer from "../../../components/ui/EditContainer";
-import { useList } from "../../../app/context/hook/_useList";
+// import { useList } from "../../../app/context/hook/_useList";
 
 function ProductList() {
-  const { editModalClicked, toggleEditModal } = useEditModal();
-  const { list } = useList();
+  // const { editModalClicked, toggleEditModal } = useEditModal();
+  // const { list } = useList();
 
-  function handleEditBtnClicked(product) {
-    // console.log("CLICKED", product);
-    toggleEditModal();
-    setselectedProduct(product);
-  }
-  const [selectedProduct, setselectedProduct] = useState(null);
+  // function handleEditBtnClicked(product) {
+  //   // console.log("CLICKED", product);
+  //   toggleEditModal();
+  //   setselectedProduct(product);
+  // }
+  // const [selectedProduct, setselectedProduct] = useState(null);
 
   const productList = useProductList();
   const deleteProduct = useDeleteProduct();
@@ -60,15 +60,15 @@ function ProductList() {
               </td>
               <td>
                 <div className="flex flex-wrap gap-2">
-                  <button onClick={() => handleEditBtnClicked(product)}>
+                  {/* <button onClick={() => handleEditBtnClicked(product)}>
                     <img src={editicon} alt="" />
-                  </button>
-                  <button
+                  </button> */}
+                  {/* <button
                     onClick={() => deleteProduct.mutate(product.product_id)}
                     // data-product-id={prod.product_id}
                   >
                     <img src={deleteicon} alt="" />
-                  </button>
+                  </button> */}
                 </div>
               </td>
             </tr>
@@ -76,9 +76,9 @@ function ProductList() {
             {/* <button data-productId=>XX</button> */}
           </>
         ))}
-        {editModalClicked && (
+        {/* {editModalClicked && (
           <EditContainer list={list} product={selectedProduct} />
-        )}
+        )} */}
       </List>
     </div>
   );

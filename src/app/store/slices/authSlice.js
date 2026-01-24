@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { AUTH_STATUS } from "../../../features/auth/constants/authStatus";
 
 const initialState = {
   id: null,
   email: null,
   role: null,
-  status: "unauthenticated",
+  status: AUTH_STATUS.UNAUTHENTICATED,
 };
 
 const authSlice = createSlice({
@@ -15,7 +16,7 @@ const authSlice = createSlice({
       state.id = action.payload.id;
       state.email = action.payload.email;
       state.role = action.payload.role;
-      state.status = action.payload.status;
+      state.status = AUTH_STATUS.AUTHENTICATED;
     },
 
     logout() {

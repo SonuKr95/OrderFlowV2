@@ -1,13 +1,13 @@
-import { useFetchStoredAuth } from "../session/useFetchStoredAuth";
+import { useRestoreAuth } from "../session/useRestoreAuth";
 import { Outlet } from "react-router-dom";
+import AuthLoadingModal from "../components/AuthLoadingModal";
 
 function AuthGate() {
-  const { isPending, isFetching } = useFetchStoredAuth();
-  if (isFetching || isPending) {
-    return <div style={{ color: "red" }}>AUTH LOADING</div>;
+  const { isPending } = useRestoreAuth();
+  if (isPending) {
+    return <AuthLoadingModal />;
   }
   return <Outlet />;
 }
 
-//
 export default AuthGate;

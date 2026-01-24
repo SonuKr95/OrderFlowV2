@@ -15,7 +15,7 @@ export function useLoginSuccess() {
         id,
         email,
         role,
-        status,
+        // status,
       }),
     );
     toast.success("Logged In");

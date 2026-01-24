@@ -27,8 +27,8 @@ const rowEndClasses = {
 };
 
 function List({ children, colStart, colEnd, rowStart, rowEnd }) {
-  const { list } = useList();
-  console.log(list);
+  const list = "productlist";
+  // console.log(list);
 
   return (
     <div

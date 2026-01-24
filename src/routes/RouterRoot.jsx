@@ -5,15 +5,19 @@ import { AdminRoutes } from "./AdminRoutes";
 import { StaffRoutes } from "./StaffRoutes";
 import ProtectedRoute from "../features/auth/guards/ProtectedRoute";
 import AuthGate from "../features/auth/guards/AuthGate";
+import { ROLES } from "../features/auth/constants/roles";
+
 const roleRoutes = {
-  admin: AdminRoutes,
-  staff: StaffRoutes,
+  [ROLES.ADMIN]: AdminRoutes,
+  [ROLES.STAFF]: StaffRoutes,
 };
 
 function RouterRoot() {
   const role = useSelector((state) => state.auth.role);
+
   const router = createBrowserRouter([
     {
+      path: "/",
       element: <AuthGate />,
       children: [
         ...PublicRoutes,
