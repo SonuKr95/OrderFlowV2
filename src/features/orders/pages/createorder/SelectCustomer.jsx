@@ -1,5 +1,5 @@
 import { useGetCustomers } from "../../../customers/hooks/useGetCustomers";
-import { setCustomer } from "../../../../store/slices/cartSlice";
+import { setCustomer } from "../../../../app/store/slices/cartSlice";
 import { useDispatch } from "react-redux";
 
 export function SelectCustomer() {

@@ -8,8 +8,24 @@ import CategoryCards from "../..//..//components/cards/CategoryCards";
 import List from "../../../components/ui/List";
 // import useEditModal from "../../../app/context/hook/_useEditModal";
 // import EditModal from "../../../components/ui/EditModal";
-import EditContainer from "../../../components/ui/EditContainer";
+// import EditContainer from "../../../components/ui/EditContainer";
 // import { useList } from "../../../app/context/hook/_useList";
+
+const productColumns = [
+  { key: "sku", label: "SKU" },
+  { key: "name", label: "Product Name" },
+  { key: "category", label: "Category" },
+  { key: "selling_price", label: "Selling Price" },
+  { key: "mrp", label: "MRP" },
+  { key: "stock_status", label: "Stock Status" },
+  { key: "updated_at", label: "Updated On" },
+  {
+    key: "actions",
+    label: "Actions",
+    align: "right",
+    isAction: true,
+  },
+];
 
 function ProductList() {
   // const { editModalClicked, toggleEditModal } = useEditModal();
@@ -24,7 +40,7 @@ function ProductList() {
 
   const productList = useProductList();
   const deleteProduct = useDeleteProduct();
-  console.log(productList);
+  // console.log(productList);
 
   return (
     <div className="grid-row-2 relative grid gap-15 bg-[#D1D5DB] px-5 py-4">

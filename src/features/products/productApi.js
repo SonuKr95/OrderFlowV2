@@ -1,80 +1,61 @@
 import supabase from "../../services/supabase";
+// export async function createProduct({
+//   name,
+//   description,
+//   sku,
+//   mrp,
+//   selling_price,
+//   tax_rate,
+//   category_id,
+//   status,
+// }) {
 
-console.log(supabase);
-
-export async function addProduct({
-  product_name,
-  product_description,
-  product_selling_price,
-  product_sku,
-  product_mrp,
-  category_id,
-  product_quantity,
-}) {
-  // console.log(category_id);
-
+export async function createProduct(product) {
   const { data, error } = await supabase
     .from("products")
-    .insert([
-      {
-        product_id: self.crypto.randomUUID(),
-        sku: product_sku,
-        name: product_name,
-        description: product_description,
-        price: product_selling_price,
-        category_id,
-        mrp: product_mrp,
-      },
-    ])
+    .insert([product])
     .select()
     .single();
 
-  if (error) {
-    throw new Error(error.message);
-  }
-  const addProductData = {
-    product_id: data.product_id,
-    product_quantity,
-  };
+  if (error) throw error;
 
-  console.log(addProductData);
-
-  return addProductData;
-}
-
-export async function getProducts() {
-  const { data: products, error } = await supabase.from("products").select("*");
-  if (error) throw new Error(error.message);
-  return products;
-}
-
-export async function deleteProduct(productId) {
-  console.log(productId);
-  console.log(`deleting`);
-  const { data, error } = await supabase
-    .from("products")
-    .delete()
-    .eq("product_id", productId)
-    .select();
-
-  console.log(data);
-  if (error) throw new Error(error.message);
   return data;
 }
 
-export async function updateProduct(payload) {
-  const { product_id, ...newUpdatedData } = payload;
+//modification
+export async function fetchProducts() {
+  const { data, error } = await supabase.from("products").select("*");
+  if (error) throw error;
+  return data;
+}
 
-  console.log(product_id);
-  console.log(payload);
+export async function fetchProductsCategories() {
+  let { data, error } = await supabase.from("categories").select("name, id");
+  if (error) throw error;
+  return data;
+}
+
+//modification
+export async function updateProductById(payload) {
+  const { id, ...newUpdatedData } = payload;
   const { data, error } = await supabase
     .from("products")
     .update(newUpdatedData)
-    .eq("product_id", product_id)
-    .select();
-  // console.log(data);
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
 
-  console.log(data);
-  if (error) throw new Error(error.message);
+export async function deleteProductById(id) {
+  const { data, error } = await supabase
+    .from("products")
+    .delete()
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw error;
   return data;
 }

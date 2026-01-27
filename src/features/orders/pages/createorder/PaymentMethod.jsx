@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { selectPaymentMethod } from "../../../../store/slices/cartSlice";
+import { selectPaymentMethod } from "../../../../app/store/slices/cartSlice";
 
 export function PaymentMethod() {
   const [selectedPaymentMethod, setselectedPaymentMethod] = useState("");

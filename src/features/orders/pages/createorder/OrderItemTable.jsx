@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { decreaseQuantity } from "../../../../store/slices/cartSlice";
-import { increaseQuantity } from "../../../../store/slices/cartSlice";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+} from "../../../../app/store/slices/cartSlice";
 
 export function OrderItemTable() {
   const products = useSelector((state) => state.cart.products);

@@ -8,7 +8,7 @@ import {
   selectSubtotal,
   selectTax,
   selectTotalPayable,
-} from "../../../../store/selectors/cartSelectors";
+} from "../../../../app/store/selectors/cartSelectors";
 
 // 2. Calculate the Grand Total
 // export const selectCartTotal = createSelector([selectCartItems], (items) =>

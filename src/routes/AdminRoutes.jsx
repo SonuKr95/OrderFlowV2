@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 const AppLayout = lazy(() => import("../components/layout/AppLayout"));
 const DashboardPage = lazy(() => import("../features/dashboard/DashboardPage"));
 const ProductListPage = lazy(
@@ -9,22 +9,19 @@ const ProductListPage = lazy(
 const InventoryPage = lazy(
   () => import("../features/inventory/pages/InventoryPage"),
 );
-const AddproductPage = lazy(
-  () => import("../features/products/pages/AddProductPage"),
+const CreateProductPage = lazy(
+  () => import("../features/products/pages/CreateProductPage"),
 );
 const OrderPage = lazy(() => import("../features/orders/pages/OrdersPage"));
 
-// const OrderItemPage = lazy(
-//   () => import("../features/orders/pages/OrderItemPage"),
-// );
-
-// import { OrderItemPage } from "../features/orders/pages/OrderItemPage";
 const OrderDetailsPage = lazy(
   () => import("../features/orders/pages/OrderDetailsPage"),
 );
 const CreateOrderPage = lazy(
   () => import("../features/orders/pages/createorder/CreateOrderPage"),
 );
+
+//mount error 404 just like in public route page in future
 
 export const AdminRoutes = [
   {
@@ -34,7 +31,7 @@ export const AdminRoutes = [
       { path: "dashboard", element: <DashboardPage /> },
       { path: "inventory", element: <InventoryPage /> },
       { path: "productlist", element: <ProductListPage /> },
-      { path: "addproduct", element: <AddproductPage /> },
+      { path: "addproduct", element: <CreateProductPage /> },
       {
         path: "orders",
         children: [

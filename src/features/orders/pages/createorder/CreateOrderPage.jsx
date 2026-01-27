@@ -8,7 +8,7 @@ import {
   selectSubtotal,
   selectTax,
   selectTotalPayable,
-} from "../../../../store/selectors/cartSelectors";
+} from "../../../../app/store/selectors/cartSelectors";
 import { useSelector } from "react-redux";
 // import { useForm } from "react-hook-form";
 import { useCreateOrder } from "../../hooks/useCreateOrder";

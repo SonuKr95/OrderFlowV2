@@ -1,6 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
+import { Suspense } from "react";
+import PageLoader from "./PageLoader";
 
 function AppLayout() {
   return (
@@ -11,8 +13,10 @@ function AppLayout() {
       <header className="col-start-2 row-start-1">
         <Navbar />
       </header>
-      <main className="col-start-2 row-start-2 h-full">
-        <Outlet />
+      <main className="col-start-2 row-start-2 min-h-[calc(100vh-100px)]">
+        <Suspense fallback={<PageLoader />}>
+          <Outlet />
+        </Suspense>
       </main>
     </div>
   );
