@@ -1,23 +1,23 @@
 import supabase from "../../services/supabase";
+import { CREATE_INVENTORY_DEFAULT } from "./constants/createInventoryDefault";
 
-export async function createInventory(productId, productQuantity) {
-  const sanitizedQuantity = Number(productQuantity) || 0;
-  console.log(productId);
-  console.log(productQuantity);
+export async function createInventory({ id, quantity, sku, status }) {
+  const product = {
+    id,
+    sku,
+    quantity: Number(quantity) || 0,
+    lowstock_threshold: CREATE_INVENTORY_DEFAULT.DEFAULT_LOW_STOCK_THRESHOLD,
+    updated_by: CREATE_INVENTORY_DEFAULT.SYSTEM_USER,
+    status,
+  };
 
-  console.log(`createInventory ${productId}`);
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("inventory")
-    .insert([
-      {
-        product_id: productId,
-        quantity: sanitizedQuantity,
-        low_stock_threshold: 5,
-      },
-    ])
-    .select();
-
-  if (error) throw new Error(error.message);
+    .insert([product])
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
 }
 
 export async function getInventory() {

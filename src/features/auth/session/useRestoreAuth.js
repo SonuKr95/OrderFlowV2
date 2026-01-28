@@ -8,6 +8,7 @@ export function useRestoreAuth() {
     retry: false,
     staleTime: Infinity,
     meta: {
+      restoreAuth: true,
       dispatchSavedLogin: ({ id, email, role }) => ({
         id,
         email,

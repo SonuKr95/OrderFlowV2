@@ -1,0 +1,4 @@
+export const CREATE_INVENTORY_DEFAULT = {
+  DEFAULT_LOW_STOCK_THRESHOLD: 10,
+  SYSTEM_USER: "system",
+};

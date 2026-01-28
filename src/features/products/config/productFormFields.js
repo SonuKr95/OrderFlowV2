@@ -55,7 +55,6 @@ export const PRODUCT_FORM_SECTIONS = [
         label: "Tax Rate",
         type: "select",
         placeholder: "Select applicable tax rate",
-        options: [5, 18],
       },
     ],
   },

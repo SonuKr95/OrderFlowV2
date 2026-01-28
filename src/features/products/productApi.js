@@ -10,10 +10,11 @@ import supabase from "../../services/supabase";
 //   status,
 // }) {
 
-export async function createProduct(product) {
+export async function createProduct(payload) {
+  const { quantity, ...productInsertData } = payload;
   const { data, error } = await supabase
     .from("products")
-    .insert([product])
+    .insert([productInsertData])
     .select()
     .single();
 
@@ -29,8 +30,8 @@ export async function fetchProducts() {
   return data;
 }
 
-export async function fetchProductsCategories() {
-  let { data, error } = await supabase.from("categories").select("name, id");
+export async function fetchProductCategories() {
+  const { data, error } = await supabase.from("categories").select("name, id");
   if (error) throw error;
   return data;
 }

@@ -1,24 +1,21 @@
 import { useForm } from "react-hook-form";
-import { useFetchProductCategories } from "../hooks/useFetchProductsCategories";
+import { useProductCategories } from "../hooks/useProductCategories";
 import { useCreateProduct } from "../hooks/useCreateProduct";
-import { PRODUCT_FORM_SECTIONS } from "../constants/productFormFields";
+import { PRODUCT_FORM_SECTIONS } from "../config/productFormFields";
 import FormField from "../components/FormField";
 
 function AddProductPage() {
-  const categories = useFetchProductCategories();
-  const categoryName = categories?.map((category) => category.name);
-  console.log(categoryName);
-
   const { register, handleSubmit, reset } = useForm();
-  const addProductMutation = useCreateProduct();
-
-  function onSubmit(formData) {
-    addProductMutation.mutate(formData, {
-      onSuccess: () => {
-        reset();
-      },
+  const { data: categories = [] } = useProductCategories();
+  const createProductMutation = useCreateProduct();
+  const onSubmit = (formData) => {
+    const { quantity, ...productData } = formData;
+    createProductMutation.mutate({
+      ...productData,
+      status: "active",
+      quantity,
     });
-  }
+  };
 
   return (
     <div className="grid h-screen grid-cols-2 gap-6 bg-gray-50 p-6">
@@ -36,7 +33,7 @@ function AddProductPage() {
                     key={field.name}
                     field={field}
                     register={register}
-                    options={categoryName}
+                    options={field.name !== "tax_rate" ? categories : [5, 18]}
                   />
                 ))}
               </div>
