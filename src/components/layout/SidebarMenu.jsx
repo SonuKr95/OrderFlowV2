@@ -28,12 +28,12 @@ const menu = [
     url: "/inventory",
     access: [ROLES.ADMIN, ROLES.STAFF],
   },
-  {
-    text: "Transaction",
-    iconName: "card",
-    url: "/transaction",
-    access: [ROLES.ADMIN, ROLES.STAFF],
-  },
+  // {
+  //   text: "Transaction",
+  //   iconName: "card",
+  //   url: "/transaction",
+  //   access: [ROLES.ADMIN, ROLES.STAFF],
+  // },
   {
     text: "Add Products",
     iconName: "circleplus",
@@ -46,19 +46,19 @@ const menu = [
     url: "/productlist",
     access: [ROLES.ADMIN, ROLES.STAFF],
   },
-  {
-    text: "Admin Page",
-    iconName: "user",
-    access: [ROLES.ADMIN],
-  },
-  {
-    text: "Settings",
-    iconName: "settings",
-    access: [ROLES.ADMIN],
-  },
+  // {
+  //   text: "Admin Page",
+  //   iconName: "user",
+  //   access: [ROLES.ADMIN],
+  // },
+  // {
+  //   text: "Settings",
+  //   iconName: "settings",
+  //   access: [ROLES.ADMIN],
+  // },
   {
     text: "Create Order",
-    iconName: "",
+    iconName: "arrowupdown",
     access: [ROLES.ADMIN],
     url: "dev",
   },
@@ -92,7 +92,6 @@ function SidebarMenu() {
 
 function SidebarMenu() {
   const role = useSelector((state) => state.auth.role);
-
   const allowedMenu = menu.filter((item) => item.access.includes(role));
 
   return (

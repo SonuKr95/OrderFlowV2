@@ -1,15 +1,4 @@
 import supabase from "../../services/supabase";
-// export async function createProduct({
-//   name,
-//   description,
-//   sku,
-//   mrp,
-//   selling_price,
-//   tax_rate,
-//   category_id,
-//   status,
-// }) {
-
 export async function createProduct(payload) {
   const { quantity, ...productInsertData } = payload;
   const { data, error } = await supabase
@@ -23,10 +12,19 @@ export async function createProduct(payload) {
   return data;
 }
 
-//modification
 export async function fetchProducts() {
-  const { data, error } = await supabase.from("products").select("*");
+  const { data, error } = await supabase
+    .from("products")
+    .select("id,name,sku,category,selling_price,mrp,status,updated_at");
   if (error) throw error;
+  return data;
+}
+
+//for testing only
+export async function fetchProductList() {
+  const { data, error } = await supabase.from("products").select("id,name");
+  if (error) throw error;
+  console.log(data);
   return data;
 }
 

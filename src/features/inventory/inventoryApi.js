@@ -2,7 +2,7 @@ import supabase from "../../services/supabase";
 import { CREATE_INVENTORY_DEFAULT } from "./constants/createInventoryDefault";
 
 export async function createInventory({ id, quantity, sku, status }) {
-  const product = {
+  const inventoryRecord = {
     id,
     sku,
     quantity: Number(quantity) || 0,
@@ -13,23 +13,31 @@ export async function createInventory({ id, quantity, sku, status }) {
 
   const { data, error } = await supabase
     .from("inventory")
-    .insert([product])
+    .insert([inventoryRecord])
     .select()
     .single();
   if (error) throw error;
   return data;
 }
 
-export async function getInventory() {
-  const { data, error } = await supabase.from("inventory").select(`
-    quantity,
-    updated_at,
-    product_id,
-    products (
-      name,
-      sku
-    )
-  `);
+// export async function getInventory() {
+//   const { data, error } = await supabase.from("inventory").select(`
+//     quantity,
+//     updated_at,
+//     product_id,
+//     products (
+//       name,
+//       sku
+//     )
+//   `);
+
+//   return data;
+// }
+export async function fetchProductInventoryQuantities() {
+  const { data, error } = await supabase
+    .from("inventory")
+    .select("quantity,id");
+  if (error) throw error;
 
   return data;
 }

@@ -17,6 +17,7 @@ import menuclose from "./menu-close.svg";
 import editicon from "./edit.svg";
 import deleteicon from "./delete.svg";
 import closeicon from "./close-x.svg";
+import arrowupdown from "./arrow-up-down-outline.svg";
 
 /*
 import stroke from "./stroke.svg";
@@ -46,6 +47,7 @@ export const ICONS = {
   bell,
   dotshorizontal,
   darkmodeswitch,
+  arrowupdown,
 };
 
 export {

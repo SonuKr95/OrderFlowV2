@@ -1,33 +1,40 @@
-import { useState } from "react";
-import { useDeleteProduct } from "../hooks/useDeleteProduct";
-import { useProductList } from "../hooks/useProductList";
-import { formatDateTime } from "../../../utils/dateFormat";
-import { editicon } from "../../../icons/_index";
-import { deleteicon } from "../../../icons/_index";
 import CategoryCards from "../..//..//components/cards/CategoryCards";
 import List from "../../../components/ui/List";
+import { useProductsWithInventory } from "../hooks/useProductsWithInventory";
+import { productColumns } from "../constants/productColumns";
+import { getStockStatus } from "../constants/stockStatus";
+import { formatDateTime } from "../../../utils/dateFormat";
+import { useDeleteProductById } from "../hooks/useDeleteProductById";
+import toast from "react-hot-toast";
+// import { useState } from "react";
+import { queryClient } from "../../../app/queryClient";
+// import { useProductList } from "../hooks/useProductList";
+import { editicon } from "../../../icons/_index";
+import { deleteicon } from "../../../icons/_index";
 // import useEditModal from "../../../app/context/hook/_useEditModal";
 // import EditModal from "../../../components/ui/EditModal";
 // import EditContainer from "../../../components/ui/EditContainer";
 // import { useList } from "../../../app/context/hook/_useList";
 
-const productColumns = [
-  { key: "sku", label: "SKU" },
-  { key: "name", label: "Product Name" },
-  { key: "category", label: "Category" },
-  { key: "selling_price", label: "Selling Price" },
-  { key: "mrp", label: "MRP" },
-  { key: "stock_status", label: "Stock Status" },
-  { key: "updated_at", label: "Updated On" },
-  {
-    key: "actions",
-    label: "Actions",
-    align: "right",
-    isAction: true,
-  },
-];
-
 function ProductList() {
+  const { data: productList = [] } = useProductsWithInventory();
+  const deleteProductMutation = useDeleteProductById();
+
+  const deleteProduct = (id) =>
+    deleteProductMutation.mutate(id, {
+      onSuccess: (product) => {
+        toast.success(`Deleted ${product.name}`);
+        queryClient.invalidateQueries({
+          queryKey: ["products-with-inventory"],
+        });
+      },
+    });
+
+  // console.log(productList);
+  // console.log(fetchProductList());
+  // console.log(fetchInventoryList());
+  // return <div>Product List</div>;
+
   // const { editModalClicked, toggleEditModal } = useEditModal();
   // const { list } = useList();
 
@@ -38,8 +45,7 @@ function ProductList() {
   // }
   // const [selectedProduct, setselectedProduct] = useState(null);
 
-  const productList = useProductList();
-  const deleteProduct = useDeleteProduct();
+  // const deleteProduct = useDeleteProduct();
   // console.log(productList);
 
   return (
@@ -49,52 +55,48 @@ function ProductList() {
       <div className="flex flex-wrap justify-between gap-5">
         <CategoryCards />
       </div>
-      <List colStart={1} rowStart={3}>
-        {productList?.map((product) => (
-          <>
-            <tr className="hover:bg-gray-50">
-              <td className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">
+      <List columns={productColumns} colStart={1} rowStart={3}>
+        {productList?.map((product) => {
+          const stock = getStockStatus(product.quantity);
+          return (
+            <tr key={product.id} className="hover:bg-gray-50">
+              <td className="px-4 py-2 font-medium whitespace-nowrap text-gray-700">
                 {product.sku ?? null}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-gray-700">
                 {product.name ?? "null"}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-                {product.price ?? null}
+                {product.category ?? null}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-                {formatDateTime(product.created_at) ?? null}
+                {product.selling_price ?? null}
+              </td>
+              <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+                {product.mrp ?? null}
+              </td>
+              <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+                <span className={stock.className}>{stock.label}</span>
+              </td>
+              <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+                {product.status ?? null}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-gray-700">
                 {formatDateTime(product.updated_at) ?? null}
               </td>
-
-              <td className="px-4 py-2 whitespace-nowrap">
-                <span className="rounded bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
-                  In Stock
-                </span>
-              </td>
               <td>
-                <div className="flex flex-wrap gap-2">
-                  {/* <button onClick={() => handleEditBtnClicked(product)}>
-                    <img src={editicon} alt="" />
-                  </button> */}
-                  {/* <button
-                    onClick={() => deleteProduct.mutate(product.product_id)}
-                    // data-product-id={prod.product_id}
-                  >
-                    <img src={deleteicon} alt="" />
-                  </button> */}
+                <div className="right flex flex-wrap items-center justify-around">
+                  <button>
+                    <img src={editicon} alt="editicon" />
+                  </button>
+                  <button onClick={() => deleteProduct(product.id)}>
+                    <img src={deleteicon} alt="deleteicon" />
+                  </button>
                 </div>
               </td>
             </tr>
-
-            {/* <button data-productId=>XX</button> */}
-          </>
-        ))}
-        {/* {editModalClicked && (
-          <EditContainer list={list} product={selectedProduct} />
-        )} */}
+          );
+        })}
       </List>
     </div>
   );

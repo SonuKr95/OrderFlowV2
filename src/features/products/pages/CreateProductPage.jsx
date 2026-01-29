@@ -1,21 +1,36 @@
 import { useForm } from "react-hook-form";
 import { useProductCategories } from "../hooks/useProductCategories";
-import { useCreateProduct } from "../hooks/useCreateProduct";
+import { useCreateProductWithInventory } from "../hooks/useCreateProductWithInventory";
+import toast from "react-hot-toast";
 import { PRODUCT_FORM_SECTIONS } from "../config/productFormFields";
 import FormField from "../components/FormField";
+import { useNavigate } from "react-router-dom";
 
 function AddProductPage() {
-  const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      name: "",
+      category: "",
+      sku: "",
+      description: "",
+      selling_price: "",
+      mrp: "",
+      tax_rate: "",
+      quantity: "",
+    },
+  });
   const { data: categories = [] } = useProductCategories();
-  const createProductMutation = useCreateProduct();
-  const onSubmit = (formData) => {
-    const { quantity, ...productData } = formData;
-    createProductMutation.mutate({
-      ...productData,
-      status: "active",
-      quantity,
+  const createProductMutation = useCreateProductWithInventory();
+  function onSubmit(formData) {
+    createProductMutation.mutate(formData, {
+      onSuccess: (product) => {
+        reset();
+        toast.success(`Created ${product.name}`);
+        navigate("/productlist");
+      },
     });
-  };
+  }
 
   return (
     <div className="grid h-screen grid-cols-2 gap-6 bg-gray-50 p-6">

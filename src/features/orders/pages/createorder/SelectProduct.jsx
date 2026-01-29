@@ -1,11 +1,13 @@
-import { useProductList } from "../../../products/hooks/useProductList";
+import { useFetchProductList } from "../../../products/hooks/useFetchProductList";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../../../app/store/slices/cartSlice";
 import { useState, useMemo, useRef } from "react";
 useState;
 
 export function SelectProduct() {
-  const products = useProductList();
+  const { data: products = [] } = useFetchProductList();
+
+  console.log(products);
   const [selectedProduct, setSelectedProduct] = useState("");
 
   const dispatch = useDispatch();
