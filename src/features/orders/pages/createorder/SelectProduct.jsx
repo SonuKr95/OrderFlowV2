@@ -1,7 +1,7 @@
 import { useFetchProductList } from "../../../products/hooks/useFetchProductList";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../../../app/store/slices/cartSlice";
-import { useState, useMemo, useRef } from "react";
+import { useState } from "react";
 useState;
 
 export function SelectProduct() {
@@ -13,8 +13,7 @@ export function SelectProduct() {
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const productId = e.target.value;
-    const selectedProduct = products.find((p) => p.product_id === productId);
-
+    const selectedProduct = products.find((p) => p.id === productId);
     console.log(selectedProduct);
     if (selectedProduct) {
       dispatch(addProduct(selectedProduct)); // Dispatch the whole object
@@ -37,7 +36,7 @@ export function SelectProduct() {
           Select Product
         </option>
         {products?.map((product) => (
-          <option value={product.product_id}>{product.name}</option>
+          <option value={product.id}>{product.name}</option>
         ))}
       </select>
     </div>

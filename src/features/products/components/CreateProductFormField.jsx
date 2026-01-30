@@ -1,4 +1,4 @@
-function FormField({ field, register, options }) {
+function CreateProductFormField({ field, register, options }) {
   const { name, placeholder, type, label, rows } = field;
   const baseClass =
     "w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm focus:border-green-500 focus:outline-none";
@@ -43,4 +43,4 @@ function FormField({ field, register, options }) {
   );
 }
 
-export default FormField;
+export default CreateProductFormField;

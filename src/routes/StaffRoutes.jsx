@@ -11,6 +11,9 @@ const InventoryPage = lazy(
 const CreateProductPage = lazy(
   () => import("../features/products/pages/CreateProductPage"),
 );
+const RecentlyDeletedPage = lazy(
+  () => import("../features/products/pages/RecentlyDeletedPage"),
+);
 
 //mount error 404 just like in public route page in future
 
@@ -22,6 +25,7 @@ export const StaffRoutes = [
       { path: "productlist", element: <ProductListPage /> },
       { path: "inventory", element: <InventoryPage /> },
       { path: "addproduct", element: <CreateProductPage /> },
+      { path: "product/deleted", element: <RecentlyDeletedPage /> },
     ],
   },
 ];

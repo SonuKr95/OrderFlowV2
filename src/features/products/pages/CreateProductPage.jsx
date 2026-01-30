@@ -2,12 +2,13 @@ import { useForm } from "react-hook-form";
 import { useProductCategories } from "../hooks/useProductCategories";
 import { useCreateProductWithInventory } from "../hooks/useCreateProductWithInventory";
 import toast from "react-hot-toast";
-import { PRODUCT_FORM_SECTIONS } from "../config/productFormFields";
-import FormField from "../components/FormField";
+import { PRODUCT_FORM_SECTIONS } from "../config/productFormSections";
+import CreateProductFormField from "../components/CreateProductFormField";
 import { useNavigate } from "react-router-dom";
 
 function AddProductPage() {
   const navigate = useNavigate();
+
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       name: "",
@@ -44,7 +45,7 @@ function AddProductPage() {
               </h2>
               <div className="space-y-4">
                 {section.fields.map((field) => (
-                  <FormField
+                  <CreateProductFormField
                     key={field.name}
                     field={field}
                     register={register}

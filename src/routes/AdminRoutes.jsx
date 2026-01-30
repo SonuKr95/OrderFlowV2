@@ -6,6 +6,9 @@ const DashboardPage = lazy(() => import("../features/dashboard/DashboardPage"));
 const ProductListPage = lazy(
   () => import("../features/products/pages/ProductListPage"),
 );
+const RecentlyDeletedPage = lazy(
+  () => import("../features/products/pages/RecentlyDeletedPage"),
+);
 const InventoryPage = lazy(
   () => import("../features/inventory/pages/InventoryPage"),
 );
@@ -32,6 +35,7 @@ export const AdminRoutes = [
       { path: "inventory", element: <InventoryPage /> },
       { path: "productlist", element: <ProductListPage /> },
       { path: "addproduct", element: <CreateProductPage /> },
+      { path: "product/deleted", element: <RecentlyDeletedPage /> },
       {
         path: "orders",
         children: [

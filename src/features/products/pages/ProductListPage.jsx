@@ -6,19 +6,41 @@ import { getStockStatus } from "../constants/stockStatus";
 import { formatDateTime } from "../../../utils/dateFormat";
 import { useDeleteProductById } from "../hooks/useDeleteProductById";
 import toast from "react-hot-toast";
-// import { useState } from "react";
+import { useState } from "react";
 import { queryClient } from "../../../app/queryClient";
-// import { useProductList } from "../hooks/useProductList";
-import { editicon } from "../../../icons/_index";
-import { deleteicon } from "../../../icons/_index";
-// import useEditModal from "../../../app/context/hook/_useEditModal";
-// import EditModal from "../../../components/ui/EditModal";
-// import EditContainer from "../../../components/ui/EditContainer";
-// import { useList } from "../../../app/context/hook/_useList";
+import { editicon, deleteicon } from "../../../icons/_index";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
+import EditProductModal from "../components/EditProductModal";
 
 function ProductList() {
   const { data: productList = [] } = useProductsWithInventory();
+  const [editTarget, setEditTarget] = useState(null);
+  const openEditModal = (product) => {
+    setEditTarget(product);
+  };
+
+  const closeEditModal = () => {
+    setEditTarget(null);
+  };
+
+  // const handleUpdateProduct = (payload) => {
+  //   updateProductMutation.mutate(payload, {
+  //     onSuccess: () => {
+  //       toast.success("Product updated");
+
+  //       queryClient.invalidateQueries({
+  //         queryKey: ["products-with-inventory"],
+  //       });
+
+  //       closeEditModal();
+  //     },
+  //   });
+  // };
+
+  // const updateProductMutation = useUpdateProduct();
+
   const deleteProductMutation = useDeleteProductById();
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   const deleteProduct = (id) =>
     deleteProductMutation.mutate(id, {
@@ -30,31 +52,41 @@ function ProductList() {
       },
     });
 
-  // console.log(productList);
-  // console.log(fetchProductList());
-  // console.log(fetchInventoryList());
-  // return <div>Product List</div>;
+  const openDeleteModal = (product) => {
+    setDeleteTarget(product);
+  };
 
-  // const { editModalClicked, toggleEditModal } = useEditModal();
-  // const { list } = useList();
+  const closeDeleteModal = () => {
+    setDeleteTarget(null);
+  };
 
-  // function handleEditBtnClicked(product) {
-  //   // console.log("CLICKED", product);
-  //   toggleEditModal();
-  //   setselectedProduct(product);
-  // }
-  // const [selectedProduct, setselectedProduct] = useState(null);
-
-  // const deleteProduct = useDeleteProduct();
-  // console.log(productList);
+  const confirmDelete = () => {
+    if (!deleteTarget) return;
+    deleteProduct(deleteTarget.id);
+    closeDeleteModal();
+  };
 
   return (
     <div className="grid-row-2 relative grid gap-15 bg-[#D1D5DB] px-5 py-4">
-      {/* {editBtnClicked && <EditProductModal product={selectedProduct} />} */}
       <p>Add Product</p>
       <div className="flex flex-wrap justify-between gap-5">
         <CategoryCards />
       </div>
+      <EditProductModal
+        isOpen={!!editTarget}
+        product={editTarget}
+        onClose={closeEditModal}
+      />
+
+      <ConfirmDeleteModal
+        isOpen={!!deleteTarget}
+        onClose={closeDeleteModal}
+        onConfirm={confirmDelete}
+        title="Delete Product"
+        message={`Are you sure you want to delete ${deleteTarget?.name}?`}
+        isLoading={deleteProductMutation.isPending}
+      />
+
       <List columns={productColumns} colStart={1} rowStart={3}>
         {productList?.map((product) => {
           const stock = getStockStatus(product.quantity);
@@ -86,10 +118,10 @@ function ProductList() {
               </td>
               <td>
                 <div className="right flex flex-wrap items-center justify-around">
-                  <button>
+                  <button onClick={() => openEditModal(product)}>
                     <img src={editicon} alt="editicon" />
                   </button>
-                  <button onClick={() => deleteProduct(product.id)}>
+                  <button onClick={() => openDeleteModal(product)}>
                     <img src={deleteicon} alt="deleteicon" />
                   </button>
                 </div>

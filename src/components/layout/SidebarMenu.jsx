@@ -46,6 +46,12 @@ const menu = [
     url: "/productlist",
     access: [ROLES.ADMIN, ROLES.STAFF],
   },
+  {
+    text: "Recently Deleted",
+    iconName: "deleteicon",
+    url: "/product/deleted",
+    access: [ROLES.ADMIN, ROLES.STAFF],
+  },
   // {
   //   text: "Admin Page",
   //   iconName: "user",

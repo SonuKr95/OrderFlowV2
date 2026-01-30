@@ -18,6 +18,8 @@ import editicon from "./edit.svg";
 import deleteicon from "./delete.svg";
 import closeicon from "./close-x.svg";
 import arrowupdown from "./arrow-up-down-outline.svg";
+import refresh from "./refresh.svg";
+// import { frame as deleteicon } from "./frame.svg";
 
 /*
 import stroke from "./stroke.svg";
@@ -48,6 +50,7 @@ export const ICONS = {
   dotshorizontal,
   darkmodeswitch,
   arrowupdown,
+  deleteicon,
 };
 
 export {
@@ -59,4 +62,5 @@ export {
   editicon,
   deleteicon,
   closeicon,
+  refresh,
 };
