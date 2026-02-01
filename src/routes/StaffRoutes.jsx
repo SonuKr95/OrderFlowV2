@@ -6,7 +6,7 @@ const ProductListPage = lazy(
   () => import("../features/products/pages/ProductListPage"),
 );
 const InventoryPage = lazy(
-  () => import("../features/inventory/pages/InventoryPage"),
+  () => import("../features/inventory/pages/InventoryListPage"),
 );
 const CreateProductPage = lazy(
   () => import("../features/products/pages/CreateProductPage"),

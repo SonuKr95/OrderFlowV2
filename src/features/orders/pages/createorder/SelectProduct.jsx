@@ -1,25 +1,22 @@
-import { useFetchProductList } from "../../../products/hooks/useFetchProductList";
+import { useProductsWithInventory } from "../../../products/hooks/useProductsWithInventory";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../../../app/store/slices/cartSlice";
 import { useState } from "react";
 useState;
 
 export function SelectProduct() {
-  const { data: products = [] } = useFetchProductList();
-
-  console.log(products);
+  const { data: products = [] } = useProductsWithInventory();
   const [selectedProduct, setSelectedProduct] = useState("");
 
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const productId = e.target.value;
     const selectedProduct = products.find((p) => p.id === productId);
-    console.log(selectedProduct);
     if (selectedProduct) {
       dispatch(addProduct(selectedProduct)); // Dispatch the whole object
     }
   };
-  console.log(products);
+  // console.log(products);
   return (
     <div className="col-start-2 row-start-1">
       <p>Products Selection</p>
@@ -36,7 +33,9 @@ export function SelectProduct() {
           Select Product
         </option>
         {products?.map((product) => (
-          <option value={product.id}>{product.name}</option>
+          <option key={product.id} value={product.id}>
+            {product.name}
+          </option>
         ))}
       </select>
     </div>

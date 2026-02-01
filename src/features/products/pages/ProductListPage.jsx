@@ -4,7 +4,7 @@ import { useProductsWithInventory } from "../hooks/useProductsWithInventory";
 import { productColumns } from "../constants/productColumns";
 import { getStockStatus } from "../constants/stockStatus";
 import { formatDateTime } from "../../../utils/dateFormat";
-import { useDeleteProductById } from "../hooks/useDeleteProductById";
+import { useSoftDeleteProduct } from "../hooks/useSoftDeleteProduct";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { queryClient } from "../../../app/queryClient";
@@ -16,6 +16,7 @@ function ProductList() {
   const { data: productList = [] } = useProductsWithInventory();
   const [editTarget, setEditTarget] = useState(null);
   const openEditModal = (product) => {
+    // console.log(e);
     setEditTarget(product);
   };
 
@@ -23,27 +24,11 @@ function ProductList() {
     setEditTarget(null);
   };
 
-  // const handleUpdateProduct = (payload) => {
-  //   updateProductMutation.mutate(payload, {
-  //     onSuccess: () => {
-  //       toast.success("Product updated");
-
-  //       queryClient.invalidateQueries({
-  //         queryKey: ["products-with-inventory"],
-  //       });
-
-  //       closeEditModal();
-  //     },
-  //   });
-  // };
-
-  // const updateProductMutation = useUpdateProduct();
-
-  const deleteProductMutation = useDeleteProductById();
+  const softDeleteProductMutation = useSoftDeleteProduct();
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  const deleteProduct = (id) =>
-    deleteProductMutation.mutate(id, {
+  const softDeleteProduct = (id) =>
+    softDeleteProductMutation.mutate(id, {
       onSuccess: (product) => {
         toast.success(`Deleted ${product.name}`);
         queryClient.invalidateQueries({
@@ -62,7 +47,7 @@ function ProductList() {
 
   const confirmDelete = () => {
     if (!deleteTarget) return;
-    deleteProduct(deleteTarget.id);
+    softDeleteProduct(deleteTarget.id);
     closeDeleteModal();
   };
 
@@ -84,7 +69,7 @@ function ProductList() {
         onConfirm={confirmDelete}
         title="Delete Product"
         message={`Are you sure you want to delete ${deleteTarget?.name}?`}
-        isLoading={deleteProductMutation.isPending}
+        isLoading={softDeleteProduct.isPending}
       />
 
       <List columns={productColumns} colStart={1} rowStart={3}>

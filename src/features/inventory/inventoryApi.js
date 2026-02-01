@@ -20,20 +20,15 @@ export async function createInventory({ id, quantity, sku, status }) {
   return data;
 }
 
-// export async function getInventory() {
-//   const { data, error } = await supabase.from("inventory").select(`
-//     quantity,
-//     updated_at,
-//     product_id,
-//     products (
-//       name,
-//       sku
-//     )
-//   `);
+export async function fetchInventory() {
+  const { data, error } = await supabase
+    .from("inventory")
+    .select("id, quantity, updated_at, updated_by, sku");
+  if (error) throw error;
+  return data;
+}
 
-//   return data;
-// }
-export async function fetchProductInventoryQuantities() {
+export async function fetchInventoryForProductsList() {
   const { data, error } = await supabase
     .from("inventory")
     .select("quantity,id");
@@ -42,20 +37,15 @@ export async function fetchProductInventoryQuantities() {
   return data;
 }
 
-export async function updateInventory(payload) {
-  console.log(payload);
-  const { product_id, ...newUpdatedData } = payload;
-  console.log(product_id);
-  console.log(newUpdatedData);
-
+///Implement Later,Need Operation on Server
+export async function updateInventoryById(payload) {
+  const { id, ...newUpdatedData } = payload;
   const { data, error } = await supabase
     .from("inventory")
     .update(newUpdatedData)
-    .eq("product_id", product_id)
-    .select();
-  console.log(data);
-
-  console.log(data);
-  if (error) throw new Error(error.message);
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) throw Error;
   return data;
 }

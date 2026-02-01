@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-function findProduct(product_id, productsArray) {
+function findProduct(id, productsArray) {
   const selectedProduct = productsArray.find((p) => {
-    return p.product_id === product_id;
+    return p.id === id;
   });
   return selectedProduct;
 }
@@ -27,55 +27,62 @@ const cartSlice = createSlice({
     },
     addProduct(state, action) {
       const {
-        product_id,
+        id,
         sku,
         name,
-        price,
+        selling_price,
         quantityCount = 1,
       } = action.payload;
-      const total = price * quantityCount;
+      const total = selling_price * quantityCount;
 
-      const ProductAlreadyExisted = findProduct(product_id, state.products);
+      const ProductAlreadyExisted = findProduct(id, state.products);
       if (ProductAlreadyExisted) {
         ProductAlreadyExisted.quantityCount++;
         ProductAlreadyExisted.total = calculateTotal(
-          ProductAlreadyExisted.price,
+          ProductAlreadyExisted.selling_price,
           ProductAlreadyExisted.quantityCount,
         );
         return;
       }
       state.products.push({
-        product_id,
+        id,
         sku,
         name,
-        price,
+        selling_price,
         quantityCount,
         total,
       });
     },
     decreaseQuantity(state, action) {
+      console.log(action.payload);
       const product = findProduct(action.payload, state.products);
       if (!product) return;
       if (product.quantityCount === 1) {
         state.products = state.products.filter((p) => {
-          return p.product_id !== action.payload;
+          return p.id !== action.payload;
         });
         return;
       }
       product.quantityCount--;
-      product.total = calculateTotal(product.price, product.quantityCount);
+      product.total = calculateTotal(
+        product.selling_price,
+        product.quantityCount,
+      );
     },
     increaseQuantity(state, action) {
       const product = findProduct(action.payload, state.products);
       if (!product) return;
       product.quantityCount++;
-      product.total = calculateTotal(product.price, product.quantityCount);
+      product.total = calculateTotal(
+        product.selling_price,
+        product.quantityCount,
+      );
     },
 
     deleteProduct(state, action) {
       const product_id = action.payload;
       state.products = state.products.filter((product) => {
-        return product.product_id !== product_id;
+        return product.id !== product_id;
       });
     },
 

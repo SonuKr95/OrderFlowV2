@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../productApi";
-import { fetchProductInventoryQuantities } from "../../inventory/inventoryApi";
+import { fetchInventoryForProductsList } from "../../inventory/inventoryApi";
 
 export function useProductsWithInventory() {
   return useQuery({
@@ -8,7 +8,7 @@ export function useProductsWithInventory() {
     queryFn: async () => {
       const [products, inventory] = await Promise.all([
         fetchProducts(),
-        fetchProductInventoryQuantities(),
+        fetchInventoryForProductsList(),
       ]);
       return { products, inventory };
     },

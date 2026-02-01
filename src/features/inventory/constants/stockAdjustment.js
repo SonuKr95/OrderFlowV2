@@ -1,0 +1,11 @@
+export const STOCK_ADJUSTMENT_ACTION = {
+  ADD: "ADD",
+  REDUCE: "REDUCE",
+};
+export const STOCK_ADJUSTMENT_REASON = [
+  "PURCHASE",
+  "SALE",
+  "DAMAGE",
+  "CORRECTION",
+  "OTHER",
+];

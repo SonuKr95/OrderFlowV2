@@ -19,6 +19,7 @@ import deleteicon from "./delete.svg";
 import closeicon from "./close-x.svg";
 import arrowupdown from "./arrow-up-down-outline.svg";
 import refresh from "./refresh.svg";
+// import settings from "./settings.svg";
 // import { frame as deleteicon } from "./frame.svg";
 
 /*
@@ -54,6 +55,7 @@ export const ICONS = {
 };
 
 export {
+  settings,
   menuclose,
   bell,
   darkmodeswitch,

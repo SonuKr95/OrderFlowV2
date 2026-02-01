@@ -10,6 +10,7 @@ export function OrderItemTable() {
   // const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
   // console.log(product);
+  console.log(products);
 
   return (
     <table className="min-w-full table-fixed divide-y divide-gray-200 bg-white text-sm">
@@ -43,7 +44,7 @@ export function OrderItemTable() {
                   {product.sku ?? null}
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-                  {product.price ?? null}
+                  {product.selling_price ?? null}
                 </td>
                 <td className="px-4 py-2 whitespace-nowrap text-gray-700">
                   {/* {quantity.at(i).count ?? null} */}
@@ -51,9 +52,7 @@ export function OrderItemTable() {
                   <div className="flex items-center gap-3">
                     {/* Decrease Button */}
                     <button
-                      onClick={() =>
-                        dispatch(decreaseQuantity(product.product_id))
-                      }
+                      onClick={() => dispatch(decreaseQuantity(product.id))}
                       className="rounded bg-gray-200 px-2 py-1 text-lg font-bold hover:bg-red-100"
                     >
                       −
@@ -66,9 +65,7 @@ export function OrderItemTable() {
 
                     {/* Increase Button */}
                     <button
-                      onClick={() =>
-                        dispatch(increaseQuantity(product.product_id))
-                      }
+                      onClick={() => dispatch(increaseQuantity(product.id))}
                       className="rounded bg-gray-200 px-2 py-1 text-lg font-bold hover:bg-green-100"
                     >
                       +

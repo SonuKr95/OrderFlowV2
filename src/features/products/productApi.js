@@ -20,6 +20,16 @@ export async function fetchProducts() {
   if (error) throw error;
   return data;
 }
+
+export async function fetchProductsForInventoryList() {
+  const { data, error } = await supabase
+    .from("products")
+    .select("id,name,sku")
+    .is("deleted_at", null);
+  if (error) throw error;
+  return data;
+}
+
 export async function fetchRecentlyDeleted() {
   const { data, error } = await supabase
     .from("products")
@@ -54,18 +64,6 @@ export async function updateProductById(payload) {
     .eq("id", id)
     .select()
     .single();
-  if (error) throw error;
-  return data;
-}
-
-export async function deleteProductById(id) {
-  const { data, error } = await supabase
-    .from("products")
-    .delete()
-    .eq("id", id)
-    .select()
-    .single();
-
   if (error) throw error;
   return data;
 }

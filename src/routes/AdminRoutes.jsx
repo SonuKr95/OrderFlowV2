@@ -10,7 +10,7 @@ const RecentlyDeletedPage = lazy(
   () => import("../features/products/pages/RecentlyDeletedPage"),
 );
 const InventoryPage = lazy(
-  () => import("../features/inventory/pages/InventoryPage"),
+  () => import("../features/inventory/pages/InventoryListPage"),
 );
 const CreateProductPage = lazy(
   () => import("../features/products/pages/CreateProductPage"),
