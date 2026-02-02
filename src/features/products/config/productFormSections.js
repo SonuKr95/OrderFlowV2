@@ -20,12 +20,12 @@ export const PRODUCT_FORM_SECTIONS = [
         type: "text",
         placeholder: "Product SKU",
       },
-      {
-        name: "description",
-        label: "Description",
-        type: "textarea",
-        rows: 4,
-      },
+      // {
+      //   name: "description",
+      //   label: "Description",
+      //   type: "textarea",
+      //   rows: 4,
+      // },
     ],
   },
 

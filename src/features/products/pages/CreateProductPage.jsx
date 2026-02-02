@@ -14,7 +14,7 @@ function AddProductPage() {
       name: "",
       category: "",
       sku: "",
-      description: "",
+      // description: "",
       selling_price: "",
       mrp: "",
       tax_rate: "",

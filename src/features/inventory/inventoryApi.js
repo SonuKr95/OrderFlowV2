@@ -49,3 +49,39 @@ export async function updateInventoryById(payload) {
   if (error) throw Error;
   return data;
 }
+
+export async function fetchInventoryById(id) {
+  const { data, error } = await supabase
+    .from("inventory")
+    .select("quantity")
+    .eq("id", id)
+    .single();
+
+  if (error) throw error;
+  return data;
+}
+
+export async function adjustStock({ id, adjusted_quantity, adjustment_type }) {
+  const qty = Number(adjusted_quantity);
+
+  if (qty <= 0) {
+    throw new Error("Adjustment quantity must be positive");
+  }
+
+  const { quantity: currentQuantity } = await fetchInventoryById(id);
+
+  let newQuantity = currentQuantity;
+
+  if (adjustment_type === "ADD") {
+    newQuantity += qty;
+  }
+
+  if (adjustment_type === "REDUCE") {
+    if (qty > currentQuantity) {
+      throw new Error("Insufficient stock");
+    }
+    newQuantity -= qty;
+  }
+
+  return updateInventoryById({ id, quantity: newQuantity });
+}

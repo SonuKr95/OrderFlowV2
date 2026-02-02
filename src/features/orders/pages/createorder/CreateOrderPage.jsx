@@ -53,14 +53,31 @@ function CreateOrderPage() {
     // console.log(products);
 
     createOrderMutation.mutate(orderData, {
-      onSuccess: (order) => {
-        const [{ order_id }] = order;
+      onSuccess: ({ order_id }) => {
+        // console.log(order);
+        // console.log(`onsuccess is called`);
+        // const order_id = order;
+        // console.log(products_id);
         toast.success("Order created successfully");
         navigate(`/orders/${order_id}`);
         // clearCart() later
       },
       onError: (error) => {
-        toast.error(error.message || "Failed to create order");
+        toast.error(error.message || "Failed to create order", {
+          style: {
+            border: "1px solid #ff4b4b",
+            padding: "16px",
+            color: "#fff",
+            backgroundColor: "#1a1a1a", // Dark mode style
+            borderRadius: "8px",
+          },
+          iconTheme: {
+            primary: "#ff4b4b",
+            secondary: "#fff",
+          },
+          duration: 4000,
+          position: "top-right",
+        });
       },
     });
   }

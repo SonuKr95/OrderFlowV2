@@ -40,7 +40,8 @@ export async function createOrder(orderObj) {
   const { data, error } = await supabase
     .from("orders")
     .insert([orderObj])
-    .select();
+    .select()
+    .single();
   if (error) throw new Error(error.message);
   console.log(data);
   return data;
