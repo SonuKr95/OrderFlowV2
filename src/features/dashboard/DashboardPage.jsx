@@ -1,6 +1,6 @@
 import Cards from "../../components/cards/Cards";
 import Chart from "../../components/ui/Chart";
-import Transctions from "../../components/ui/Transctions";
+// import Transctions from "../../components/ui/Transctions";
 import ProductMini from "..//..//features/products/components/ProductMini";
 import StockAlertMini from "..//..//features/products/components/StockAlertMini";
 
@@ -12,7 +12,7 @@ function DashboardPage() {
       <Cards gridColStart={3} gridRowStart={1} text={"Pending & Cancelled"} />
       <Chart colStart={1} colEnd={3} rowStart={2} rowEnd={4} />
       <ProductMini />
-      <Transctions />
+      {/* <Transctions /> */}
       <StockAlertMini />
     </div>
   );

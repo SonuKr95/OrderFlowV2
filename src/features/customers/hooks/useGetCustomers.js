@@ -5,6 +5,6 @@ export function useGetCustomers() {
   return useQuery({
     queryKey: ["customers"],
     queryFn: getCustomers,
-    staleTime: 1000 * 60 * 5,
+    // staleTime: 1000 * 60 * 5,
   });
 }
