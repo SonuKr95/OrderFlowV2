@@ -4,34 +4,28 @@ import { useDispatch } from "react-redux";
 import { setAuthUser } from "../../../app/store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { AUTH_STATUS } from "../constants/authStatus";
+import { getUserRole } from "./getUserRole";
 
 export function useLoginSuccess() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  return function handleLoginSuccess({ email, id, role, status }) {
-    dispatch(
-      setAuthUser({
-        id,
-        email,
-        role,
-        // status,
-      }),
-    );
+  return async function handleLoginSuccess() {
+    const userRole = await getUserRole();
+
+    const data = {
+      userRole: userRole,
+      authStatus: AUTH_STATUS.AUTHENTICATED,
+    };
+
+    dispatch(setAuthUser(data));
     toast.success("Logged In");
 
-    localStorage.setItem(
-      "auth",
-      JSON.stringify({
-        email,
-        role,
-        id,
-        status,
-      }),
-    );
-    if (role === ROLES.ADMIN) {
+    if (userRole === ROLES.ADMIN) {
       navigate(LOGIN_ROUTES.ADMIN_DASHBOARD, { replace: true });
-    } else if (role === ROLES.STAFF) {
+    }
+    if (userRole === ROLES.STAFF) {
       navigate(LOGIN_ROUTES.STAFF_PRODUCTLIST, { replace: true });
     }
   };

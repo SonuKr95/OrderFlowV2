@@ -1,19 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { savedLogin } from "./savedLogin";
+import { retrieveSession } from "./retrieveSession";
 
 export function useRestoreAuth() {
   return useQuery({
     queryKey: ["auth"],
-    queryFn: savedLogin,
+    queryFn: retrieveSession,
     retry: false,
     staleTime: Infinity,
-    meta: {
-      restoreAuth: true,
-      dispatchSavedLogin: ({ id, email, role }) => ({
-        id,
-        email,
-        role,
-      }),
-    },
   });
 }

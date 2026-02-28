@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 function NotFound() {
   const status = useSelector((state) => state.auth.status);
-
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
       <div className="max-w-md text-center">

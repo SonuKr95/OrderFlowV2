@@ -1,29 +1,29 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { lazy } from "react";
 import { PublicRoutes } from "./PublicRoutes";
-import { AdminRoutes } from "./AdminRoutes";
-import { StaffRoutes } from "./StaffRoutes";
-import ProtectedRoute from "../features/auth/guards/ProtectedRoute";
 import AuthGate from "../features/auth/guards/AuthGate";
-import { ROLES } from "../features/auth/constants/roles";
+import { Routes } from "./Routes";
 
-const roleRoutes = {
-  [ROLES.ADMIN]: AdminRoutes,
-  [ROLES.STAFF]: StaffRoutes,
-};
+const UnauthorisedPage = lazy(
+  () => import("../features/auth/pages/Unauthorized"),
+);
+const NotFoundPage = lazy(() => import("../features/auth/pages/NotFound"));
 
 function RouterRoot() {
-  const role = useSelector((state) => state.auth.role);
-
   const router = createBrowserRouter([
     {
       path: "/",
       element: <AuthGate />,
       children: [
         ...PublicRoutes,
+        ...Routes,
         {
-          element: <ProtectedRoute />,
-          children: [...(roleRoutes[role] || [])],
+          path: "unauthorized",
+          element: <UnauthorisedPage />,
+        },
+        {
+          path: "*",
+          element: <NotFoundPage />,
         },
       ],
     },

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import SidebarItem from "./SidebarItem";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ROLES } from "../../features/auth/constants/roles";
 
@@ -97,8 +97,8 @@ function SidebarMenu() {
   */
 
 function SidebarMenu() {
-  const role = useSelector((state) => state.auth.role);
-  const allowedMenu = menu.filter((item) => item.access.includes(role));
+  const userRole = useSelector((state) => state.auth.userRole);
+  const allowedMenu = menu.filter((item) => item.access.includes(userRole));
 
   return (
     <div className="mb-10">

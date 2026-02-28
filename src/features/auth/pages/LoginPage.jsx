@@ -1,38 +1,26 @@
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { loginWithRole } from "../login/loginWithRole";
-import { useMutation } from "@tanstack/react-query";
-import { useLoginSuccess } from "../login/useLoginSuccess";
+import { useAuth } from "../hook/useAuth";
 
 function LoginPage() {
+  const loginMutation = useAuth();
   const { register, handleSubmit, reset } = useForm();
-  const handleLoginSuccess = useLoginSuccess();
-
-  const loginMutation = useMutation({
-    mutationFn: loginWithRole,
-    onSuccess: handleLoginSuccess,
-    onError: (error) => {
-      toast.error(error?.message || "Login failed");
-    },
-  });
 
   function handleSubmitLogin(formData) {
     loginMutation.mutate(formData, {
-      onSuccess: () => {
-        reset();
-      },
+      onSuccess: reset(),
     });
   }
 
   return (
     <div className="font-lato bg-crest flex min-h-screen items-center justify-center">
-      <div className="w-[400px]">
-        <h2 className="text-primary-brand-ocean-green mb-4 text-[57px] font-bold tracking-wider uppercase">
-          Deals Mart
+      <div className="">
+        <h2 className="text-primary-brand-ocean-green mb-4 text-6xl font-bold uppercase">
+          System Admin
         </h2>
-        <h1 className="text-secondary-brand-cyprus mb-5 text-4xl font-bold">
+        {/* <h1 className="text-secondary-brand-cyprus mb-5 text-4xl font-bold">
           Sign in
-        </h1>
+        </h1> */}
         <div className="text-subtle mb-5 flex w-full flex-col gap-[10px]">
           <form onSubmit={handleSubmit(handleSubmitLogin)}>
             <label htmlFor="email">
@@ -55,10 +43,11 @@ function LoginPage() {
             </label>
 
             <button
+              disabled={loginMutation.isPending}
               type="submit"
               className="hover:bg-primary-brand-ocean-green bg-secondary-brand-cyprus block w-full rounded-lg py-3 text-xl font-bold text-white hover:cursor-pointer"
             >
-              Sign in
+              {loginMutation.isPending ? "Logging in..." : "Login"}
             </button>
           </form>
         </div>
