@@ -1,14 +1,25 @@
 import { useState, useEffect } from "react";
 import { useUpdateProductForm } from "../hooks/useUpdateProductForm";
+import { useSelector } from "react-redux";
 
 export default function EditProductModal({ isOpen, onClose, product }) {
+  const { userRole } = useSelector((state) => state.auth);
+
+  const isFormDisabled = userRole === "viewer";
+
   const { register, onSubmit, isDirty, initialValues, isLoading } =
-    useUpdateProductForm(product);
+    useUpdateProductForm({ product, isDisabled: isFormDisabled });
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+      {/* Background changes to gray-50 if disabled */}
+      <div
+        className={`w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl transition-colors duration-200 ${
+          isFormDisabled ? " cursor-not-allowed" : ""
+        }`}
+      >
         <h2 className="mb-5 text-lg font-semibold text-gray-800">
           Edit Product
         </h2>
@@ -21,7 +32,7 @@ export default function EditProductModal({ isOpen, onClose, product }) {
               name="name"
               {...register("name")}
               // value={product.name}
-              className="mt-1 w-full rounded-lg border p-2"
+              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             />
           </div>
 
@@ -34,7 +45,7 @@ export default function EditProductModal({ isOpen, onClose, product }) {
               disabled
               value={initialValues.sku}
               // onChange={handleChange}
-              className="mt-1 w-full rounded-lg border p-2"
+              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             />
           </div>
 
@@ -46,7 +57,7 @@ export default function EditProductModal({ isOpen, onClose, product }) {
               {...register("name")}
               // value={formData.category}
               // onChange={handleChange}
-              className="mt-1 w-full rounded-lg border p-2"
+              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             />
           </div>
 
@@ -58,7 +69,7 @@ export default function EditProductModal({ isOpen, onClose, product }) {
               {...register("selling_price")}
               // value={formData.selling_price}
               // onChange={handleChange}
-              className="mt-1 w-full rounded-lg border p-2"
+              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             />
           </div>
 
@@ -70,7 +81,7 @@ export default function EditProductModal({ isOpen, onClose, product }) {
               {...register("mrp")}
               // value={formData.mrp}
               // onChange={handleChange}
-              className="mt-1 w-full rounded-lg border p-2"
+              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             />
           </div>
 
@@ -82,7 +93,7 @@ export default function EditProductModal({ isOpen, onClose, product }) {
               {...register("status")}
               // value={formData.status}
               // onChange={handleChange}
-              className="mt-1 w-full rounded-lg border p-2"
+              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             >
               <option value="ACTIVE">Active</option>
               <option value="INACTIVE">Inactive</option>
@@ -102,8 +113,8 @@ export default function EditProductModal({ isOpen, onClose, product }) {
 
           <button
             onClick={onSubmit}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white"
-            disabled={isLoading}
+            className={`rounded-lg bg-blue-600 px-4 py-2 text-sm text-white ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}
+            disabled={isLoading || isFormDisabled}
           >
             {isLoading ? "Saving..." : "Save Changes"}
           </button>

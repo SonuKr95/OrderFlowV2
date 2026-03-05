@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 export default function ConfirmDeleteModal({
   isOpen,
   onClose,
@@ -6,6 +8,7 @@ export default function ConfirmDeleteModal({
   message,
   isLoading,
 }) {
+  const { userRole } = useSelector((state) => state.auth);
   if (!isOpen) return null;
 
   return (
@@ -26,8 +29,8 @@ export default function ConfirmDeleteModal({
 
           <button
             onClick={onConfirm}
-            className="rounded-lg bg-red-600 px-4 py-2 text-sm text-white"
-            disabled={isLoading}
+            className={`rounded-lg bg-red-600 px-4 py-2 text-sm text-white ${userRole === "viewer" ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}
+            disabled={isLoading || userRole === "viewer"}
           >
             {isLoading ? "Deleting..." : "Delete"}
           </button>
@@ -36,3 +39,5 @@ export default function ConfirmDeleteModal({
     </div>
   );
 }
+
+// ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}

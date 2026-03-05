@@ -1,5 +1,5 @@
 import supabase from "../../../services/supabase";
-import { getUserRole } from "../login/getUserRole";
+import { getUserRole } from "../api/getUserRole";
 
 export async function retrieveSession() {
   const {

@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { anonymousSignin } from "../login/anonymousSignin";
+import { anonymousUserLogin } from "../api/anonymousUserLogin";
 import toast from "react-hot-toast";
 import { useAnonymousLoginSuccess } from "../login/useAnonymousLoginSuccess";
 
 export function useAnonymousSignIn() {
   const handleAnonymousLoginSuccess = useAnonymousLoginSuccess();
   return useMutation({
-    mutationFn: anonymousSignin,
+    mutationFn: anonymousUserLogin,
     onSuccess: async () => {
       await handleAnonymousLoginSuccess();
     },

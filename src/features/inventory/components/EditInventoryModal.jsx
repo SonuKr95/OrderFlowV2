@@ -5,13 +5,17 @@ import {
   STOCK_ADJUSTMENT_REASON,
 } from "../constants/stockAdjustment";
 import { useAdjustStock } from "../hooks/useAdjustStock";
+import { useSelector } from "react-redux";
 
 export default function EditInventoryModal({ isOpen, onClose, product }) {
+  const { userRole } = useSelector((state) => state.auth);
+  const isFormDisabled = userRole === "viewer";
   const [selectedAdjustment, setSelectedAdjustment] = useState(null);
   const adjustStockMutation = useAdjustStock();
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: { adjusted_quantity: "" },
+    isFormDisabled,
   });
   if (!isOpen) return null;
 
@@ -31,7 +35,11 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
   }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+      <div
+        className={`w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl ${
+          isFormDisabled ? " cursor-not-allowed" : ""
+        }`}
+      >
         <h2 className="mb-5 text-lg font-semibold text-gray-800">
           {`Adjust Stock for ${product.name}`}
         </h2>
@@ -76,10 +84,11 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
               Select Adjustment Type
             </label>
             <select
+              disabled={isFormDisabled}
               onChange={(e) => {
                 setSelectedAdjustment(e.target.value);
               }}
-              className="mt-1 w-full rounded-lg border p-2"
+              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             >
               <option selected disabled>
                 Select Adjustment Type
@@ -99,6 +108,7 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
                 {selectedAdjustment === "REDUCE" && "Reduce"} Quantity By:
               </label>
               <input
+                disabled={isFormDisabled}
                 name="adjust_quantity"
                 {...register("adjusted_quantity")}
                 className="mt-1 w-full rounded-lg border bg-white p-2 text-gray-900"
@@ -111,7 +121,10 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
             <label className="text-sm text-gray-600">
               Select Adjustment Reason
             </label>
-            <select className="mt-1 w-full rounded-lg border p-2">
+            <select
+              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
+              disabled={isFormDisabled}
+            >
               <option selected disabled>
                 Select Adjustment Reason
               </option>
@@ -127,6 +140,8 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
           <div className="col-span-2">
             <label className="text-sm text-gray-600">Notes (Optional)</label>
             <textarea
+              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
+              disabled={isFormDisabled}
               // aria-rowspan={3}
               rows={3}
               // name="sku"
@@ -134,7 +149,7 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
               // disabled
               // value={product.quantity}
               // onChange={handleChange}
-              className="mt-1 w-full rounded-lg border p-2"
+              // className="mt-1 w-full rounded-lg border p-2"
             />
           </div>
         </div>
@@ -151,8 +166,8 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
 
           <button
             onClick={handleSubmit(onsubmit)}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white"
-            // disabled={isLoading}
+            className={`rounded-lg bg-blue-600 px-4 py-2 text-sm text-white ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}
+            disabled={isFormDisabled}
           >
             {selectedAdjustment === "ADD" && "Add"}{" "}
             {selectedAdjustment === "REDUCE" && "Reduce"} Quantity

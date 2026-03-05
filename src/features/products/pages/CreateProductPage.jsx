@@ -5,9 +5,12 @@ import toast from "react-hot-toast";
 import { PRODUCT_FORM_SECTIONS } from "../config/productFormSections";
 import CreateProductFormField from "../components/CreateProductFormField";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function AddProductPage() {
   const navigate = useNavigate();
+  const { userRole } = useSelector((state) => state.auth);
+  console.log(userRole);
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -57,8 +60,9 @@ function AddProductPage() {
           );
         })}
         <button
+          disabled={userRole?.toLowerCase() === "viewer"}
           onClick={handleSubmit(onSubmit)}
-          className="w-full rounded-lg bg-green-600 py-2.5 text-sm font-semibold text-white hover:cursor-pointer hover:bg-green-700"
+          className="w-full rounded-lg bg-green-600 py-2.5 text-sm font-semibold text-white hover:cursor-pointer hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-200 disabled:opacity-70"
         >
           Publish Product
         </button>

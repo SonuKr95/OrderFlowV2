@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useMemo, useEffect } from "react";
-export function useEditForm({ data, fields, mutation }) {
+export function useEditForm({ data, fields, mutation, isDisabled }) {
   const initialValues = useMemo(() => {
     return Object.fromEntries(
       fields.map((field) => [field, data?.[field] ?? ""]),
@@ -10,10 +10,10 @@ export function useEditForm({ data, fields, mutation }) {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { isDirty, dirtyFields },
   } = useForm({
     values: initialValues,
+    disabled: isDisabled,
   });
 
   // testing

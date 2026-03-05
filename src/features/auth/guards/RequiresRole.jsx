@@ -6,7 +6,7 @@ export function RequireRole({ allowedRoles }) {
   // const { userRole, authStatus } = useSelector((state) => state.auth);
   let { userRole, authStatus } = useSelector((state) => state.auth);
 
-  //For viewer testing only.
+  //For viewer testing only. only admin routes are enabled for the viewers
   if (userRole === "viewer") {
     userRole = "admin";
   }

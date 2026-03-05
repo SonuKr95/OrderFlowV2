@@ -5,7 +5,7 @@ import { setAuthUser } from "../../../app/store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { AUTH_STATUS } from "../constants/authStatus";
-import { getUserRole } from "./getUserRole";
+import { getUserRole } from "../api/getUserRole";
 
 export function useLoginSuccess() {
   const dispatch = useDispatch();
