@@ -1,4 +1,3 @@
-import { ROLES } from "../constants/roles";
 import { LOGIN_ROUTES } from "../constants/loginRoutes";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "../../../app/store/slices/authSlice";
@@ -7,11 +6,11 @@ import toast from "react-hot-toast";
 import { AUTH_STATUS } from "../constants/authStatus";
 import { getUserRole } from "./getUserRole";
 
-export function useLoginSuccess() {
+export function useAnonymousLoginSuccess() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  return async function handleLoginSuccess() {
+  return async function handleAnonymousLoginSuccess() {
     const userRole = await getUserRole();
 
     const data = {
@@ -19,14 +18,10 @@ export function useLoginSuccess() {
       authStatus: AUTH_STATUS.AUTHENTICATED,
     };
 
-    dispatch(setAuthUser(data));
-    toast.success("Logged In");
+    console.log(data);
 
-    if (userRole === ROLES.ADMIN || userRole === ROLES.VIEWER) {
-      navigate(LOGIN_ROUTES.ADMIN_DASHBOARD, { replace: true });
-    }
-    if (userRole === ROLES.STAFF) {
-      navigate(LOGIN_ROUTES.STAFF_PRODUCTLIST, { replace: true });
-    }
+    dispatch(setAuthUser(data));
+    toast.success("Welcome Viewer");
+    navigate(LOGIN_ROUTES.ANONYMOUS_DASHBOARD, { replace: true });
   };
 }

@@ -32,8 +32,6 @@ export const Routes = [
   {
     element: <AppLayout />,
     children: [
-      // { index: true, element: <Navigate to="dashboard" replace /> },
-
       // ✅ Admin-only routes
       {
         element: <RequireRole allowedRoles={PERMISSIONS.ADMIN_ONLY} />,
@@ -64,7 +62,7 @@ export const Routes = [
 
       // Dev route example
       {
-        element: <RequireRole allowedRoles={["admin"]} />,
+        element: <RequireRole allowedRoles={PERMISSIONS.ADMIN_ONLY} />,
         children: [
           {
             path: "dev",

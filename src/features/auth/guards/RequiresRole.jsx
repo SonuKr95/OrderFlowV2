@@ -3,7 +3,13 @@ import { useSelector } from "react-redux";
 import { AUTH_STATUS } from "../constants/authStatus";
 
 export function RequireRole({ allowedRoles }) {
-  const { userRole, authStatus } = useSelector((state) => state.auth);
+  // const { userRole, authStatus } = useSelector((state) => state.auth);
+  let { userRole, authStatus } = useSelector((state) => state.auth);
+
+  //For viewer testing only.
+  if (userRole === "viewer") {
+    userRole = "admin";
+  }
 
   if (authStatus === AUTH_STATUS.LOADING) {
     return null;

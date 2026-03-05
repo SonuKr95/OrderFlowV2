@@ -1,9 +1,10 @@
-import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../hook/useAuth";
+import { useAnonymousSignIn } from "../hook/useAnonymousSignIn";
 
 function LoginPage() {
   const loginMutation = useAuth();
+  const anonymousSignIn = useAnonymousSignIn();
   const { register, handleSubmit, reset } = useForm();
 
   function handleSubmitLogin(formData) {
@@ -45,11 +46,17 @@ function LoginPage() {
             <button
               disabled={loginMutation.isPending}
               type="submit"
-              className="hover:bg-primary-brand-ocean-green bg-secondary-brand-cyprus block w-full rounded-lg py-3 text-xl font-bold text-white hover:cursor-pointer"
+              className="hover:bg-primary-brand-ocean-green bg-secondary-brand-cyprus mb-2.5 block w-full rounded-lg py-3 text-xl font-bold text-white hover:cursor-pointer"
             >
               {loginMutation.isPending ? "Logging in..." : "Login"}
             </button>
           </form>
+          <button
+            onClick={() => anonymousSignIn.mutate()}
+            className="hover:bg-primary-brand-ocean-green bg-secondary-brand-cyprus block w-full rounded-lg py-3 text-xl font-bold text-white hover:cursor-pointer"
+          >
+            View as Guest
+          </button>
         </div>
       </div>
     </div>

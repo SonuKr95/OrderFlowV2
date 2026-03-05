@@ -9,9 +9,10 @@ import { useDispatch } from "react-redux";
 function AuthGate() {
   const dispatch = useDispatch();
   const { data, isPending, isError } = useRestoreAuth();
+  console.log(data);
   useEffect(() => {
     if (!isPending) {
-      if (isError || data?.user) {
+      if (!isError || data?.user) {
         dispatch(
           setAuthUser({
             userRole: data.userRole,

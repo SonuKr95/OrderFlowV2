@@ -8,25 +8,25 @@ const menu = [
     text: "Dashboard",
     iconName: "dashboard",
     url: "/dashboard",
-    access: [ROLES.ADMIN],
+    access: [ROLES.ADMIN, ROLES.VIEWER],
   },
   {
     text: "Order Management",
     iconName: "cart",
     url: "/orders",
-    access: [ROLES.ADMIN, ROLES.STAFF],
+    access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
   },
   {
     text: "Customers",
     iconName: "customers",
     url: "/customer",
-    access: [ROLES.ADMIN],
+    access: [ROLES.ADMIN, ROLES.VIEWER],
   },
   {
     text: "Inventory Management",
     iconName: "categories",
     url: "/inventory",
-    access: [ROLES.ADMIN, ROLES.STAFF],
+    access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
   },
   // {
   //   text: "Transaction",
@@ -38,19 +38,19 @@ const menu = [
     text: "Add Products",
     iconName: "circleplus",
     url: "/addproduct",
-    access: [ROLES.ADMIN, ROLES.STAFF],
+    access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
   },
   {
     text: "Product List",
     iconName: "productlist",
     url: "/productlist",
-    access: [ROLES.ADMIN, ROLES.STAFF],
+    access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
   },
   {
     text: "Recently Deleted",
     iconName: "deleteicon",
     url: "/product/deleted",
-    access: [ROLES.ADMIN, ROLES.STAFF],
+    access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
   },
   // {
   //   text: "Admin Page",
@@ -65,7 +65,7 @@ const menu = [
   {
     text: "Create Order",
     iconName: "arrowupdown",
-    access: [ROLES.ADMIN],
+    access: [ROLES.ADMIN, ROLES.VIEWER],
     url: "dev",
   },
 ];
