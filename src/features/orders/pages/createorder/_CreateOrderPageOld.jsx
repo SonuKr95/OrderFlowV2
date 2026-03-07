@@ -2,18 +2,17 @@ import { SelectProduct } from "./SelectProduct";
 import { SelectCustomer } from "./SelectCustomer";
 import { OrderItemTable } from "./OrderItemTable";
 import { OrderSummary } from "./OrderSummary";
-import { createOrderNew } from "../../hooks/createOrderNew";
 import {
-  // selectCart,
+  selectCart,
   selectCartProducts,
   selectSubtotal,
-  // selectTax,
-  // selectTotalPayable,
+  selectTax,
+  selectTotalPayable,
 } from "../../../../app/store/selectors/cartSelectors";
 import { useSelector } from "react-redux";
 // import { useForm } from "react-hook-form";
 import { useCreateOrder } from "../../hooks/_useCreateOrderold";
-import { buildOrderPayload } from "./buildOrderPayload";
+import { buildOrderPayload } from "./_buildOrderPayload";
 import toast from "react-hot-toast";
 // import { selectCart } from "../../../../store/selectors/cartSelectors";
 import { PaymentMethod } from "./PaymentMethod";
@@ -23,24 +22,22 @@ import { useOrderItems } from "../../hooks/useOrderItems";
 function CreateOrderPage() {
   const navigate = useNavigate();
   const customerId = useSelector((state) => state.cart.customerId);
-  const paymentMethodSelected = useSelector(
-    (state) => state.cart.paymentMethod,
-  );
   const product = useSelector(selectCartProducts).length;
   const createOrderMutation = useCreateOrder();
   const shipping = useSelector((state) => state.cart.shipping);
   const subTotal = useSelector(selectSubtotal);
-  // const tax = useSelector(selectTax);
-  // const totalPayable = useSelector(selectTotalPayable);
+  const tax = useSelector(selectTax);
+  const totalPayable = useSelector(selectTotalPayable);
   // const customerId = useSelector((state) => state.cart.customerId);
-  console.log(paymentMethodSelected);
-  const cartProducts = useSelector(selectCartProducts);
+  const cart = useSelector(selectCart);
   const { userRole } = useSelector((state) => state.auth);
   const isViewer = userRole === "viewer";
   const orderObject = {
-    cartProducts,
-    customerId,
-    paymentMethodSelected,
+    ...cart,
+    subTotal,
+    tax,
+    shipping,
+    totalPayable,
   };
 
   function handleCreateOrder() {
@@ -52,19 +49,11 @@ function CreateOrderPage() {
       toast.error("Cart is empty");
       return;
     }
-
-    console.log(cartProducts);
-
-    // console.log(orderObject);
     const orderData = buildOrderPayload(orderObject);
-    const { sanitizedProducts } = orderData;
-    createOrderNew(sanitizedProducts);
-    // console.log(orderData);
     // const { products } = buildOrderPayload(orderObject);
     // console.log(payload);
     // console.log(products);
 
-    /*
     createOrderMutation.mutate(orderData, {
       onSuccess: ({ order_id }) => {
         // console.log(order);
@@ -93,7 +82,6 @@ function CreateOrderPage() {
         });
       },
     });
-    */
   }
   // const orderObject = { cart, customerId };
 

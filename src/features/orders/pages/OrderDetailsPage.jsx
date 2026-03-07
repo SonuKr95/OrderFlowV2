@@ -4,8 +4,7 @@ import { ProductTable } from "../components/ProductTable";
 import { CustomerDetails } from "../components/CustomerDetails";
 import { OrderTimeline } from "../components/OrderTimeline";
 import { AdminNotes } from "../components/AdminNotes";
-import { PaymentDetails } from "../components/PaymentDetails";
-import { ShippingDetails } from "../components/ShippingDetails";
+
 import { SidebarCard } from "../components/SidebarCard";
 import { OrderAmountDetails } from "../components/OrderAmountDetails";
 // import { getOrderItemsByOrderId } from "../ordersApi";
@@ -26,12 +25,6 @@ function OrderDetailsPage() {
           {/* <PaymentDetails /> */}
           <OrderTimeline />
         </SidebarCard>
-
-        <SidebarCard title={"Payment Details"}>
-          <PaymentDetails />
-        </SidebarCard>
-
-        <ShippingDetails />
 
         <SidebarCard title={"AdminNotes"}>
           <AdminNotes />

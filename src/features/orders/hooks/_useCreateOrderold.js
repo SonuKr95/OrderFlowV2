@@ -1,3 +1,9 @@
+// 1. Validate inventory for all items
+// 2. If any invalid → throw error
+// 3. Create order
+// 4. Create order_items
+// 5. Reduce inventory
+
 import { createOrder } from "../ordersApi";
 import { createOrderItem } from "../ordersApi";
 import { createOrderStatusHistory } from "../ordersApi";

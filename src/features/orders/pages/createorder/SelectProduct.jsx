@@ -45,7 +45,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useProductsWithInventory } from "../../../products/hooks/useProductsWithInventory";
-import { addProduct } from "../../../../app/store/slices/cartSlice";
+import { addProduct } from "../../../../app/store/slices/_cartSliceold";
 
 export function SelectProduct() {
   const { data: products = [] } = useProductsWithInventory();

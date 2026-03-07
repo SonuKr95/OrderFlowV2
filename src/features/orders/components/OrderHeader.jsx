@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useOrderItems } from "../hooks/useOrderItems";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { useUpdateOrderStatus } from "../hooks/useUpdateOrderStatus";
 
@@ -12,6 +13,8 @@ const STATUS_FLOW = {
 };
 
 export function OrderHeader() {
+  const { userRole } = useSelector((state) => state.auth);
+  const isViewer = userRole === "viewer";
   const updateOrderStatus = useUpdateOrderStatus();
   const params = useParams();
   // params.orderId;
@@ -43,7 +46,14 @@ export function OrderHeader() {
       </div>
       <div className="">
         <p>Mark order</p>
-        <select name="" id="" value={orderStatus} onChange={handleChange}>
+        <select
+          name=""
+          id=""
+          value={orderStatus}
+          onChange={handleChange}
+          disabled={isViewer}
+          className="disabled:cursor-not-allowed"
+        >
           <option value="" disabled>
             Select Status
           </option>
@@ -57,7 +67,10 @@ export function OrderHeader() {
           <option value="Cancelled">Cancelled</option>
           <option value="Delivered">Delivered</option> */}
         </select>
-        <button className="rounded-md bg-amber-300 px-3 py-3">
+        <button
+          className="rounded-md bg-amber-300 px-3 py-3 disabled:cursor-not-allowed disabled:shadow-none dark:disabled:border-gray-700 dark:disabled:bg-gray-800/20"
+          disabled={isViewer}
+        >
           Mark Order
         </button>
       </div>

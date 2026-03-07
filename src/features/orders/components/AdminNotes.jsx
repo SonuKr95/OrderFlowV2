@@ -1,7 +1,7 @@
 export function AdminNotes() {
   return (
     <div>
-      <p>Admin Notes:</p>
+      <p>Admin Notes: Area</p>
     </div>
   );
 }

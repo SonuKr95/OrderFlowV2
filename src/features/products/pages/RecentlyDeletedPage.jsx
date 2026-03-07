@@ -6,6 +6,7 @@ import { refresh, deleteicon } from "../../../icons/_index";
 import { useRestoreProduct } from "../hooks/useRestoreProduct";
 import toast from "react-hot-toast";
 import { queryClient } from "../../../app/queryClient";
+import { useSelector } from "react-redux";
 // import { getStockStatus } from "../constants/stockStatus";
 import { formatDateTime } from "../../../utils/dateFormat";
 // import { useDeleteProductById } from "../hooks/useDeleteProductById";
@@ -22,6 +23,8 @@ import { formatDateTime } from "../../../utils/dateFormat";
 function RecentlyDeleted() {
   const { data: RecentlyDeletedProducts = [] } = useRecentlyDeleted();
   const restoreProductMutation = useRestoreProduct();
+  const { userRole } = useSelector((state) => state.auth);
+  const isViewer = userRole === "viewer";
 
   const handleRestoreProduct = (id) =>
     restoreProductMutation.mutate(id, {
@@ -112,8 +115,9 @@ function RecentlyDeleted() {
               <td>
                 <div className="right flex flex-wrap items-center justify-around">
                   <button
+                    disabled={isViewer}
                     title="Restore Product"
-                    className="hover:cursor-pointer"
+                    className="hover:cursor-pointer disabled:cursor-not-allowed"
                     onClick={() => {
                       handleRestoreProduct(product.id);
                     }}

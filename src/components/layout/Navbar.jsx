@@ -1,9 +1,14 @@
 import { bell, darkmodeswitch, search } from "../../icons/_index";
 import { useList } from "../../app/context/hook/_useList";
 import { useLogout } from "../../features/auth/session/useLogout";
+import { useSelector } from "react-redux";
 
 function Navbar() {
+  const { userRole } = useSelector((state) => state.auth);
+  console.log(userRole);
+
   // const { list } = useList();
+
   const logout = useLogout();
   // console.log(list);
 
@@ -15,7 +20,9 @@ function Navbar() {
       <div className="flex items-center justify-center gap-4">
         <img src={bell} alt="" className="h-[20px]" />
         <img src={darkmodeswitch} alt="" className="h-[20px]" />
+
         <div>
+          <span className="m-2.5">{userRole?.toUpperCase()}</span>
           <button
             onClick={() => {
               if (confirm("Are you sure you want to logout?")) {

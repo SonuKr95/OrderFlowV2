@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { selectPaymentMethod } from "../../../../app/store/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectPaymentMethod } from "../../../../app/store/slices/_cartSliceold";
 
 export function PaymentMethod() {
   const [selectedPaymentMethod, setselectedPaymentMethod] = useState("");
+
+  const { userRole } = useSelector((state) => state.auth);
+  const isViewer = userRole === "viewer";
   const dispatch = useDispatch();
 
   function handleChange(e) {
@@ -21,11 +24,12 @@ export function PaymentMethod() {
   return (
     <div className="mt-5">
       <select
+        disabled={isViewer}
         name=""
         id=""
         value={selectedPaymentMethod}
         onChange={handleChange}
-        className="w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:ring-2 focus:ring-green-500 focus:outline-none disabled:text-gray-400"
+        className="w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:ring-2 focus:ring-green-500 focus:outline-none disabled:cursor-not-allowed disabled:text-gray-400"
       >
         <option value="" disabled>
           Select a payment methid

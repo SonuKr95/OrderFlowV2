@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import {
   decreaseQuantity,
   increaseQuantity,
-} from "../../../../app/store/slices/cartSlice";
+} from "../../../../app/store/slices/_cartSliceold";
 
 export function OrderItemTable() {
   const products = useSelector((state) => state.cart.products);

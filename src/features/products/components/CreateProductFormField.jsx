@@ -1,7 +1,7 @@
-function CreateProductFormField({ field, register, options }) {
+function CreateProductFormField({ field, register, options, isViewer }) {
+  console.log(isViewer);
   const { name, placeholder, type, label, rows } = field;
-  const baseClass =
-    "w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm focus:border-green-500 focus:outline-none";
+  const baseClass = `w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm focus:border-green-500 focus:outline-none ${isViewer ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`;
 
   return (
     <div>
@@ -15,17 +15,23 @@ function CreateProductFormField({ field, register, options }) {
           rows={rows ?? 3}
           className={baseClass}
           placeholder={placeholder}
+          disabled={isViewer}
         />
       )}
 
       {type === "select" && (
-        <select {...register(name)} className={baseClass} defaultValue="">
+        <select
+          {...register(name)}
+          className={baseClass}
+          defaultValue=""
+          disabled={isViewer}
+        >
           <option disabled value="">
             {placeholder}
           </option>
-          {options?.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
+          {options?.map(({ name, id }) => (
+            <option key={id} value={id}>
+              {name}
             </option>
           ))}
         </select>
@@ -37,6 +43,7 @@ function CreateProductFormField({ field, register, options }) {
           type={type}
           className={baseClass}
           placeholder={placeholder}
+          disabled={isViewer}
         />
       )}
     </div>

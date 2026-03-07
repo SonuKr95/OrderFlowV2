@@ -14,6 +14,8 @@ function calculateTotal(price, quantity) {
 const initialState = {
   customerId: null,
   products: [],
+  taxRate: 18,
+  shipping: 199,
   paymentMethod: null,
 };
 const cartSlice = createSlice({
@@ -26,8 +28,8 @@ const cartSlice = createSlice({
     addProduct(state, action) {
       const {
         id,
-        name,
         sku,
+        name,
         selling_price,
         quantityCount = 1,
       } = action.payload;
@@ -44,8 +46,8 @@ const cartSlice = createSlice({
       }
       state.products.push({
         id,
-        name,
         sku,
+        name,
         selling_price,
         quantityCount,
         total,

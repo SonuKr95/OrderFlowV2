@@ -2,11 +2,14 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetCustomers } from "../../../customers/hooks/useGetCustomers";
 import { useCreateCustomer } from "../../../customers/hooks/useCreateCustomer";
-import { setCustomer } from "../../../../app/store/slices/cartSlice";
+import { setCustomer } from "../../../../app/store/slices/_cartSliceold";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+// import { useSelector } from "react-redux";
 
 export function SelectCustomer() {
+  const { userRole } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const { mutate, isPending } = useCreateCustomer();
   const { data: customers = [] } = useGetCustomers();
@@ -25,6 +28,8 @@ export function SelectCustomer() {
       address: "",
     },
   });
+  const isViewer = userRole === "viewer";
+  console.log(isViewer);
 
   const onsubmit = (formData) => {
     mutate(formData, {
@@ -96,7 +101,8 @@ export function SelectCustomer() {
                     {...register("name", {
                       required: "Customer name is required",
                     })}
-                    className={`mt-1 w-full rounded-lg border p-2 ${errors.name ? "border-red-500" : "border-gray-300"}`}
+                    className={`mt-1 w-full rounded-lg border p-2 ${errors.name ? "border-red-500" : "border-gray-300"} isViewer ? " disabled:opacity-70" : ""} cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900`}
+                    disabled={isViewer}
                   />
                   {errors.name && (
                     <span className="mt-1 text-xs text-red-500">
@@ -111,7 +117,8 @@ export function SelectCustomer() {
                     {...register("phone_number", {
                       required: "Phone number is required",
                     })}
-                    className={`mt-1 w-full rounded-lg border p-2 ${errors.phone_number ? "border-red-500" : "border-gray-300"}`}
+                    className={`mt-1 w-full rounded-lg border p-2 ${errors.phone_number ? "border-red-500" : "border-gray-300"} ${isViewer ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}
+                    disabled={isViewer}
                   />
                   {errors.phone_number && (
                     <span className="mt-1 text-xs text-red-500">
@@ -127,8 +134,9 @@ export function SelectCustomer() {
                   </label>
                   <textarea
                     {...register("address")}
-                    className="mt-1 w-full rounded-lg border p-2"
+                    className={`mt-1 w-full rounded-lg border p-2 ${isViewer ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""} `}
                     rows={2}
+                    disabled={isViewer}
                   />
                 </div>
 
@@ -141,10 +149,11 @@ export function SelectCustomer() {
                 </button>
                 <button
                   type="submit"
-                  disabled={isPending}
+                  disabled={isViewer || isPending}
+                  // disabled={isViewer}
                   className={`rounded-lg px-4 py-4 text-sm text-white transition-colors ${
-                    isPending
-                      ? "cursor-not-allowed bg-gray-400" // 2. Disabled styles
+                    isViewer
+                      ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70"
                       : "bg-blue-600 hover:cursor-pointer hover:bg-blue-700" // 3. Active styles
                   }`}
                 >

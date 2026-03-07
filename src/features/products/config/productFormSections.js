@@ -9,7 +9,7 @@ export const PRODUCT_FORM_SECTIONS = [
         placeholder: "Product name",
       },
       {
-        name: "category",
+        name: "category_id",
         label: "Category",
         type: "select",
         placeholder: "Select product category",
@@ -20,12 +20,6 @@ export const PRODUCT_FORM_SECTIONS = [
         type: "text",
         placeholder: "Product SKU",
       },
-      // {
-      //   name: "description",
-      //   label: "Description",
-      //   type: "textarea",
-      //   rows: 4,
-      // },
     ],
   },
 
