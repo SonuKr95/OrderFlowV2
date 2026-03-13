@@ -1,4 +1,4 @@
-import CategoryCards from "../..//..//components/cards/CategoryCards";
+import CategoryCards from "../../../components/cards/CategoryCards";
 import List from "../../../components/ui/List";
 import { useProductsWithInventory } from "../hooks/useProductsWithInventory";
 import { productColumns } from "../constants/productColumns";
@@ -10,10 +10,11 @@ import { useState } from "react";
 import { queryClient } from "../../../app/queryClient";
 import { editicon, deleteicon } from "../../../icons/_index";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
-import EditProductModal from "../components/EditProductModal";
+import EditProductModal from "../components/UpdateProductModal";
 
 function ProductList() {
   const { data: productList = [] } = useProductsWithInventory();
+  console.log(productList);
   const [editTarget, setEditTarget] = useState(null);
   const openEditModal = (product) => {
     // console.log(e);
@@ -84,7 +85,7 @@ function ProductList() {
                 {product.name ?? "null"}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-                {product.category ?? null}
+                {product.category_name ?? null}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-gray-700">
                 {product.selling_price ?? null}

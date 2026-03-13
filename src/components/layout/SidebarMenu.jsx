@@ -47,9 +47,9 @@ const menu = [
     access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
   },
   {
-    text: "Recently Deleted",
+    text: "Archived Products",
     iconName: "deleteicon",
-    url: "/product/deleted",
+    url: "/product/archived",
     access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
   },
   // {

@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
-
-export default function ConfirmDeleteModal({
+export default function ConfirmProductArchiveModal({
   isOpen,
   onClose,
   onConfirm,
@@ -32,7 +31,7 @@ export default function ConfirmDeleteModal({
             className={`rounded-lg bg-red-600 px-4 py-2 text-sm text-white ${userRole === "viewer" ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}
             disabled={isLoading || userRole === "viewer"}
           >
-            {isLoading ? "Deleting..." : "Delete"}
+            {isLoading ? "Archiveing..." : "Archive"}
           </button>
         </div>
       </div>

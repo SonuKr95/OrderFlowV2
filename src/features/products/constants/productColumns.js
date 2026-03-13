@@ -1,7 +1,7 @@
 export const productColumns = [
   { key: "sku", label: "SKU" },
   { key: "name", label: "Product Name" },
-  { key: "category", label: "Category" },
+  { key: "category_name", label: "Category" },
   { key: "selling_price", label: "Selling Price" },
   { key: "mrp", label: "MRP" },
   { key: "stock_status", label: "Stock Status" },

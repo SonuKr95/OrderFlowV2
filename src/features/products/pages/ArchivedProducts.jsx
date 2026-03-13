@@ -1,7 +1,7 @@
 import List from "../../../components/ui/List";
 // import { useProductsWithInventory } from "../hooks/useProductsWithInventory";
 import { recentlyDeletedColumns } from "../constants/recentlyDeletedColumns";
-import { useRecentlyDeleted } from "../hooks/useRecentlyDeleted";
+import { useArchiveProductList } from "../hooks/useArchiveProductList";
 import { refresh, deleteicon } from "../../../icons/_index";
 import { useRestoreProduct } from "../hooks/useRestoreProduct";
 import toast from "react-hot-toast";
@@ -20,8 +20,8 @@ import { formatDateTime } from "../../../utils/dateFormat";
 // import EditContainer from "../../../components/ui/EditContainer";
 // import { useList } from "../../../app/context/hook/_useList";
 
-function RecentlyDeleted() {
-  const { data: RecentlyDeletedProducts = [] } = useRecentlyDeleted();
+function ArchivedProducts() {
+  const { data: archiveProducts = [] } = useArchiveProductList();
   const restoreProductMutation = useRestoreProduct();
   const { userRole } = useSelector((state) => state.auth);
   const isViewer = userRole === "viewer";
@@ -39,7 +39,7 @@ function RecentlyDeleted() {
         });
       },
     });
-  console.log(RecentlyDeletedProducts);
+  // console.log(RecentlyDeletedProducts);
   // const deleteProductMutation = useDeleteProductById();
   // const [deleteTarget, setDeleteTarget] = useState(null);
 
@@ -84,7 +84,7 @@ function RecentlyDeleted() {
       /> */}
 
       <List columns={recentlyDeletedColumns} colStart={1} rowStart={3}>
-        {RecentlyDeletedProducts?.map((product) => {
+        {archiveProducts?.map((product) => {
           // const stock = getStockStatus(product.quantity);
           return (
             <tr key={product.id} className="hover:bg-gray-50">
@@ -95,7 +95,7 @@ function RecentlyDeleted() {
                 {product.name ?? "null"}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-                {product.category ?? null}
+                {product.category_name ?? null}
               </td>
               <td className="px-4 py-2 whitespace-nowrap text-gray-700">
                 {formatDateTime(product.deleted_at) ?? null}
@@ -137,4 +137,4 @@ function RecentlyDeleted() {
   );
 }
 
-export default RecentlyDeleted;
+export default ArchivedProducts;

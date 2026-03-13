@@ -25,8 +25,7 @@ const rowEndClasses = {
 };
 
 function List({ columns, children, colStart, colEnd, rowStart, rowEnd }) {
-  // console.log("rendering list");
-  // console.log(columns);
+  // console.log(children);
   if (!Array.isArray(columns)) return null;
   return (
     <div

@@ -1,15 +1,29 @@
-import { useState, useEffect } from "react";
-import { useUpdateProductForm } from "../hooks/useUpdateProductForm";
 import { useSelector } from "react-redux";
+import { useUpdateProductById } from "../hooks/useUpdateProductById";
+import { useDirtyPayloadForm } from "../useDirtyPayloadForm";
+import toast from "react-hot-toast";
 
-export default function EditProductModal({ isOpen, onClose, product }) {
+export default function UpdateProductModal({ isOpen, onClose, product }) {
+  const updateProductMutation = useUpdateProductById();
   const { userRole } = useSelector((state) => state.auth);
-
   const isFormDisabled = userRole === "viewer";
 
-  const { register, onSubmit, isDirty, initialValues, isLoading } =
-    useUpdateProductForm({ product, isDisabled: isFormDisabled });
+  const handleProductUpdate = (payload) => {
+    updateProductMutation.mutate(payload, {
+      onSuccess: async (sku) => {
+        toast.success(`Product with SKU: ${sku} updated successfully`);
+        onClose();
+      },
+    });
+  };
 
+  const { register, onSubmit, initialValues } = useDirtyPayloadForm({
+    product,
+    fields: ["name", "selling_price", "mrp"],
+    onPayload: handleProductUpdate,
+  });
+
+  console.log(initialValues);
   if (!isOpen) return null;
 
   return (
@@ -31,7 +45,8 @@ export default function EditProductModal({ isOpen, onClose, product }) {
             <input
               name="name"
               {...register("name")}
-              // value={product.name}
+              defaultValue={initialValues.name}
+              // value={initialValues.name}
               className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             />
           </div>
@@ -43,9 +58,9 @@ export default function EditProductModal({ isOpen, onClose, product }) {
               name="sku"
               // {...register("sku")}
               disabled
-              value={initialValues.sku}
+              value={product.sku}
               // onChange={handleChange}
-              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
+              className={`mt-1 w-full cursor-not-allowed rounded-lg border p-2 disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70`}
             />
           </div>
 
@@ -54,10 +69,9 @@ export default function EditProductModal({ isOpen, onClose, product }) {
             <label className="text-sm text-gray-600">Category</label>
             <input
               name="category"
-              {...register("name")}
-              // value={formData.category}
-              // onChange={handleChange}
-              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
+              value={product.category_name}
+              disabled
+              className={`" mt-1 w-full cursor-not-allowed rounded-lg border p-2 disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70`}
             />
           </div>
 
@@ -67,7 +81,7 @@ export default function EditProductModal({ isOpen, onClose, product }) {
             <input
               name="selling_price"
               {...register("selling_price")}
-              // value={formData.selling_price}
+              defaultValue={initialValues.selling_price}
               // onChange={handleChange}
               className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             />
@@ -79,6 +93,7 @@ export default function EditProductModal({ isOpen, onClose, product }) {
             <input
               name="mrp"
               {...register("mrp")}
+              defaultValue={initialValues.mrp}
               // value={formData.mrp}
               // onChange={handleChange}
               className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
@@ -86,19 +101,20 @@ export default function EditProductModal({ isOpen, onClose, product }) {
           </div>
 
           {/* Status */}
-          <div className="col-span-2">
+          {/* <div className="col-span-2">
             <label className="text-sm text-gray-600">Status</label>
             <select
               name="status"
               {...register("status")}
               // value={formData.status}
               // onChange={handleChange}
+              value={initialValues.status}
               className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             >
-              <option value="ACTIVE">Active</option>
-              <option value="INACTIVE">Inactive</option>
+              <option disabled>{product.status}</option>
+              <option value={nextStatusValue}>{nextStatusValue}</option>
             </select>
-          </div>
+          </div> */}
         </div>
 
         {/* Actions */}
@@ -106,7 +122,7 @@ export default function EditProductModal({ isOpen, onClose, product }) {
           <button
             onClick={onClose}
             className="rounded-lg border px-4 py-2 text-sm"
-            disabled={isLoading}
+            // disabled={isLoading}
           >
             Cancel
           </button>
@@ -114,9 +130,10 @@ export default function EditProductModal({ isOpen, onClose, product }) {
           <button
             onClick={onSubmit}
             className={`rounded-lg bg-blue-600 px-4 py-2 text-sm text-white ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}
-            disabled={isLoading || isFormDisabled}
+            // disabled={isLoading || isFormDisabled}
           >
-            {isLoading ? "Saving..." : "Save Changes"}
+            Save
+            {/* {isLoading ? "Saving..." : "Save Changes"} */}
           </button>
         </div>
       </div>

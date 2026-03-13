@@ -3,19 +3,19 @@ export const PRODUCT_FORM_SECTIONS = [
     title: "Basic Information",
     fields: [
       {
-        name: "name",
+        name: "_name",
         label: "Product Name",
         type: "text",
         placeholder: "Product name",
       },
       {
-        name: "category_id",
+        name: "_category_id",
         label: "Category",
         type: "select",
         placeholder: "Select product category",
       },
       {
-        name: "sku",
+        name: "_sku",
         label: "SKU",
         type: "text",
         placeholder: "Product SKU",
@@ -27,13 +27,13 @@ export const PRODUCT_FORM_SECTIONS = [
     title: "Pricing",
     fields: [
       {
-        name: "selling_price",
+        name: "_selling_price",
         label: "Selling Price",
         type: "number",
         placeholder: "₹",
       },
       {
-        name: "mrp",
+        name: "_mrp",
         label: "MRP",
         type: "number",
         placeholder: "₹",
@@ -45,7 +45,7 @@ export const PRODUCT_FORM_SECTIONS = [
     title: "Tax Rate",
     fields: [
       {
-        name: "tax_rate",
+        name: "_tax_rate",
         label: "Tax Rate",
         type: "select",
         placeholder: "Select applicable tax rate",
@@ -56,7 +56,7 @@ export const PRODUCT_FORM_SECTIONS = [
     title: "Inventory",
     fields: [
       {
-        name: "quantity",
+        name: "_quantity",
         label: "Stock Available",
         type: "number",
         placeholder: "Quantity",
