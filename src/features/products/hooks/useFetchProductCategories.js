@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchProductCategories } from "../productApi";
 
-export function useProductCategories() {
+export function useFetchProductCategories() {
   return useQuery({
     queryKey: ["categories"],
     queryFn: fetchProductCategories,

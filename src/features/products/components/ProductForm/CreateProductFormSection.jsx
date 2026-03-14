@@ -1,7 +1,12 @@
 import CreateProductFormField from "./CreateProductFormField";
-import { TAX_OPTIONS } from "../config/taxOptions";
+import { CREATE_PRODUCT_TAX_RATES } from "../../config/createProductTaxRates";
 
-function ProductFormSection({ sections, register, categories, isViewer }) {
+function CreateProductFormSection({
+  sections,
+  register,
+  categories,
+  isViewer,
+}) {
   return sections.map((section) => (
     <div key={section.title} className="mb-8">
       <h2 className="mb-4 text-lg font-semibold text-gray-800">
@@ -15,7 +20,9 @@ function ProductFormSection({ sections, register, categories, isViewer }) {
             field={field}
             register={register}
             isViewer={isViewer}
-            options={field.name === "_tax_rate" ? TAX_OPTIONS : categories}
+            options={
+              field.name === "_tax_rate" ? CREATE_PRODUCT_TAX_RATES : categories
+            }
           />
         ))}
       </div>
@@ -23,4 +30,4 @@ function ProductFormSection({ sections, register, categories, isViewer }) {
   ));
 }
 
-export default ProductFormSection;
+export default CreateProductFormSection;

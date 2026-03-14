@@ -1,12 +1,11 @@
-import { productColumns } from "../constants/productColumns";
+import { ActiveProductTableColumns } from "../../constants/ActiveProductTableColumns";
 import { useState } from "react";
-import UpdateProductModal from "../components/UpdateProductModal";
-import ConfirmProductArchiveModal from "../components/ConfirmProductArchiveModal";
-import { useArchiveProductController } from "../hooks/useArchiveProductController";
-
-import List from "../../../components/ui/List";
-import ProductRow from "./ProductRow";
-function ProductListTable({ products }) {
+import UpdateProductModal from "../Modals/UpdateProductModal";
+import ProductArchiveModal from "../Modals/ArchiveProductModal";
+import { useArchiveProductController } from "../../hooks/useArchiveProductController";
+import List from "../../../../components/ui/List";
+import ActiveProductTableRow from "./ActiveProductTableRow";
+function ProductTable({ products }) {
   const [updateTarget, setUpdateTarget] = useState(null);
   const {
     openArchiveModal,
@@ -17,9 +16,9 @@ function ProductListTable({ products }) {
   } = useArchiveProductController();
   return (
     <>
-      <List columns={productColumns} colStart={1} rowStart={3}>
+      <List columns={ActiveProductTableColumns} colStart={1} rowStart={3}>
         {products.map((product) => (
-          <ProductRow
+          <ActiveProductTableRow
             key={product.id}
             product={product}
             onEdit={setUpdateTarget}
@@ -35,7 +34,7 @@ function ProductListTable({ products }) {
         product={updateTarget}
         onClose={() => setUpdateTarget(null)}
       />
-      <ConfirmProductArchiveModal
+      <ProductArchiveModal
         isOpen={!!archiveTarget}
         onClose={closeArchiveModal}
         onConfirm={confirmArchive}
@@ -47,4 +46,4 @@ function ProductListTable({ products }) {
   );
 }
 
-export default ProductListTable;
+export default ProductTable;

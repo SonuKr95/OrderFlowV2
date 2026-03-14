@@ -1,5 +1,6 @@
 function CreateProductFormField({ field, register, options, isViewer }) {
   console.log(isViewer);
+  //createProductFormSections for referecnce
   const { name, placeholder, type, label, rows } = field;
   const baseClass = `w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm focus:border-green-500 focus:outline-none ${isViewer ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`;
 

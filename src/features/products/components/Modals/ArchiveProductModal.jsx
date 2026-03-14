@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-export default function ConfirmProductArchiveModal({
+export default function ArchiveProductModal({
   isOpen,
   onClose,
   onConfirm,

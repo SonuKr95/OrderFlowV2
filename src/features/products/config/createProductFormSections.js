@@ -1,4 +1,4 @@
-export const PRODUCT_FORM_SECTIONS = [
+export const CREATE_PRODUCT_FORM_SECTIONS = [
   {
     title: "Basic Information",
     fields: [

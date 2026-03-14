@@ -3,8 +3,6 @@ import { createProductWithInventory } from "../productApi";
 
 export function useCreateProductWithInventory() {
   return useMutation({
-    mutationFn: (payload) => {
-      return createProductWithInventory(payload);
-    },
+    mutationFn: createProductWithInventory,
   });
 }

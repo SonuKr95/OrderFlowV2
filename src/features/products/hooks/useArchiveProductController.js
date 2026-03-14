@@ -1,11 +1,11 @@
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { queryClient } from "../../../app/queryClient";
-import { useArchiveProduct } from "./useArchiveProduct";
+import { useArchiveProductById } from "./useArchiveProductById";
 
 export function useArchiveProductController() {
   const [archiveTarget, setarchiveTarget] = useState(null);
-  const mutation = useArchiveProduct();
+  const mutation = useArchiveProductById();
   const openArchiveModal = (product) => {
     setarchiveTarget(product);
   };

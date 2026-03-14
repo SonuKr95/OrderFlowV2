@@ -1,4 +1,4 @@
-export const productColumns = [
+export const ActiveProductTableColumns = [
   { key: "sku", label: "SKU" },
   { key: "name", label: "Product Name" },
   { key: "category_name", label: "Category" },

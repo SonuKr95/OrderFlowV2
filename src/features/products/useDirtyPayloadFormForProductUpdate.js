@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useMemo } from "react";
-export function useDirtyPayloadForm({ product, fields, onPayload }) {
+export function useDirtyPayloadFormForProductUpdate({
+  product,
+  fields,
+  onPayload,
+}) {
   console.log(product);
   const initialValues = useMemo(() => {
     return Object.fromEntries(
@@ -28,9 +32,6 @@ export function useDirtyPayloadForm({ product, fields, onPayload }) {
       ...payload,
     };
     onPayload?.(result);
-
-    // onPayload?.(result);
-    // send payload upward
   }
 
   return {

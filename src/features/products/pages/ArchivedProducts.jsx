@@ -1,9 +1,9 @@
 import List from "../../../components/ui/List";
 // import { useProductsWithInventory } from "../hooks/useProductsWithInventory";
-import { recentlyDeletedColumns } from "../constants/recentlyDeletedColumns";
-import { useArchiveProductList } from "../hooks/useArchiveProductList";
+import { ArchiveProductTableColumns } from "../constants/ArchiveProductTableColumns";
+import { useFetchArchiveProductList } from "../hooks/useFetchArchiveProductList";
 import { refresh, deleteicon } from "../../../icons/_index";
-import { useRestoreProduct } from "../hooks/useRestoreProduct";
+import { useRestoreArchieveProductById } from "../hooks/useRestoreArchieveProductById";
 import toast from "react-hot-toast";
 import { queryClient } from "../../../app/queryClient";
 import { useSelector } from "react-redux";
@@ -21,8 +21,8 @@ import { formatDateTime } from "../../../utils/dateFormat";
 // import { useList } from "../../../app/context/hook/_useList";
 
 function ArchivedProducts() {
-  const { data: archiveProducts = [] } = useArchiveProductList();
-  const restoreProductMutation = useRestoreProduct();
+  const { data: archiveProducts = [] } = useFetchArchiveProductList();
+  const restoreProductMutation = useRestoreArchieveProductById();
   const { userRole } = useSelector((state) => state.auth);
   const isViewer = userRole === "viewer";
 
@@ -83,7 +83,7 @@ function ArchivedProducts() {
         isLoading={deleteProductMutation.isPending}
       /> */}
 
-      <List columns={recentlyDeletedColumns} colStart={1} rowStart={3}>
+      <List columns={ArchiveProductTableColumns} colStart={1} rowStart={3}>
         {archiveProducts?.map((product) => {
           // const stock = getStockStatus(product.quantity);
           return (

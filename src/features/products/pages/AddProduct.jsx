@@ -1,9 +1,9 @@
-import ProductForm from "../components/ProductForm";
+import CreateProductForm from "../components/ProductForm/CreateProductForm";
 
 function AddProductPage() {
   return (
     <div className="h-screen bg-gray-50 p-6">
-      <ProductForm />
+      <CreateProductForm />
     </div>
   );
 }

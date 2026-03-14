@@ -1,8 +1,8 @@
-import { getStockStatus } from "../constants/stockStatus";
-import { formatDateTime } from "../../../utils/dateFormat";
-import { editicon, deleteicon } from "../../../icons/_index";
+import { getStockStatus } from "../../constants/stockStatus";
+import { formatDateTime } from "../../../../utils/dateFormat";
+import { editicon, deleteicon } from "../../../../icons/_index";
 
-function ProductRow({ product, onEdit, onArchive }) {
+function ActiveProductTableRow({ product, onEdit, onArchive }) {
   const stock = getStockStatus(product.quantity);
 
   return (
@@ -56,4 +56,4 @@ function ProductRow({ product, onEdit, onArchive }) {
   );
 }
 
-export default ProductRow;
+export default ActiveProductTableRow;

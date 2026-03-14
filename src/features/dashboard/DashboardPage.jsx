@@ -1,8 +1,8 @@
 import Cards from "../../components/cards/Cards";
 import Chart from "../../components/ui/Chart";
 // import Transctions from "../../components/ui/Transctions";
-import ProductMini from "..//..//features/products/components/ProductMini";
-import StockAlertMini from "..//..//features/products/components/StockAlertMini";
+import ProductMini from "./ProductMini";
+import StockAlertMini from "./StockAlertMini";
 
 function DashboardPage() {
   return (

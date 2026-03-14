@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
-import { useUpdateProductById } from "../hooks/useUpdateProductById";
-import { useDirtyPayloadForm } from "../useDirtyPayloadForm";
+import { useUpdateProductById } from "../../hooks/useUpdateProductById";
+import { useDirtyPayloadFormForProductUpdate } from "../../useDirtyPayloadFormForProductUpdate";
 import toast from "react-hot-toast";
+import { queryClient } from "../../../../app/queryClient";
 
 export default function UpdateProductModal({ isOpen, onClose, product }) {
   const updateProductMutation = useUpdateProductById();
@@ -13,15 +14,19 @@ export default function UpdateProductModal({ isOpen, onClose, product }) {
       onSuccess: async (sku) => {
         toast.success(`Product with SKU: ${sku} updated successfully`);
         onClose();
+        queryClient.invalidateQueries({
+          queryKey: ["products-with-inventory"],
+        });
       },
     });
   };
 
-  const { register, onSubmit, initialValues } = useDirtyPayloadForm({
-    product,
-    fields: ["name", "selling_price", "mrp"],
-    onPayload: handleProductUpdate,
-  });
+  const { register, onSubmit, initialValues } =
+    useDirtyPayloadFormForProductUpdate({
+      product,
+      fields: ["name", "selling_price", "mrp"],
+      onPayload: handleProductUpdate,
+    });
 
   console.log(initialValues);
   if (!isOpen) return null;

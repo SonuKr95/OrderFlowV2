@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useCreateProductWithInventory } from "../hooks/useCreateProductWithInventory";
+import { useCreateProductWithInventory } from "./useCreateProductWithInventory";
 import toast from "react-hot-toast";
 
-export function useProductForm() {
+export function useCreateProductForm() {
   const form = useForm({
     defaultValues: {
       _name: "",
