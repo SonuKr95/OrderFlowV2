@@ -67,14 +67,14 @@ export async function fetchProductCategories() {
 }
 
 //fetching product for inventory list
-export async function fetchProductsForInventoryList() {
-  const { data, error } = await supabase
-    .from("products")
-    .select("id,name,sku")
-    .is("deleted_at", null);
-  if (error) throw error;
-  return data;
-}
+// export async function fetchProductsForInventoryList() {
+//   const { data, error } = await supabase
+//     .from("products")
+//     .select("id,name,sku")
+//     .is("deleted_at", null);
+//   if (error) throw error;
+//   return data;
+// }
 
 //for testing only create product page will update later
 // export async function fetchProductList() {

@@ -1,41 +1,19 @@
 import supabase from "../../services/supabase";
-import { CREATE_INVENTORY_DEFAULT } from "./constants/createInventoryDefault";
 
-export async function createInventory({ id, quantity, sku, status }) {
-  const inventoryRecord = {
-    id,
-    sku,
-    quantity: Number(quantity) || 0,
-    lowstock_threshold: CREATE_INVENTORY_DEFAULT.DEFAULT_LOW_STOCK_THRESHOLD,
-    updated_by: CREATE_INVENTORY_DEFAULT.SYSTEM_USER,
-    status,
-  };
-
-  const { data, error } = await supabase
-    .from("inventory")
-    .insert([inventoryRecord])
-    .select()
-    .single();
+export async function fetchActiveInventory() {
+  const { data, error } = await supabase.rpc("fetch_active_inventory");
   if (error) throw error;
   return data;
 }
 
-export async function fetchInventory() {
-  const { data, error } = await supabase
-    .from("inventory")
-    .select("id, quantity, updated_at, updated_by, sku");
-  if (error) throw error;
-  return data;
-}
+// export async function fetchInventoryForProductsList() {
+//   const { data, error } = await supabase
+//     .from("inventory")
+//     .select("quantity,id");
+//   if (error) throw error;
 
-export async function fetchInventoryForProductsList() {
-  const { data, error } = await supabase
-    .from("inventory")
-    .select("quantity,id");
-  if (error) throw error;
-
-  return data;
-}
+//   return data;
+// }
 
 ///Implement Later,Need Operation on Server
 export async function updateInventoryById(payload) {

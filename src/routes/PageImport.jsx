@@ -13,7 +13,7 @@ export const ArchivedProducts = lazy(
   () => import("../features/products/pages/ArchivedProducts"),
 );
 export const InventoryPage = lazy(
-  () => import("../features/inventory/pages/InventoryListPage"),
+  () => import("../features/inventory/pages/InventoryList"),
 );
 export const OrderPage = lazy(
   () => import("../features/orders/pages/OrdersPage"),

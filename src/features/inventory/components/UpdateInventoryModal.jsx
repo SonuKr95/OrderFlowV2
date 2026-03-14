@@ -2,37 +2,56 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   STOCK_ADJUSTMENT_ACTION,
-  STOCK_ADJUSTMENT_REASON,
+  STOCK_ADJUSTMENT_REASONS_FOR_ADDITION,
+  STOCK_ADJUSTMENT_REASONS_FOR_REDUCTION,
 } from "../constants/stockAdjustment";
-import { useAdjustStock } from "../hooks/useAdjustStock";
+// import { useAdjustStock } from "../hooks/useAdjustStock";
 import { useSelector } from "react-redux";
 
-export default function EditInventoryModal({ isOpen, onClose, product }) {
+export default function UpdateInventoryModal({
+  isOpen,
+  selectedProduct,
+  setadjustStock,
+}) {
   const { userRole } = useSelector((state) => state.auth);
   const isFormDisabled = userRole === "viewer";
   const [selectedAdjustment, setSelectedAdjustment] = useState(null);
-  const adjustStockMutation = useAdjustStock();
+  const [updatedQuantity, setupdatedQuantity] = useState(null);
 
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: { adjusted_quantity: "" },
-    isFormDisabled,
-  });
+  function handleUpdatedQuantity(q) {
+    if (selectedAdjustment === STOCK_ADJUSTMENT_ACTION.ADD) {
+      return setupdatedQuantity(selectedProduct.quantity + Number(q));
+    }
+    if (selectedAdjustment === STOCK_ADJUSTMENT_ACTION.REDUCE) {
+      if (Number(q) > selectedProduct.quantity) {
+        return setupdatedQuantity(
+          "You cannot reduce quantity more than available",
+        );
+      }
+      return setupdatedQuantity(selectedProduct.quantity - Number(q));
+    }
+  }
+
+  const { register, handleSubmit, reset } = useForm({});
+
   if (!isOpen) return null;
 
   function resetselection() {
-    onClose();
+    setadjustStock(null);
     setSelectedAdjustment(null);
   }
 
-  ///willl check later
+  function payload(formData) {
+    const selectedProductId = selectedProduct.id;
 
-  function onsubmit(formdata) {
-    adjustStockMutation.mutate({
-      ...formdata,
-      adjustment_type: selectedAdjustment,
-      id: product.id,
-    });
+    // console.log(formData);
+    const payloadData = {
+      ...formData,
+      id: selectedProductId,
+    };
+    console.log(payloadData);
   }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div
@@ -41,38 +60,27 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
         }`}
       >
         <h2 className="mb-5 text-lg font-semibold text-gray-800">
-          {`Adjust Stock for ${product.name}`}
+          {`Adjust Stock for ${selectedProduct.product_name}`}
         </h2>
 
         <div className="grid grid-cols-2 gap-4">
-          {/* Name */}
-          <div className="col-span-2">
-            <label className="text-sm text-gray-600">Product Name</label>
-            <input
-              name="name"
-              disabled
-              value={product.name}
-              className="mt-1 w-full rounded-lg border bg-white p-2 text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500"
-            />
-          </div>
-
           {/* SKU */}
           <div className="col-span-2">
             <label className="text-sm text-gray-600">SKU</label>
             <input
               name="sku"
               disabled
-              value={product.sku}
+              value={selectedProduct.product_sku}
               className="mt-1 w-full rounded-lg border bg-white p-2 text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500"
             />
           </div>
 
           {/* Quantity */}
           <div className="col-span-2">
-            <label className="text-sm text-gray-600">Quantity</label>
+            <label className="text-sm text-gray-600">Quantity Available</label>
             <input
               // name="quantity"
-              value={product.quantity}
+              value={selectedProduct.quantity}
               disabled
               className="mt-1 w-full rounded-lg border bg-white p-2 text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500"
             />
@@ -85,7 +93,10 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
             </label>
             <select
               disabled={isFormDisabled}
+              {...register("adjustment_type")}
               onChange={(e) => {
+                reset();
+                setupdatedQuantity(null);
                 setSelectedAdjustment(e.target.value);
               }}
               className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
@@ -109,10 +120,16 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
               </label>
               <input
                 disabled={isFormDisabled}
-                name="adjust_quantity"
+                name="adjust_quantity_by"
                 {...register("adjusted_quantity")}
+                onChange={(e) => handleUpdatedQuantity(e.target.value)}
                 className="mt-1 w-full rounded-lg border bg-white p-2 text-gray-900"
               />
+              <div className="mt-3">
+                <span className="text-sm text-gray-600">
+                  Updated Quantity:{updatedQuantity}
+                </span>
+              </div>
             </div>
           ) : null}
 
@@ -128,11 +145,17 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
               <option selected disabled>
                 Select Adjustment Reason
               </option>
-              {STOCK_ADJUSTMENT_REASON.map((Reason) => (
-                <option key={Reason} value={Reason}>
-                  {Reason}
-                </option>
-              ))}
+              {selectedAdjustment === "ADD"
+                ? STOCK_ADJUSTMENT_REASONS_FOR_ADDITION.map((reason) => (
+                    <option key={reason} value={reason}>
+                      {reason}
+                    </option>
+                  ))
+                : STOCK_ADJUSTMENT_REASONS_FOR_REDUCTION.map((reason) => (
+                    <option key={reason} value={reason}>
+                      {reason}
+                    </option>
+                  ))}
             </select>
           </div>
 
@@ -165,7 +188,7 @@ export default function EditInventoryModal({ isOpen, onClose, product }) {
           </button>
 
           <button
-            onClick={handleSubmit(onsubmit)}
+            onClick={handleSubmit(payload)}
             className={`rounded-lg bg-blue-600 px-4 py-2 text-sm text-white ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}
             disabled={isFormDisabled}
           >
