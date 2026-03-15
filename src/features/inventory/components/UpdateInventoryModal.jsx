@@ -7,6 +7,9 @@ import {
 } from "../constants/stockAdjustment";
 // import { useAdjustStock } from "../hooks/useAdjustStock";
 import { useSelector } from "react-redux";
+import { useUpdateInventory } from "../hooks/useUpdateInventory";
+import toast from "react-hot-toast";
+import { queryClient } from "../../../app/queryClient";
 
 export default function UpdateInventoryModal({
   isOpen,
@@ -17,6 +20,18 @@ export default function UpdateInventoryModal({
   const isFormDisabled = userRole === "viewer";
   const [selectedAdjustment, setSelectedAdjustment] = useState(null);
   const [updatedQuantity, setupdatedQuantity] = useState(null);
+  const updateInventoryMutation = useUpdateInventory();
+  const handleInventoryUpdate = (payload) => {
+    updateInventoryMutation.mutate(payload, {
+      onSuccess: async (message) => {
+        toast.success(message);
+        resetselection();
+        queryClient.invalidateQueries({
+          queryKey: ["fetch-active-inventory"],
+        });
+      },
+    });
+  };
 
   function handleUpdatedQuantity(q) {
     if (selectedAdjustment === STOCK_ADJUSTMENT_ACTION.ADD) {
@@ -37,20 +52,27 @@ export default function UpdateInventoryModal({
   if (!isOpen) return null;
 
   function resetselection() {
-    setadjustStock(null);
+    reset();
+    setupdatedQuantity(null);
     setSelectedAdjustment(null);
+    setadjustStock(null);
   }
 
   function payload(formData) {
+    const { _quantity, _type, _reason } = formData;
+    // console.log(_quantity);
     const selectedProductId = selectedProduct.id;
-
-    // console.log(formData);
     const payloadData = {
-      ...formData,
+      _quantity: Number(_quantity),
+      _reason: _reason,
+      _type: _type,
       id: selectedProductId,
     };
-    console.log(payloadData);
+
+    handleInventoryUpdate(payloadData);
   }
+
+  const { onChange, ...rest } = register("_type");
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
@@ -88,20 +110,22 @@ export default function UpdateInventoryModal({
 
           {/* Status */}
           <div className="col-span-2">
-            <label className="text-sm text-gray-600">
-              Select Adjustment Type
-            </label>
+            <label className="text-sm text-gray-600">Adjustment Type</label>
             <select
               disabled={isFormDisabled}
-              {...register("adjustment_type")}
+              value={selectedAdjustment ?? ""}
+              name="_type"
+              {...rest}
+              // {...register("_type")}
               onChange={(e) => {
-                reset();
+                onChange(e);
+                reset({ _quantity: "" });
                 setupdatedQuantity(null);
                 setSelectedAdjustment(e.target.value);
               }}
               className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
             >
-              <option selected disabled>
+              <option value="" disabled>
                 Select Adjustment Type
               </option>
               <option value={STOCK_ADJUSTMENT_ACTION.ADD}>Add Stock</option>
@@ -116,18 +140,18 @@ export default function UpdateInventoryModal({
             <div className="col-span-2">
               <label className="text-sm text-gray-600">
                 {selectedAdjustment === "ADD" && "Add"}{" "}
-                {selectedAdjustment === "REDUCE" && "Reduce"} Quantity By:
+                {selectedAdjustment === "REDUCE" && "Reduce"} Quantity:
               </label>
               <input
                 disabled={isFormDisabled}
-                name="adjust_quantity_by"
-                {...register("adjusted_quantity")}
+                name="_quantity"
+                {...register("_quantity")}
                 onChange={(e) => handleUpdatedQuantity(e.target.value)}
                 className="mt-1 w-full rounded-lg border bg-white p-2 text-gray-900"
               />
               <div className="mt-3">
                 <span className="text-sm text-gray-600">
-                  Updated Quantity:{updatedQuantity}
+                  Updated Quantity: {updatedQuantity}
                 </span>
               </div>
             </div>
@@ -139,10 +163,12 @@ export default function UpdateInventoryModal({
               Select Adjustment Reason
             </label>
             <select
+              {...register("_reason")}
+              value={selectedAdjustment ?? ""}
               className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
               disabled={isFormDisabled}
             >
-              <option selected disabled>
+              <option value="" disabled>
                 Select Adjustment Reason
               </option>
               {selectedAdjustment === "ADD"
