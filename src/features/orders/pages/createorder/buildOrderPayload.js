@@ -1,14 +1,14 @@
 export function buildOrderPayload(orderObject) {
-  const { customerId, cartProducts, paymentMethodSelected } = orderObject;
+  const { products, customer_id, payment_method } = orderObject;
   console.log(orderObject);
-  const sanitizedProducts = cartProducts.map(({ id, quantityCount }) => ({
+  const sanitizedProducts = products?.map(({ id, quantityCount }) => ({
     product_id: id,
     qty: quantityCount,
   }));
 
   return {
-    customerId,
-    paymentMethodSelected,
+    customer_id,
+    payment_method,
     sanitizedProducts,
   };
 }

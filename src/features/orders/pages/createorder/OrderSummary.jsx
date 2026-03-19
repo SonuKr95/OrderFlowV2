@@ -51,10 +51,10 @@ export function OrderSummary() {
         {/* <span>Shipping</span> */}
         {/* <span>{products.length === 0 ? null : shipping.toFixed(2)}</span> */}
       </div>
-      <div className="flex gap-5">
+      {/* <div className="flex gap-5">
         <span> Total Payable</span>
-        {/* <span>{products.length === 0 ? null : totalPayable.toFixed(2)}</span> */}
-      </div>
+        <span>{products.length === 0 ? null : totalPayable.toFixed(2)}</span>
+      </div> */}
     </>
   );
 }

@@ -5,9 +5,9 @@ import { useState } from "react";
 import CustomerModal from "../../../customers/components/CustomerModal";
 import { OrderItemTable } from "./OrderItemTable";
 import { OrderSummary } from "./OrderSummary";
-import { createOrderNew } from "../../hooks/createOrderNew";
+// import { createOrderNew } from "../../hooks/createOrderNew";
 import ProductSearchModal from "./ProductSearchModal";
-import { useFetchActiveProductList } from "../../../products/hooks/useFetchActiveProductList";
+// import { useFetchActiveProductList } from "../../../products/hooks/useFetchActiveProductList";
 import {
   // selectCart,
   selectCartProducts,
@@ -23,11 +23,12 @@ import toast from "react-hot-toast";
 // import { selectCart } from "../../../../store/selectors/cartSelectors";
 import { PaymentMethod } from "./PaymentMethod";
 import { Navigate, useNavigate } from "react-router-dom";
-import { useOrderItems } from "../../hooks/useOrderItems";
+// import { useOrderItems } from "../../hooks/useOrderItems";
+import { useCreateOrder } from "../../hooks/useCreateOrder";
 
 function CreateOrder() {
   const navigate = useNavigate();
-  const { data: products = [] } = useFetchActiveProductList();
+  // const { data: products = [] } = useFetchActiveProductList();
 
   const customerId = useSelector((state) => state.cart.customerId);
   const [customerModal, setCustomerModal] = useState(true);
@@ -47,11 +48,12 @@ function CreateOrder() {
   const { userRole } = useSelector((state) => state.auth);
   const isViewer = userRole === "viewer";
   const orderObject = {
-    cartProducts,
-    customerId,
-    paymentMethodSelected,
+    products: cartProducts,
+    customer_id: customerId,
+    payment_method: paymentMethodSelected,
   };
-  // const customerId = useSelector((state) => state.cart.customerId);
+
+  const createOrder = useCreateOrder();
   const customerName = useSelector((state) => state.customer.customerName);
   const customerPhoneNumber = useSelector(
     (state) => state.customer.cutomerPhoneNumber,
@@ -67,16 +69,11 @@ function CreateOrder() {
       return;
     }
 
-    console.log(cartProducts);
+    // console.log(cartProducts);
 
     // console.log(orderObject);
     const orderData = buildOrderPayload(orderObject);
-    const { sanitizedProducts } = orderData;
-    createOrderNew(sanitizedProducts);
-    // console.log(orderData);
-    // const { products } = buildOrderPayload(orderObject);
-    // console.log(payload);
-    // console.log(products);
+    createOrder.mutate(orderData);
 
     /*
     createOrderMutation.mutate(orderData, {

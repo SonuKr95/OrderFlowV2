@@ -36,17 +36,6 @@ export async function getOrderItemsByOrderId(orderId) {
   return data;
 }
 
-export async function createOrder(orderObj) {
-  const { data, error } = await supabase
-    .from("orders")
-    .insert([orderObj])
-    .select()
-    .single();
-  if (error) throw new Error(error.message);
-  console.log(data);
-  return data;
-}
-
 export async function createOrderItem(orderObj) {
   const { data, error } = await supabase
     .from("order_items")
@@ -75,7 +64,10 @@ export async function getOrderStatusHistoryByOrderId(orderId) {
   return order_status_history;
 }
 
-// let { data: order_items, error } = await supabase
-//   .from("order_items")
-//   .select("*")
-//   .eq("order_id", OrderId);
+export async function createOrder(payload) {
+  const { data, error } = await supabase.rpc("create_order", {
+    payload: payload,
+  });
+  if (error) throw error;
+  return data;
+}

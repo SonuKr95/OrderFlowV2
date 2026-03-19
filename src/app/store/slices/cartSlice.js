@@ -15,6 +15,8 @@ const initialState = {
   customerId: null,
   products: [],
   paymentMethod: null,
+
+  ///make tax_rate calculation on product wise , based on cart tax will be not calculated only for demo
   taxRate: 18,
 };
 const cartSlice = createSlice({
