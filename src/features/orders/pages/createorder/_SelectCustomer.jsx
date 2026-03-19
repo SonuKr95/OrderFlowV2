@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetCustomers } from "../../../customers/hooks/useGetCustomers";
+import { useGetCustomers } from "../../../customers/hooks/useFecthCustomers";
 import { useCreateCustomer } from "../../../customers/hooks/useCreateCustomer";
 import { setCustomer } from "../../../../app/store/slices/_cartSliceold";
 import { useForm } from "react-hook-form";

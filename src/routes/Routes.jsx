@@ -9,7 +9,7 @@ import {
   InventoryPage,
   OrderPage,
   OrderDetailsPage,
-  CreateOrderPage,
+  CreateOrder,
 } from "./PageImport";
 
 //mount error 404 just like in public route page in future
@@ -48,7 +48,7 @@ export const Routes = [
         children: [
           {
             path: "dev",
-            children: [{ index: true, element: <CreateOrderPage /> }],
+            children: [{ index: true, element: <CreateOrder /> }],
           },
         ],
       },

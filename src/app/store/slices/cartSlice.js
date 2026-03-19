@@ -15,12 +15,13 @@ const initialState = {
   customerId: null,
   products: [],
   paymentMethod: null,
+  taxRate: 18,
 };
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setCustomer(state, action) {
+    setCustomerId(state, action) {
       state.customerId = action.payload;
     },
     addProduct(state, action) {
@@ -91,7 +92,7 @@ const cartSlice = createSlice({
 });
 
 export const {
-  setCustomer,
+  setCustomerId,
   addProduct,
   decreaseQuantity,
   increaseQuantity,

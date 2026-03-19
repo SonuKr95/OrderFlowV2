@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 import {
   selectCartProducts,
   selectSubtotal,
-  // selectTax,
+  selectTax,
+  selectItemTotal,
   // selectTotalPayable,
 } from "../../../../app/store/selectors/cartSelectors";
 
@@ -18,7 +19,9 @@ import {
 export function OrderSummary() {
   // const shipping = useSelector((state) => state.cart.shipping);
   const subTotal = useSelector(selectSubtotal);
-  // const tax = useSelector(selectTax);
+  const tax = useSelector(selectTax);
+  const ItemTotal = useSelector(selectItemTotal);
+  console.log(tax);
   // const totalPayable = useSelector(selectTotalPayable);
   const products = useSelector(selectCartProducts);
   // console.log(total);
@@ -32,15 +35,20 @@ export function OrderSummary() {
   return (
     <>
       <div className="flex gap-5">
+        <span>Item Total:</span>
+
+        <span>{products.length === 0 ? null : ItemTotal.toFixed(2)}</span>
+      </div>
+      <div className="flex gap-5">
+        <span>Tax : </span>
+        <span>{products.length === 0 ? null : tax.toFixed(2)}</span>
+      </div>
+      <div className="flex gap-5">
         <span>Subtotal</span>
         <span>{products.length === 0 ? null : subTotal.toFixed(2)}</span>
       </div>
       <div className="flex gap-5">
-        <span>Tax</span>
-        {/* <span>{products.length === 0 ? null : tax.toFixed(2)}</span> */}
-      </div>
-      <div className="flex gap-5">
-        <span>Shipping</span>
+        {/* <span>Shipping</span> */}
         {/* <span>{products.length === 0 ? null : shipping.toFixed(2)}</span> */}
       </div>
       <div className="flex gap-5">

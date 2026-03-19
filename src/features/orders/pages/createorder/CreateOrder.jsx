@@ -1,8 +1,13 @@
-import { SelectProduct } from "./SelectProduct";
-import { SelectCustomer } from "./SelectCustomer";
+import { SelectProduct } from "./_SelectProduct";
+import { useState } from "react";
+// import { SelectCustomer } from "./SelectCustomer";
+// import { CustomerModal } from "../../../customers/components/CustomerModal";
+import CustomerModal from "../../../customers/components/CustomerModal";
 import { OrderItemTable } from "./OrderItemTable";
 import { OrderSummary } from "./OrderSummary";
 import { createOrderNew } from "../../hooks/createOrderNew";
+import ProductSearchModal from "./ProductSearchModal";
+import { useFetchActiveProductList } from "../../../products/hooks/useFetchActiveProductList";
 import {
   // selectCart,
   selectCartProducts,
@@ -12,7 +17,7 @@ import {
 } from "../../../../app/store/selectors/cartSelectors";
 import { useSelector } from "react-redux";
 // import { useForm } from "react-hook-form";
-import { useCreateOrder } from "../../hooks/_useCreateOrderold";
+// import { useCreateOrder } from "../../hooks/_useCreateOrderold";
 import { buildOrderPayload } from "./buildOrderPayload";
 import toast from "react-hot-toast";
 // import { selectCart } from "../../../../store/selectors/cartSelectors";
@@ -20,14 +25,18 @@ import { PaymentMethod } from "./PaymentMethod";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useOrderItems } from "../../hooks/useOrderItems";
 
-function CreateOrderPage() {
+function CreateOrder() {
   const navigate = useNavigate();
+  const { data: products = [] } = useFetchActiveProductList();
+
   const customerId = useSelector((state) => state.cart.customerId);
+  const [customerModal, setCustomerModal] = useState(true);
+  const [productModal, setProductModal] = useState(null);
   const paymentMethodSelected = useSelector(
     (state) => state.cart.paymentMethod,
   );
   const product = useSelector(selectCartProducts).length;
-  const createOrderMutation = useCreateOrder();
+  // const createOrderMutation = useCreateOrder();
   const shipping = useSelector((state) => state.cart.shipping);
   const subTotal = useSelector(selectSubtotal);
   // const tax = useSelector(selectTax);
@@ -42,6 +51,11 @@ function CreateOrderPage() {
     customerId,
     paymentMethodSelected,
   };
+  // const customerId = useSelector((state) => state.cart.customerId);
+  const customerName = useSelector((state) => state.customer.customerName);
+  const customerPhoneNumber = useSelector(
+    (state) => state.customer.cutomerPhoneNumber,
+  );
 
   function handleCreateOrder() {
     if (!customerId) {
@@ -100,8 +114,29 @@ function CreateOrderPage() {
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="grid grid-cols-1 gap-6 lg:col-span-2 lg:grid-cols-2">
-        <SelectCustomer />
-        <SelectProduct />
+        <button onClick={() => setProductModal(true)} className="bg-amber-200">
+          Add Products
+        </button>
+        <ProductSearchModal
+          productModal={productModal}
+          setProductModal={setProductModal}
+        />
+        {/* <SelectProduct /> */}
+        <CustomerModal
+          customerModal={customerModal}
+          setCustomerModal={setCustomerModal}
+          setProductModal={setProductModal}
+        />
+        {/* <SelectCustomer /> */}
+
+        {customerId !== "guest" ? (
+          <div>
+            <p>Customer Name:{customerName} </p>
+            <p>Customer Phone Number:{customerPhoneNumber} </p>
+          </div>
+        ) : (
+          "Guest Checkout"
+        )}
       </div>
 
       <div className="lg:col-span-2">
@@ -124,4 +159,4 @@ function CreateOrderPage() {
   );
 }
 
-export default CreateOrderPage;
+export default CreateOrder;

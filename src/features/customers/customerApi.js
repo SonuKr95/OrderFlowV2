@@ -1,21 +1,17 @@
 import supabase from "../../services/supabase";
 
-export async function getCustomers() {
+export async function fecthCustomers() {
   const { data, error } = await supabase
     .from("customers")
-    .select("name,phone_number,id,address");
+    .select("name,phone_number,id");
   if (error) throw error;
   return data;
 }
-export async function createCustomer(payload) {
-  // console.log(payload);
-  const { data, error } = await supabase
-    .from("customers")
-    .insert([payload])
-    .select()
-    .single();
 
+export async function createCustomer(payload) {
+  const { data, error } = await supabase.rpc("create_customer", {
+    payload: payload,
+  });
   if (error) throw error;
-  // console.log(data);
   return data;
 }

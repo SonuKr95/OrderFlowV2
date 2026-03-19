@@ -66,22 +66,10 @@ export async function fetchProductCategories() {
   return data;
 }
 
-//fetching product for inventory list
-// export async function fetchProductsForInventoryList() {
-//   const { data, error } = await supabase
-//     .from("products")
-//     .select("id,name,sku")
-//     .is("deleted_at", null);
-//   if (error) throw error;
-//   return data;
-// }
-
-//for testing only create product page will update later
-// export async function fetchProductList() {
-//   const { data, error } = await supabase.from("products").select("id,name");
-//   if (error) throw error;
-//   console.log(data);
-//   return data;
-// }
-
-//modification
+export async function searchProducts(search_term) {
+  const { data, error } = await supabase.rpc("search_products", {
+    search_term,
+  });
+  if (error) throw error;
+  return data;
+}

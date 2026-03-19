@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCustomers } from "../customerApi";
+import { fecthCustomers } from "../customerApi";
 
-export function useGetCustomers() {
+export function useFecthCustomers() {
   return useQuery({
     queryKey: ["customers"],
-    queryFn: getCustomers,
+    queryFn: fecthCustomers,
     // staleTime: 1000 * 60 * 5,
   });
 }

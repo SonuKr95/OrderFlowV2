@@ -44,11 +44,12 @@
 
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useProductsWithInventory } from "../../../products/hooks/useProductsWithInventory";
+import { useFetchActiveProductList } from "../../../products/hooks/useFetchActiveProductList";
 import { addProduct } from "../../../../app/store/slices/_cartSliceold";
 
 export function SelectProduct() {
-  const { data: products = [] } = useProductsWithInventory();
+  const { data: products = [] } = useFetchActiveProductList();
+  console.log(products);
   const dispatch = useDispatch();
 
   const cartProducts = useSelector((state) => state.cart.products);
@@ -88,7 +89,7 @@ export function SelectProduct() {
 
         {products.map((product) => (
           <option key={product.id} value={product.id}>
-            {product.name} — Stock: {product.quantity}
+            {product.name}
           </option>
         ))}
       </select>
