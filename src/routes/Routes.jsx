@@ -10,6 +10,7 @@ import {
   OrderPage,
   OrderDetailsPage,
   CreateOrder,
+  CustomerPage,
 } from "./PageImport";
 
 //mount error 404 just like in public route page in future
@@ -31,6 +32,8 @@ export const Routes = [
           { path: "inventory", element: <InventoryPage /> },
           { path: "productlist", element: <ProductList /> },
           { path: "addproduct", element: <AddProduct /> },
+          { path: "customer", element: <CustomerPage /> },
+
           { path: "product/archived", element: <ArchivedProducts /> },
           {
             path: "orders",

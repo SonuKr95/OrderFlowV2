@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
+import { formatDateTime } from "../../../utils/dateFormat";
 
 export function OrdersItem({ order }) {
-  const { order_id, customer_name, status, total_amount, created_at } = order;
-  console.log(order);
+  const { id, order_number, customer_name, status, total_amount, created_at } =
+    order;
+  // console.log(order);
 
   return (
     <>
       <tr className="hover:bg-gray-50">
         <td className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">
-          <Link to={`/orders/${order_id}`} className="hover:cursor-pointer">
-            {order_id ?? null}
+          {/* this will load the order details page when clicking, as route path matches */}
+          <Link to={`/orders/${id}`} className="hover:cursor-pointer">
+            {order_number ?? null}
           </Link>
         </td>
 
@@ -22,9 +25,9 @@ export function OrdersItem({ order }) {
         <td className="px-4 py-2 whitespace-nowrap text-gray-700">
           {total_amount ?? null}
         </td>
-        {/* <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-          {formatDateTime(product.updated_at) ?? null}
-        </td> */}
+        <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+          {formatDateTime(created_at) ?? null}
+        </td>
 
         {/* <td className="px-4 py-2 whitespace-nowrap">
           <span className="rounded bg-green-100 px-2 py-1 text-xs font-medium text-green-700">

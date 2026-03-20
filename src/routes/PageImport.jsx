@@ -21,6 +21,10 @@ export const OrderPage = lazy(
 export const OrderDetailsPage = lazy(
   () => import("../features/orders/pages/OrderDetailsPage"),
 );
+export const CustomerPage = lazy(
+  () => import("../features/customers/pages/CustomerList"),
+);
+
 export const CreateOrder = lazy(
   () => import("../features/orders/pages/createorder/CreateOrder"),
 );

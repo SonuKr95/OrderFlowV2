@@ -1,22 +1,31 @@
 import supabase from "../../services/supabase";
-
-export async function getOrders() {
-  const { data: orders, error } = await supabase.from("orders").select("*");
-  if (error) throw new Error(error.message);
-  return orders;
+export async function createOrder(payload) {
+  const { data, error } = await supabase.rpc("create_order", {
+    payload: payload,
+  });
+  if (error) throw error;
+  return data;
 }
 
-export async function getOrderAmountByOrderId(orderId) {
-  const { data: orders, error } = await supabase
+export async function fetchOrderList() {
+  const { data, error } = await supabase
     .from("orders")
-    .select("subtotal,tax,shipping_cost,total_amount, status")
-    .eq("order_id", orderId);
-  if (error) throw new Error(error.message);
-  return orders;
+    .select("id,order_number, customer_name, status,total_amount,created_at");
+  if (error) throw error;
+  return data;
 }
+
+export async function fetchOrderDetailsByOrderId(orderId) {
+  const { data, error } = await supabase.rpc("fetch_order_by_id", {
+    p_order_id: orderId,
+  });
+  if (error) throw error;
+  return data;
+}
+
 export async function updateOrderStatus({ orderId, statusSelected }) {
-  console.log(orderId);
-  console.log(statusSelected);
+  // console.log(orderId);
+  // console.log(statusSelected);
   const { data, error } = await supabase
     .from("orders")
     .update({ status: statusSelected })
@@ -24,24 +33,6 @@ export async function updateOrderStatus({ orderId, statusSelected }) {
     .select();
   if (error) throw new Error(error.message);
   console.log(data);
-  return data;
-}
-
-export async function getOrderItemsByOrderId(orderId) {
-  const { data, error } = await supabase
-    .from("order_items")
-    .select("*")
-    .eq("order_id", orderId);
-  if (error) throw new Error(error.message);
-  return data;
-}
-
-export async function createOrderItem(orderObj) {
-  const { data, error } = await supabase
-    .from("order_items")
-    .insert(orderObj)
-    .select();
-  if (error) throw new Error(error.message);
   return data;
 }
 
@@ -56,18 +47,10 @@ export async function createOrderStatusHistory(payload) {
 }
 
 export async function getOrderStatusHistoryByOrderId(orderId) {
-  const { data: order_status_history, error } = await supabase
+  const { data, error } = await supabase
     .from("order_status_history")
     .select("*")
     .eq("order_id", orderId);
   if (error) throw new Error(error.message);
-  return order_status_history;
-}
-
-export async function createOrder(payload) {
-  const { data, error } = await supabase.rpc("create_order", {
-    payload: payload,
-  });
-  if (error) throw error;
   return data;
 }

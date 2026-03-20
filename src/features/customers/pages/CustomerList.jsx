@@ -1,4 +1,6 @@
 // import use from "./OrdersListItem";
+import { CustomerRow } from "../components/CustomerRow";
+import { useFecthCustomers } from "../hooks/useFecthCustomers";
 
 const colStartClasses = {
   1: "col-start-1",
@@ -31,14 +33,16 @@ const rowEndClasses = {
 // }
 // import useOrders from "../ordersApi";
 
-import { useFetchOrderList } from "../hooks/useFetchOrderList";
-import { OrdersItem } from "./OrdersItem";
+// import { useFetchOrderList } from "../hooks/useFetchOrderList";
+// import { OrdersItem } from "./OrdersItem";
 
 // src\features\orders\hooks\useOrders.js
 
-function OrdersList({ children, colStart, colEnd, rowStart, rowEnd }) {
-  const { data: orders = [] } = useFetchOrderList();
-  console.log(orders);
+function CustomerList({ children, colStart, colEnd, rowStart, rowEnd }) {
+  const { data: customers = [], isLoading } = useFecthCustomers();
+  // console.log(orders);
+  if (isLoading) return <div>Fetching customer</div>;
+  console.log(customers);
 
   return (
     <div
@@ -47,23 +51,18 @@ function OrdersList({ children, colStart, colEnd, rowStart, rowEnd }) {
       <table className="min-w-full table-fixed divide-y divide-gray-200 bg-white text-sm">
         <thead className="bg-gray-50 text-left">
           <tr className="w-full rounded-lg bg-[#EAF8E7]">
-            <th className="px-4 py-2 font-medium text-gray-900">
-              Order Number
-            </th>
-            <th className="px-4 py-2 font-medium text-gray-900">
-              Customer Name
-            </th>
-            <th className="px-4 py-2 font-medium text-gray-900">Status</th>
-            <th className="px-4 py-2 font-medium text-gray-900">
-              Total Amount
-            </th>
-            <th className="px-4 py-2 font-medium text-gray-900">Created At</th>
+            <th className="px-4 py-2 font-medium text-gray-900">Name</th>
+            <th className="px-4 py-2 font-medium text-gray-900">Number</th>
+            <th className="px-4 py-2 font-medium text-gray-900">Address</th>
+
+            <th className="px-4 py-2 font-medium text-gray-900">Created On</th>
           </tr>
         </thead>
 
         <tbody className="divide-y divide-gray-100">
-          {orders?.map((order) => (
-            <OrdersItem order={order} />
+          <CustomerRow />
+          {customers?.map((c) => (
+            <CustomerRow key={c.id} customer={c} />
           ))}
         </tbody>
       </table>
@@ -71,4 +70,4 @@ function OrdersList({ children, colStart, colEnd, rowStart, rowEnd }) {
   );
 }
 
-export default OrdersList;
+export default CustomerList;

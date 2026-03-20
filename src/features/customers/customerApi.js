@@ -3,7 +3,7 @@ import supabase from "../../services/supabase";
 export async function fecthCustomers() {
   const { data, error } = await supabase
     .from("customers")
-    .select("name,phone_number,id");
+    .select("name,phone_number,address,id,created_at");
   if (error) throw error;
   return data;
 }

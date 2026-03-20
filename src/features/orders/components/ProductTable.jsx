@@ -1,18 +1,15 @@
-// import { useOrderDetails } from "../hooks/useOrderDetails";
-import { useOrderItems } from "../hooks/useOrderItems";
-import { useParams } from "react-router-dom";
-export function ProductTable() {
-  const { orderId } = useParams();
-  console.log(orderId);
-  const { data, isLoading, error } = useOrderItems(orderId);
+// import { useFetchOrderItemsByOrderId } from "../hooks/useFetchOrderItemsByOrderId";
+// import { useParams } from "react-router-dom";
+export function ProductTable({ orderDetails }) {
+  const { items = [] } = orderDetails;
+  // const {
+  //   data: orderItems = [],
+  //   isLoading,
+  //   error,
+  // } = useFetchOrderItemsByOrderId(orderId);
 
-  if (isLoading) return <p>Loading order items...</p>;
-  if (error) return <p>Failed to load items</p>;
-  console.log(data);
-
-  const orderItems = data.orderItems;
-
-  console.log(orderItems);
+  // if (isLoading) return <p>Loading order items...</p>;
+  // if (error) return <p>Failed to load items</p>;
 
   return (
     <table className="min-w-full table-fixed divide-y divide-gray-200 bg-white text-sm">
@@ -32,7 +29,7 @@ export function ProductTable() {
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-100">
-        {orderItems?.map(({ product_name, quantity, price_at_purchase }) => (
+        {items?.map(({ product_name, quantity, unit_price, subtotal }) => (
           <tr className="hover:bg-gray-50">
             <td className="px-4 py-2 font-medium whitespace-nowrap text-gray-900">
               {product_name ?? null}
@@ -42,10 +39,10 @@ export function ProductTable() {
               {quantity ?? "null"}
             </td>
             <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-              {price_at_purchase ?? null}
+              {unit_price ?? null}
             </td>
             <td className="text-right whitespace-nowrap text-gray-700">
-              {price_at_purchase * quantity}
+              {subtotal ?? null}
             </td>
           </tr>
         ))}
