@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../../../app/store/slices/cartSlice";
-import { useDebounce } from "../../../../hooks/useDebounce,js";
+import { useDebounce } from "../../../../hooks/useDebounce.js";
 import { useSearchProducts } from "../../../products/hooks/useSearchProducts";
 // import { searchProducts } from "../../../products/productApi";
 

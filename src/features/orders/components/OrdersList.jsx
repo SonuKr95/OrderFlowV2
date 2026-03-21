@@ -46,22 +46,17 @@ function OrdersList({ children, colStart, colEnd, rowStart, rowEnd }) {
     >
       <table className="min-w-full table-fixed divide-y divide-gray-200 bg-white text-sm">
         <thead className="bg-gray-50 text-left">
-          <tr className="w-full rounded-lg bg-[#EAF8E7]">
-            <th className="px-4 py-2 font-medium text-gray-900">
-              Order Number
-            </th>
-            <th className="px-4 py-2 font-medium text-gray-900">
-              Customer Name
-            </th>
-            <th className="px-4 py-2 font-medium text-gray-900">Status</th>
-            <th className="px-4 py-2 font-medium text-gray-900">
-              Total Amount
-            </th>
-            <th className="px-4 py-2 font-medium text-gray-900">Created At</th>
+          {/* className="bg-blue-800 px-4 py-2 text-white" */}
+          <tr className="text-sa w-full rounded-lg bg-blue-800 px-4 py-2 font-sans text-white">
+            <th className="px-4 py-2 font-medium">Order Number</th>
+            <th className="px-4 py-2 font-medium">Customer Name</th>
+            <th className="px-4 py-2 font-medium">Status</th>
+            <th className="px-4 py-2 font-medium">Total Amount</th>
+            <th className="px-4 py-2 font-medium">Created At</th>
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-gray-100">
+        <tbody className="divide-y divide-gray-100 font-sans">
           {orders?.map((order) => (
             <OrdersItem order={order} />
           ))}

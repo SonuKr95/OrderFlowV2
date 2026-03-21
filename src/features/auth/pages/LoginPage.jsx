@@ -17,7 +17,7 @@ function LoginPage() {
     <div className="font-lato bg-crest flex min-h-screen items-center justify-center">
       <div className="">
         <h2 className="text-primary-brand-ocean-green mb-4 text-6xl font-bold uppercase">
-          System Admin
+          Order Flow
         </h2>
         {/* <h1 className="text-secondary-brand-cyprus mb-5 text-4xl font-bold">
           Sign in

@@ -2,15 +2,73 @@
 @import "tailwindcss";
 
 @theme {
-  --font-lato: "Lato", sans-serif;
-  --color-primary-brand-ocean-green: #4ea674;
-  --color-secondary-brand-cyprus: #023337;
-  --color-secondary-brand-surf-crest: #c1e6ba;
-  --color-accent: #eaf8e7;
-  --color-primary: #6467f2;
-  --color-success: #21c45d;
-  --color-pending: #f0d411;
-  --color-error: #ef4343;
-  --color-subtle: #7c7c7c;
-  --color-accent: #eaf8e7;
+  /* 🎯 Surfaces */
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-border: #334155;
+
+  /* 📝 Text colors */
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  /* 🎨 Brand */
+  --color-primary: #6366f1;
+  --color-primary-hover: #4f46e5;
+
+  /* 🚦 Status */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+
+  /* 🔤 Fonts */
+  --font-sans: Inter, sans-serif;
+  --font-mono: JetBrains Mono, monospace;
+
+  /* 📏 Font sizes (clean scale) */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+
+  /* 📏 Line heights */
+  --leading-xs: 16px;
+  --leading-sm: 20px;
+  --leading-base: 24px;
+  --leading-lg: 26px;
+  --leading-xl: 28px;
+  --leading-2xl: 32px;
+
+  /* 🔠 Font weight */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* 📦 Spacing (8px system) */
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+
+  /* 🔲 Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  /* 🌫️ Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.4);
+
+  /* ⚡ Motion */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }

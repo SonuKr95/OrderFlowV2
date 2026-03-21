@@ -1,4 +1,3 @@
-import { SelectProduct } from "./_SelectProduct";
 import { useState } from "react";
 // import { SelectCustomer } from "./SelectCustomer";
 // import { CustomerModal } from "../../../customers/components/CustomerModal";

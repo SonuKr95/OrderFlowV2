@@ -34,7 +34,7 @@ function CreateProductForm() {
         <button
           disabled={isViewer}
           onClick={handleSubmit(onSubmit)}
-          className="mt-6 w-full rounded-lg bg-green-600 py-2.5 text-white"
+          className="mt-6 w-full rounded-lg bg-blue-700 py-2.5 text-white hover:cursor-pointer"
         >
           Publish Product
         </button>

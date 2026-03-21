@@ -6,7 +6,7 @@ import PageLoader from "./PageLoader";
 
 function AppLayout() {
   return (
-    <div className="grid grid-cols-[300px_minmax(900px,_1fr)] grid-rows-[100px_minmax(900px,_1fr)]">
+    <div className="bg-background grid grid-cols-[300px_minmax(900px,_1fr)] grid-rows-[100px_minmax(900px,_1fr)]">
       <aside className="row-span-2">
         <Sidebar />
       </aside>

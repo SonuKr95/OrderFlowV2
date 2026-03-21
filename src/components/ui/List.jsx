@@ -23,21 +23,22 @@ const rowEndClasses = {
   3: "row-end-3",
   4: "row-end-4",
 };
+//  bg-black px-4 py-2 text-white
 
 function List({ columns, children, colStart, colEnd, rowStart, rowEnd }) {
-  // console.log(children);
   if (!Array.isArray(columns)) return null;
   return (
     <div
       className={`${colStartClasses[colStart]} ?? '' ${colEndClasses[colEnd]} ?? '' ${rowStartClasses[rowStart]} ?? '' ${rowEndClasses[rowEnd]} ?? '' rounded-lg border border-gray-200 bg-white`}
     >
       <table className="min-w-full text-sm">
-        <thead className="bg-[#EAF8E7]">
+        {/* <thead className="bg-[#EAF8E7]"> */}
+        <thead className="bg-blue-800 px-4 py-2 text-white">
           <tr>
             {columns.map((col) => (
               <th
                 key={col.key}
-                className={`px-4 py-2 font-medium text-gray-700 ${
+                className={`px-4 py-2 font-sans ${
                   col.align === "right" ? "text-right" : "text-left"
                 }`}
               >

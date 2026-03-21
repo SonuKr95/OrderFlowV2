@@ -9,7 +9,7 @@ function InventoryList() {
   const { data: ActiveInventoryList = [] } = useFetchActiveInventory();
   const [adjustStock, setadjustStock] = useState(null);
   return (
-    <div className="grid-row-2 relative grid gap-15 bg-[#D1D5DB] px-5 py-4">
+    <div className="grid-row-2 relative grid">
       <UpdateInventoryModal
         isOpen={!!adjustStock}
         selectedProduct={adjustStock}

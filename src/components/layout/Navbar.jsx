@@ -13,14 +13,11 @@ function Navbar() {
   // console.log(list);
 
   return (
-    <div className="col-start-2 col-end-3 flex h-24 items-center justify-between self-start bg-teal-100 px-6 py-9">
+    <div className="col-start-2 col-end-3 flex h-24 items-center justify-between self-start bg-blue-200 px-6 py-9">
       <div className="">
         <p className="text-2xl font-bold">{"Dashboard"}</p>
       </div>
       <div className="flex items-center justify-center gap-4">
-        <img src={bell} alt="" className="h-[20px]" />
-        <img src={darkmodeswitch} alt="" className="h-[20px]" />
-
         <div>
           <span className="m-2.5">{userRole?.toUpperCase()}</span>
           <button
