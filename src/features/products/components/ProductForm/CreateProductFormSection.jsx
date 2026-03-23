@@ -8,12 +8,12 @@ function CreateProductFormSection({
   isViewer,
 }) {
   return sections.map((section) => (
-    <div key={section.title} className="mb-8">
-      <h2 className="mb-4 text-lg font-semibold text-gray-800">
+    <div key={section.title} className="mb-6">
+      <h2 className="text-text-primary mb-4 text-lg font-semibold tracking-tight">
         {section.title}
       </h2>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         {section.fields.map((field) => (
           <CreateProductFormField
             key={field.name}

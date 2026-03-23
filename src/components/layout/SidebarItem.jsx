@@ -1,12 +1,22 @@
 import { ICONS } from "..//..//icons/_index";
 
-function SidebarItem({ text, iconName }) {
+function SidebarItem({ text, iconName, collapsed, active }) {
+  console.log(collapsed);
   return (
-    <div className="font-lato mb-2 flex w-fit items-center gap-2 py-2.5 text-[#6A717F] hover:cursor-pointer">
-      <img src={ICONS[iconName]} alt="" />
-      <p>{text}</p>
+    <div
+      className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 transition-all ${
+        active
+          ? "bg-violet-600 text-white"
+          : "text-text-secondary hover:bg-[#2a3447] hover:text-white"
+      }`}
+    >
+      <img
+        src={ICONS[iconName]}
+        className="h-5 w-5 opacity-70 invert hover:opacity-100"
+      />
+
+      {!collapsed && <span className="text-sm font-medium">{text}</span>}
     </div>
   );
 }
-
 export default SidebarItem;

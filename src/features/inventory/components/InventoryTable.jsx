@@ -4,28 +4,30 @@ import { settings } from "../../../icons/_index";
 
 export default function InventoryTable({ inventoryRecord, setadjustStock }) {
   const stock = getStockStatus(inventoryRecord.quantity);
+  const baseclass = "px-4 py-3 text-sm text-text-primary whitespace-nowrap";
   return (
-    <tr key={inventoryRecord.id} className="hover:bg-gray-50">
-      <td className="px-4 py-2 font-medium whitespace-nowrap text-gray-700">
-        {inventoryRecord.product_sku ?? null}
-      </td>
-      <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-        {inventoryRecord.product_name ?? "null"}
-      </td>
-      <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-        {inventoryRecord.quantity ?? null}
-      </td>
-      <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+    <tr key={inventoryRecord.id} className="transition hover:bg-[#2a3447]">
+      <td className={baseclass}>{inventoryRecord.product_sku ?? null}</td>
+      <td className={baseclass}>{inventoryRecord.product_name ?? "null"}</td>
+      <td className={baseclass}>{inventoryRecord.quantity ?? null}</td>
+      <td className={baseclass}>
         <span className={stock.className}>{stock.label}</span>
       </td>
 
-      <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+      <td className={baseclass}>
         {formatDateTime(inventoryRecord.updated_at) ?? null}
       </td>
-      <td>
-        <div className="right flex flex-wrap items-center justify-around">
-          <button onClick={() => setadjustStock(inventoryRecord)}>
-            <img src={settings} alt="editicon" />
+      <td className="px-4 py-3">
+        <div className="flex items-center justify-end gap-2">
+          <button
+            className="rounded-md p-2 transition hover:cursor-pointer hover:bg-[#2a3447]"
+            onClick={() => setadjustStock(inventoryRecord)}
+          >
+            <img
+              src={settings}
+              alt="editicon"
+              className="h-5 w-5 opacity-70 invert hover:opacity-100"
+            />
           </button>
         </div>
       </td>

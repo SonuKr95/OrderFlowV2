@@ -5,8 +5,6 @@ import {
   STOCK_ADJUSTMENT_REASONS_FOR_ADDITION,
   STOCK_ADJUSTMENT_REASONS_FOR_REDUCTION,
 } from "../constants/stockAdjustment";
-// import { useAdjustStock } from "../hooks/useAdjustStock";
-import { useSelector } from "react-redux";
 import { useUpdateInventory } from "../hooks/useUpdateInventory";
 import toast from "react-hot-toast";
 import { queryClient } from "../../../app/queryClient";
@@ -16,8 +14,13 @@ export default function UpdateInventoryModal({
   selectedProduct,
   setadjustStock,
 }) {
-  const { userRole } = useSelector((state) => state.auth);
-  const isFormDisabled = userRole === "viewer";
+  const baseClass = `
+w-full rounded-lg border border-border bg-background px-3 py-2 text-sm
+text-text-primary placeholder:text-text-muted
+focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent
+disabled:opacity-50 disabled:cursor-not-allowed
+transition
+`;
   const [selectedAdjustment, setSelectedAdjustment] = useState(null);
   const [updatedQuantity, setupdatedQuantity] = useState(null);
   const updateInventoryMutation = useUpdateInventory();
@@ -60,7 +63,6 @@ export default function UpdateInventoryModal({
 
   function payload(formData) {
     const { _quantity, _type, _reason } = formData;
-    // console.log(_quantity);
     const selectedProductId = selectedProduct.id;
     const payloadData = {
       _quantity: Number(_quantity),
@@ -77,42 +79,43 @@ export default function UpdateInventoryModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div
-        className={`w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl ${
-          isFormDisabled ? " cursor-not-allowed" : ""
-        }`}
+        className={`bg-surface border-border w-full max-w-lg rounded-2xl border p-6 shadow-xl transition-colors duration-200`}
       >
-        <h2 className="mb-5 text-lg font-semibold text-gray-800">
+        <h2 className="text-text-primary text-lg font-semibold">
           {`Adjust Stock for ${selectedProduct.product_name}`}
         </h2>
 
         <div className="grid grid-cols-2 gap-4">
           {/* SKU */}
           <div className="col-span-2">
-            <label className="text-sm text-gray-600">SKU</label>
+            <label className="text-text-secondary text-sm">SKU</label>
             <input
               name="sku"
               disabled
               value={selectedProduct.product_sku}
-              className="mt-1 w-full rounded-lg border bg-white p-2 text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500"
+              className={`border-border text-text-primary w-full rounded-lg border bg-slate-500 px-3 py-2 text-sm disabled:cursor-not-allowed`}
             />
           </div>
 
           {/* Quantity */}
           <div className="col-span-2">
-            <label className="text-sm text-gray-600">Quantity Available</label>
+            <label className="text-text-secondary text-sm">
+              Quantity Available
+            </label>
             <input
               // name="quantity"
               value={selectedProduct.quantity}
               disabled
-              className="mt-1 w-full rounded-lg border bg-white p-2 text-gray-900 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500"
+              className={`border-border text-text-primary w-full rounded-lg border bg-slate-500 px-3 py-2 text-sm disabled:cursor-not-allowed`}
             />
           </div>
 
           {/* Status */}
           <div className="col-span-2">
-            <label className="text-sm text-gray-600">Adjustment Type</label>
+            <label className="text-text-secondary text-sm">
+              Adjustment Type
+            </label>
             <select
-              disabled={isFormDisabled}
               value={selectedAdjustment ?? ""}
               name="_type"
               {...rest}
@@ -123,7 +126,7 @@ export default function UpdateInventoryModal({
                 setupdatedQuantity(null);
                 setSelectedAdjustment(e.target.value);
               }}
-              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
+              className={`${baseClass} appearance-none`}
             >
               <option value="" disabled>
                 Select Adjustment Type
@@ -138,20 +141,19 @@ export default function UpdateInventoryModal({
           {/* Adjust Quantity */}
           {selectedAdjustment ? (
             <div className="col-span-2">
-              <label className="text-sm text-gray-600">
+              <label className="text-text-secondary text-sm">
                 {selectedAdjustment === "ADD" && "Add"}{" "}
                 {selectedAdjustment === "REDUCE" && "Reduce"} Quantity:
               </label>
               <input
-                disabled={isFormDisabled}
                 name="_quantity"
                 {...register("_quantity")}
                 onChange={(e) => handleUpdatedQuantity(e.target.value)}
-                className="mt-1 w-full rounded-lg border bg-white p-2 text-gray-900"
+                className={`${baseClass} focus:border-transparent focus:ring-2 focus:ring-violet-500`}
               />
               <div className="mt-3">
-                <span className="text-sm text-gray-600">
-                  Updated Quantity: {updatedQuantity}
+                <span className="text-text-primary text-sm">
+                  Updated Quantity Will Be: {updatedQuantity}
                 </span>
               </div>
             </div>
@@ -159,14 +161,14 @@ export default function UpdateInventoryModal({
 
           {/* Reason */}
           <div className="col-span-2">
-            <label className="text-sm text-gray-600">
+            <label className="text-text-secondary text-sm">
               Select Adjustment Reason
             </label>
             <select
               {...register("_reason")}
               value={selectedAdjustment ?? ""}
-              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
-              disabled={isFormDisabled}
+              className={`${baseClass} appearance-none`}
+              // disabled={isFormDisabled}
             >
               <option value="" disabled>
                 Select Adjustment Reason
@@ -187,19 +189,10 @@ export default function UpdateInventoryModal({
 
           {/* Notes */}
           <div className="col-span-2">
-            <label className="text-sm text-gray-600">Notes (Optional)</label>
-            <textarea
-              className={`mt-1 w-full rounded-lg border p-2 ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70 " : ""}`}
-              disabled={isFormDisabled}
-              // aria-rowspan={3}
-              rows={3}
-              // name="sku"
-              // {...register("sku")}
-              // disabled
-              // value={product.quantity}
-              // onChange={handleChange}
-              // className="mt-1 w-full rounded-lg border p-2"
-            />
+            <label className="text-text-secondary text-sm">
+              Notes (Optional)
+            </label>
+            <textarea className={`${baseClass} resize-none`} rows={3} />
           </div>
         </div>
 
@@ -207,16 +200,15 @@ export default function UpdateInventoryModal({
         <div className="mt-6 flex justify-end gap-3">
           <button
             onClick={resetselection}
-            className="rounded-lg border px-4 py-2 text-sm"
-            // disabled={isLoading}
+            className="border-border text-text-secondary rounded-lg border px-4 py-2 text-sm hover:cursor-pointer hover:bg-[#2a3447]"
           >
             Cancel
           </button>
 
           <button
             onClick={handleSubmit(payload)}
-            className={`rounded-lg bg-blue-600 px-4 py-2 text-sm text-white ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}
-            disabled={isFormDisabled}
+            className={`rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-violet-700`}
+            disabled={updateInventoryMutation.isPending}
           >
             {selectedAdjustment === "ADD" && "Add"}{" "}
             {selectedAdjustment === "REDUCE" && "Reduce"} Quantity

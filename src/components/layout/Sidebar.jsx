@@ -1,16 +1,23 @@
 import SidebarMenu from "./SidebarMenu";
-import { menuclose } from "..//..//icons/_index";
 
-function Sidebar() {
+function Sidebar({ collapsed, setCollapsed }) {
   return (
-    <div className="row-start-1 row-end-3 h-screen px-3.5">
-      <div className="mb-3 flex items-center gap-3 py-4">
-        <h2 className="text-4xl font-bold tracking-normal text-violet-800">
-          Order Flow
-        </h2>
-        <img src={menuclose} alt="" className="mt-1 hover:cursor-pointer" />
+    <div className="border-border bg-surface row-span-2 h-screen overflow-hidden border-r px-4">
+      {/* Header */}
+      <div className="mb-6 flex items-center justify-between">
+        {!collapsed && (
+          <h2 className="text-xl font-bold text-violet-500">OrderFlow</h2>
+        )}
+
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="rounded-md p-2 invert hover:cursor-pointer"
+        >
+          ☰
+        </button>
       </div>
-      <SidebarMenu />
+
+      <SidebarMenu collapsed={collapsed} />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import ProductTable from "../components/ProductList/ProductTable";
 function ProductList() {
   const { data: products = [] } = useFetchActiveProductList();
   return (
-    <div className="grid-row-2 relative grid">
+    <div className="p-6">
       <ProductTable products={products} />
     </div>
   );

@@ -2,6 +2,7 @@ import SidebarItem from "./SidebarItem";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ROLES } from "../../features/auth/constants/roles";
+import { useLocation } from "react-router-dom";
 
 const menu = [
   {
@@ -52,16 +53,7 @@ const menu = [
     url: "/product/archived",
     access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
   },
-  // {
-  //   text: "Admin Page",
-  //   iconName: "user",
-  //   access: [ROLES.ADMIN],
-  // },
-  // {
-  //   text: "Settings",
-  //   iconName: "settings",
-  //   access: [ROLES.ADMIN],
-  // },
+
   {
     text: "Create Order",
     iconName: "arrowupdown",
@@ -70,53 +62,39 @@ const menu = [
   },
 ];
 
-/*
-function renderMenu(menu) {
-  return menu.map((item) => {
-    const { text, iconName, url } = item;
-    return (
-      <Link to={url ?? "/"}>
-        <SidebarItem key={item.text} text={text} iconName={iconName} />
-      </Link>
-    );
-  });
-}
-
-function SidebarMenu() {
-  const loggedUserRole = useSelector((state) => state.auth.role);
-
-  return (
-    <>
-      <div className="mb-10">
-        <p className="mb-2 text-[#6A717F]">Main menu</p>
-        {renderMenu(menu)}
-      </div>
-    </>
-  );
-}
-  */
-
-function SidebarMenu() {
+function SidebarMenu({ collapsed }) {
+  const location = useLocation();
   const userRole = useSelector((state) => state.auth.userRole);
   const allowedMenu = menu.filter((item) => item.access.includes(userRole));
 
   return (
     <div className="mb-10">
-      <p className="mb-2 text-[#6A717F]">Main menu</p>
-
+      <p className="text-text-secondary mb-3 text-sm">Main Menu</p>
       {allowedMenu.map((item) => {
         const { text, iconName, url } = item;
+        const isActive = location.pathname === url;
 
         // items without url (section headers / future pages)
         if (!url) {
           return (
-            <SidebarItem key={text} text={text} iconName={iconName} disabled />
+            <SidebarItem
+              key={text}
+              text={text}
+              iconName={iconName}
+              // collapsed={collapsed}
+              // disabled
+            />
           );
         }
 
         return (
           <Link key={text} to={url}>
-            <SidebarItem text={text} iconName={iconName} />
+            <SidebarItem
+              text={text}
+              iconName={iconName}
+              collapsed={collapsed}
+              active={isActive}
+            />
           </Link>
         );
       })}

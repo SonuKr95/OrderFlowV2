@@ -19,6 +19,8 @@ import deleteicon from "./delete.svg";
 import closeicon from "./close-x.svg";
 import arrowupdown from "./arrow-up-down-outline.svg";
 import refresh from "./refresh.svg";
+import tabler_message from "./tabler_message.svg";
+
 // import settings from "./settings.svg";
 // import { frame as deleteicon } from "./frame.svg";
 
@@ -65,4 +67,5 @@ export {
   deleteicon,
   closeicon,
   refresh,
+  tabler_message,
 };

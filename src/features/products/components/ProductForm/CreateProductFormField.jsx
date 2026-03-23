@@ -2,19 +2,23 @@ function CreateProductFormField({ field, register, options, isViewer }) {
   console.log(isViewer);
   //createProductFormSections for referecnce
   const { name, placeholder, type, label, rows } = field;
-  const baseClass = `w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm focus:border-green-500 focus:outline-none ${isViewer ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`;
+  const baseClass = `
+w-full rounded-lg border border-border bg-background px-3 py-2 text-sm
+text-text-primary placeholder:text-text-muted
+focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent
+disabled:opacity-50 disabled:cursor-not-allowed
+transition
+`;
 
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium text-gray-700">
-        {label}
-      </label>
+      <label className="text-text-secondary mb-1 block text-sm">{label}</label>
 
       {type === "textarea" && (
         <textarea
-          {...register(name)}
+          {...register(name, { required: true })}
           rows={rows ?? 3}
-          className={baseClass}
+          className={`${baseClass} resize-none`}
           placeholder={placeholder}
           disabled={isViewer}
         />
@@ -22,8 +26,8 @@ function CreateProductFormField({ field, register, options, isViewer }) {
 
       {type === "select" && (
         <select
-          {...register(name)}
-          className={baseClass}
+          {...register(name, { required: true })}
+          className={`${baseClass} appearance-none`}
           defaultValue=""
           disabled={isViewer}
         >
@@ -40,9 +44,9 @@ function CreateProductFormField({ field, register, options, isViewer }) {
 
       {type !== "textarea" && type !== "select" && (
         <input
-          {...register(name)}
+          {...register(name, { required: true })}
           type={type}
-          className={baseClass}
+          className={`${baseClass} focus:border-transparent focus:ring-2 focus:ring-violet-500`}
           placeholder={placeholder}
           disabled={isViewer}
         />

@@ -29,5 +29,6 @@ export function useCreateProductForm() {
   return {
     ...form,
     onSubmit,
+    createProduct,
   };
 }

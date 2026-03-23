@@ -4,52 +4,48 @@ import { editicon, deleteicon } from "../../../../icons/_index";
 
 function ActiveProductTableRow({ product, onEdit, onArchive }) {
   const stock = getStockStatus(product.quantity);
+  const baseclass = "px-4 py-3 text-sm text-text-primary whitespace-nowrap";
 
   return (
     <>
-      <tr className="hover:bg-gray-50">
-        <td className="px-4 py-2 font-medium whitespace-nowrap text-gray-700">
-          {product.sku}
-        </td>
-
-        <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-          {product.name}
-        </td>
-
-        <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-          {product.category_name}
-        </td>
-
-        <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-          {product.selling_price}
-        </td>
-
-        <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-          {product.mrp}
-        </td>
-
-        <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+      <tr className="transition hover:bg-[#2a3447]">
+        <td className={baseclass}>{product.sku}</td>
+        <td className={baseclass}>{product.name}</td>
+        <td className={baseclass}>{product.category_name}</td>
+        <td className={baseclass}>{product.selling_price}</td>
+        <td className={baseclass}>{product.mrp}</td>
+        <td className={baseclass}>
           <span className={stock.className}>{stock.label}</span>
         </td>
 
-        <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-          {product.status}
-        </td>
+        <td className={baseclass}>{product.status}</td>
 
-        <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-          {formatDateTime(product.updated_at)}
-        </td>
+        <td className={baseclass}>{formatDateTime(product.updated_at)}</td>
 
         <td>
-          <span className="flex justify-around">
-            <button onClick={() => onEdit(product)}>
-              <img src={editicon} alt="edit" />
+          <div className="flex items-center justify-center gap-2">
+            <button
+              className="rounded-md p-2 transition hover:bg-[#2a3447]"
+              onClick={() => onEdit(product)}
+            >
+              <img
+                src={editicon}
+                alt="edit"
+                className="h-5 w-5 opacity-70 invert hover:cursor-pointer hover:opacity-100"
+              />
             </button>
 
-            <button onClick={() => onArchive(product)}>
-              <img src={deleteicon} alt="delete" />
+            <button
+              className="rounded-md p-2 transition hover:bg-[#2a3447]"
+              onClick={() => onArchive(product)}
+            >
+              <img
+                src={deleteicon}
+                alt="delete"
+                className="h-5 w-5 opacity-70 invert hover:cursor-pointer hover:opacity-100"
+              />
             </button>
-          </span>
+          </div>
         </td>
       </tr>
     </>

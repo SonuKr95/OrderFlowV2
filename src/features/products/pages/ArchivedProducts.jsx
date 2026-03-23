@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { formatDateTime } from "../../../utils/dateFormat";
 
 function ArchivedProducts() {
+  const baseclass = "px-4 py-3 text-sm text-text-primary whitespace-nowrap";
   const { data: archiveProducts = [] } = useFetchArchiveProductList();
   const restoreProductMutation = useRestoreArchieveProductById();
   const { userRole } = useSelector((state) => state.auth);
@@ -37,31 +38,28 @@ function ArchivedProducts() {
       <List columns={ArchiveProductTableColumns} colStart={1} rowStart={3}>
         {archiveProducts?.map((product) => {
           return (
-            <tr key={product.id} className="hover:bg-gray-50">
-              <td className="px-4 py-2 font-medium whitespace-nowrap text-gray-700">
-                {product.sku ?? null}
-              </td>
-              <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-                {product.name ?? "null"}
-              </td>
-              <td className="px-4 py-2 whitespace-nowrap text-gray-700">
-                {product.category_name ?? null}
-              </td>
-              <td className="px-4 py-2 whitespace-nowrap text-gray-700">
+            <tr key={product.id} className="transition hover:bg-[#2a3447]">
+              <td className={baseclass}>{product.sku ?? null}</td>
+              <td className={baseclass}>{product.name ?? "null"}</td>
+              <td className={baseclass}>{product.category_name ?? null}</td>
+              <td className={baseclass}>
                 {formatDateTime(product.deleted_at) ?? null}
               </td>
 
-              <td>
-                <div className="right flex flex-wrap items-center justify-around">
+              <td className="px-4 py-3">
+                <div className="flex items-center justify-end gap-2">
                   <button
-                    disabled={isViewer}
                     title="Restore Product"
-                    className="hover:cursor-pointer disabled:cursor-not-allowed"
+                    className="rounded-md p-2 transition hover:cursor-pointer hover:bg-[#2a3447]"
                     onClick={() => {
                       handleRestoreProduct(product.id);
                     }}
                   >
-                    <img src={refresh} alt="restoreproducticon" />
+                    <img
+                      src={refresh}
+                      alt="restoreproducticon"
+                      className="h-5 w-5 opacity-70 invert hover:opacity-100"
+                    />
                   </button>
                 </div>
               </td>

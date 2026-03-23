@@ -72,3 +72,10 @@
   /* ⚡ Motion */
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* remove arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

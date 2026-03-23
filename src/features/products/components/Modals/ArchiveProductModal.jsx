@@ -11,32 +11,36 @@ export default function ArchiveProductModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl">
-        <h2 className="mb-3 text-lg font-semibold text-gray-800">{title}</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      {/* Modal Card */}
+      <div className="border-border bg-surface w-full max-w-md rounded-2xl border p-6 shadow-xl">
+        {/* Title */}
+        <h2 className="text-text-primary text-lg font-semibold">{title}</h2>
 
-        <p className="mb-6 text-sm text-gray-600">{message}</p>
+        {/* Message */}
+        <p className="text-text-secondary mt-2 text-sm">{message}</p>
 
-        <div className="flex justify-end gap-3">
+        {/* Actions */}
+        <div className="mt-6 flex justify-end gap-3">
+          {/* Cancel */}
           <button
             onClick={onClose}
-            className="rounded-lg border px-4 py-2 text-sm"
+            className="border-border text-text-secondary rounded-lg border px-4 py-2 text-sm transition hover:bg-[#2a3447] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isLoading}
           >
             Cancel
           </button>
 
+          {/* Archive */}
           <button
             onClick={onConfirm}
-            className={`rounded-lg bg-red-600 px-4 py-2 text-sm text-white ${userRole === "viewer" ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}
-            disabled={isLoading || userRole === "viewer"}
+            className={`$ rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700`}
+            disabled={isLoading}
           >
-            {isLoading ? "Archiveing..." : "Archive"}
+            {isLoading ? "Archiving..." : "Archive"}
           </button>
         </div>
       </div>
     </div>
   );
 }
-
-// ${isFormDisabled ? " cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-900 disabled:opacity-70" : ""}`}

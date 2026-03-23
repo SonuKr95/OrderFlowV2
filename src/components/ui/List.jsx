@@ -29,16 +29,16 @@ function List({ columns, children, colStart, colEnd, rowStart, rowEnd }) {
   if (!Array.isArray(columns)) return null;
   return (
     <div
-      className={`${colStartClasses[colStart]} ?? '' ${colEndClasses[colEnd]} ?? '' ${rowStartClasses[rowStart]} ?? '' ${rowEndClasses[rowEnd]} ?? '' rounded-lg border border-gray-200 bg-white`}
+      className={`${colStartClasses[colStart]} ?? '' ${colEndClasses[colEnd]} ?? '' ${rowStartClasses[rowStart]} ?? '' ${rowEndClasses[rowEnd]} ?? '' border-border bg-surface overflow-hidden rounded-2xl border shadow-sm`}
     >
       <table className="min-w-full text-sm">
         {/* <thead className="bg-[#EAF8E7]"> */}
-        <thead className="bg-blue-800 px-4 py-2 text-white">
+        <thead className="bg-background border-border border-b">
           <tr>
             {columns.map((col) => (
               <th
                 key={col.key}
-                className={`px-4 py-2 font-sans ${
+                className={`text-text-secondary px-4 py-3 text-xs font-semibold tracking-wide uppercase ${
                   col.align === "right" ? "text-right" : "text-left"
                 }`}
               >
