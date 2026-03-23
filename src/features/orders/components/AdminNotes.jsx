@@ -1,9 +1,8 @@
-export function AdminNotes({ orderDetails }) {
-  console.log(orderDetails);
+export default function AdminNotes({ orderDetails }) {
   const { notes } = orderDetails;
   return (
-    <div>
-      <p>{`Admin Notes: ${notes}`} </p>
+    <div className="rounded-lg bg-black/20 p-3 text-sm text-gray-300">
+      {notes ? notes : "No notes added."}
     </div>
   );
 }

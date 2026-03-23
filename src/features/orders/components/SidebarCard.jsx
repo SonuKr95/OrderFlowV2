@@ -1,24 +1,20 @@
-// import { useState } from "react";
-
 import { useState } from "react";
 
-export function SidebarCard({ children, title }) {
+export default function SidebarCard({ children, title }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="mb-4 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-      {/* Header / Toggle Button */}
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-md backdrop-blur-xl">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between p-4 transition-colors hover:bg-gray-50"
+        className="flex w-full items-center justify-between px-5 py-4 text-left transition hover:bg-white/10"
       >
-        <span className="font-medium text-gray-900">{title}</span>
-        <span className="text-gray-500">{isOpen ? "−" : "+"}</span>
+        <span className="text-sm font-semibold text-gray-200">{title}</span>
+        <span className="text-lg text-gray-400">{isOpen ? "−" : "+"}</span>
       </button>
 
-      {/* Expandable Content */}
       {isOpen && (
-        <div className="border-t border-gray-100 bg-gray-50/50 p-4">
+        <div className="border-t border-white/10 px-5 py-4 text-sm text-gray-300">
           {children}
         </div>
       )}
