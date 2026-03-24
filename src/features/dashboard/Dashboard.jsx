@@ -2,6 +2,7 @@ import Card from "./component/Card";
 import InventoryRow from "./component/InventoryRow";
 import OrderItem from "./component/OrderItem";
 import ActionButton from "./component/ActionButton";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   return (
@@ -60,10 +61,18 @@ export default function Dashboard() {
         <h2 className="mb-4 text-lg font-semibold">Quick Actions</h2>
 
         <div className="flex gap-4">
-          <ActionButton label="Create Order" />
-          <ActionButton label="Add Product" />
-          <ActionButton label="Add Customer" />
-          <ActionButton label="Adjust Stock" />
+          <Link to="/createorder">
+            <ActionButton label="Create Order" />
+          </Link>
+          <Link to="/addproduct">
+            <ActionButton label="Add Product" />
+          </Link>
+          <Link to="/productlist">
+            <ActionButton label="Update Product" />
+          </Link>
+          <Link to="/inventory">
+            <ActionButton label="Adjust Stock" />
+          </Link>
         </div>
       </div>
     </div>
