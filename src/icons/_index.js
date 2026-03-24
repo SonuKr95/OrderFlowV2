@@ -21,20 +21,6 @@ import arrowupdown from "./arrow-up-down-outline.svg";
 import refresh from "./refresh.svg";
 import tabler_message from "./tabler_message.svg";
 
-// import settings from "./settings.svg";
-// import { frame as deleteicon } from "./frame.svg";
-
-/*
-import stroke from "./stroke.svg";
-import stroke from "./stroke.svg";
-import stroke from "./stroke.svg";
-import stroke from "./stroke.svg";
-import stroke from "./stroke.svg";
-import stroke from "./stroke.svg";
-import stroke from "./stroke.svg";
-import stroke from "./stroke.svg";
-*/
-
 export const ICONS = {
   dashboard: stroke,
   cart,

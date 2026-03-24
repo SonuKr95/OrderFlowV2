@@ -12,8 +12,10 @@ const customerSlice = createSlice({
       state.customerName = action.payload.name;
       state.cutomerPhoneNumber = action.payload.phone_number;
     },
+
+    resetCustomer: () => initialState,
   },
 });
 
-export const { setCustomer } = customerSlice.actions;
+export const { setCustomer, resetCustomer } = customerSlice.actions;
 export default customerSlice.reducer;

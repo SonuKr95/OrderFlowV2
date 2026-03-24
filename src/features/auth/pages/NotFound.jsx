@@ -4,24 +4,20 @@ import { useSelector } from "react-redux";
 function NotFound() {
   const status = useSelector((state) => state.auth.status);
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md text-center">
-        <p className="text-sm font-semibold tracking-wide text-gray-500 uppercase">
-          404 error
-        </p>
-
-        <h1 className="mt-2 text-4xl font-bold tracking-tight text-gray-900">
-          Page not found
+    <div className="bg-background flex min-h-screen flex-col items-center justify-center px-6 py-12">
+      <div className="bg-surface text-text-primary w-full max-w-md space-y-8 rounded-xl p-10 text-center shadow-lg">
+        <h1 className="text-4xl font-extrabold tracking-tight">
+          404 - Page not found
         </h1>
 
-        <p className="mt-4 text-base text-gray-600">
+        <p className="text-lg">
           Sorry, the page you are looking for doesn’t exist or has been moved.
         </p>
 
         <div className="mt-6 flex items-center justify-center gap-4">
           <Link
             to="/"
-            className="rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white transition hover:bg-gray-800"
+            className="bg-surface border-border hover:bg-background flex items-center justify-center rounded-md border px-5 py-3 text-base font-medium shadow-sm transition-colors hover:cursor-pointer focus:ring-2 focus:ring-offset-2 focus:outline-none"
           >
             Go home
           </Link>
@@ -29,7 +25,7 @@ function NotFound() {
           {!status ? (
             <Link
               to="/login"
-              className="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white shadow-md transition-colors hover:cursor-pointer hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
             >
               Login
             </Link>

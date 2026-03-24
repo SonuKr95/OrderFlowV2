@@ -1,6 +1,6 @@
 import SidebarMenu from "./SidebarMenu";
 
-function Sidebar({ collapsed, setCollapsed }) {
+export default function Sidebar({ collapsed, setCollapsed }) {
   return (
     <div className="border-border bg-surface row-span-2 h-screen overflow-hidden border-r px-4">
       {/* Header */}
@@ -21,5 +21,3 @@ function Sidebar({ collapsed, setCollapsed }) {
     </div>
   );
 }
-
-export default Sidebar;

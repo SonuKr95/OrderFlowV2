@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import PageLoader from "./PageLoader";
 import { useState } from "react";
 
-function AppLayout() {
+export default function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <div
@@ -25,5 +25,3 @@ function AppLayout() {
     </div>
   );
 }
-
-export default AppLayout;

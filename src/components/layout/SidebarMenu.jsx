@@ -29,12 +29,7 @@ const menu = [
     url: "/inventory",
     access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
   },
-  // {
-  //   text: "Transaction",
-  //   iconName: "card",
-  //   url: "/transaction",
-  //   access: [ROLES.ADMIN, ROLES.STAFF],
-  // },
+
   {
     text: "Add Products",
     iconName: "circleplus",
@@ -62,7 +57,7 @@ const menu = [
   },
 ];
 
-function SidebarMenu({ collapsed }) {
+export default function SidebarMenu({ collapsed }) {
   const location = useLocation();
   const userRole = useSelector((state) => state.auth.userRole);
   const allowedMenu = menu.filter((item) => item.access.includes(userRole));
@@ -76,15 +71,7 @@ function SidebarMenu({ collapsed }) {
 
         // items without url (section headers / future pages)
         if (!url) {
-          return (
-            <SidebarItem
-              key={text}
-              text={text}
-              iconName={iconName}
-              // collapsed={collapsed}
-              // disabled
-            />
-          );
+          return <SidebarItem key={text} text={text} iconName={iconName} />;
         }
 
         return (
@@ -101,5 +88,3 @@ function SidebarMenu({ collapsed }) {
     </div>
   );
 }
-
-export default SidebarMenu;

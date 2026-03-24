@@ -1,6 +1,6 @@
 export default function ActionButton({ label }) {
   return (
-    <button className="rounded-lg bg-black px-4 py-2 text-white hover:bg-gray-800">
+    <button className="bg-primary hover:bg-primary-hover text-text-primary rounded-lg px-4 py-2 font-semibold hover:cursor-pointer">
       {label}
     </button>
   );

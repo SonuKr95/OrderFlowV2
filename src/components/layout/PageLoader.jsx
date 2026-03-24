@@ -1,4 +1,4 @@
-function PageLoader() {
+export default function PageLoader() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
       <div className="flex flex-col items-center gap-3">
@@ -8,5 +8,3 @@ function PageLoader() {
     </div>
   );
 }
-
-export default PageLoader;

@@ -6,7 +6,7 @@ import { setAuthUser } from "../../../app/store/slices/authSlice";
 import { AUTH_STATUS } from "../constants/authStatus";
 import { useDispatch } from "react-redux";
 
-function AuthGate() {
+export default function AuthGate() {
   const dispatch = useDispatch();
   const { data, isPending, isError } = useRestoreAuth();
   useEffect(() => {
@@ -34,5 +34,3 @@ function AuthGate() {
   }
   return <Outlet />;
 }
-
-export default AuthGate;

@@ -1,6 +1,6 @@
 import { ICONS } from "..//..//icons/_index";
 
-function SidebarItem({ text, iconName, collapsed, active }) {
+export default function SidebarItem({ text, iconName, collapsed, active }) {
   return (
     <div
       className={`flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 transition-all ${
@@ -18,4 +18,3 @@ function SidebarItem({ text, iconName, collapsed, active }) {
     </div>
   );
 }
-export default SidebarItem;

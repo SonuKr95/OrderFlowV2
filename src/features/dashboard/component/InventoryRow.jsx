@@ -1,10 +1,10 @@
 export default function InventoryRow({ name, stock, status }) {
   const statusColor =
     status === "out"
-      ? "text-red-600"
+      ? "text-red-500"
       : status === "low"
-        ? "text-yellow-600"
-        : "text-green-600";
+        ? "text-yellow-500"
+        : "text-green-500";
 
   const statusText =
     status === "out" ? "Out of Stock" : status === "low" ? "Low" : "In Stock";

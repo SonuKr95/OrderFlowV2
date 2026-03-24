@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-
+import { resetCustomer } from "../../../../app/store/slices/customerSlice";
 import CustomerModal from "../../../customers/components/CustomerModal";
+import { resetCart } from "../../../../app/store/slices/cartSlice";
 import OrderSummary from "./OrderSummary";
 import ProductSearchModal from "./ProductSearchModal";
 import PaymentMethod from "./PaymentMethod";
@@ -11,9 +12,10 @@ import { selectCartProducts } from "../../../../app/store/selectors/cartSelector
 import { buildOrderPayload } from "./buildOrderPayload";
 import { useCreateOrder } from "../../hooks/useCreateOrder";
 
-function CreateOrder() {
+export default function CreateOrder() {
+  const dispatch = useDispatch();
   const customerId = useSelector((state) => state.cart.customerId);
-  const [customerModal, setCustomerModal] = useState(true);
+  const [customerModal, setCustomerModal] = useState(false);
   const [productModal, setProductModal] = useState(false);
   const paymentMethodSelected = useSelector(
     (state) => state.cart.paymentMethod,
@@ -42,9 +44,21 @@ function CreateOrder() {
       toast.error("Cart is empty");
       return;
     }
+    if (!paymentMethodSelected) {
+      toast.error("Select a payment method");
+      return;
+    }
 
     const orderData = buildOrderPayload(orderObject);
-    createOrder.mutate(orderData);
+    createOrder.mutate(orderData, {
+      onSuccess: async ({ order_number }) => {
+        toast.success(
+          `Order Created Successfully with Order Number: ${order_number}`,
+        );
+        dispatch(resetCart());
+        dispatch(resetCustomer());
+      },
+    });
   }
 
   return (
@@ -54,13 +68,20 @@ function CreateOrder() {
         {/* Actions */}
         <div className="bg-surface border-border text-text-primary flex items-center justify-between rounded-2xl border p-5 shadow-sm">
           <h2 className="text-lg font-semibold">Order Setup</h2>
-
-          <button
-            onClick={() => setProductModal(true)}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
-          >
-            + Add Products
-          </button>
+          <div className="flex gap-5">
+            <button
+              onClick={() => setProductModal(true)}
+              className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-blue-700"
+            >
+              + Add Products
+            </button>
+            <button
+              onClick={() => setCustomerModal(true)}
+              className="rounded-lg bg-amber-700 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-amber-600"
+            >
+              + Add Customer
+            </button>
+          </div>
         </div>
 
         <ProductSearchModal
@@ -112,60 +133,4 @@ function CreateOrder() {
       </div>
     </div>
   );
-
-  // return (
-  //   <div className="bg-surface min-h-screen p-6">
-  //     <div className="mx-auto max-w-7xl space-y-6">
-  //       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-  //         <div className="grid grid-cols-1 gap-6 lg:col-span-2 lg:grid-cols-2">
-  //           <button
-  //             onClick={() => setProductModal(true)}
-  //             className="bg-amber-200"
-  //           >
-  //             Add Products
-  //           </button>
-  //           <ProductSearchModal
-  //             productModal={productModal}
-  //             setProductModal={setProductModal}
-  //           />
-  //           {/* <SelectProduct /> */}
-  //           <CustomerModal
-  //             customerModal={customerModal}
-  //             setCustomerModal={setCustomerModal}
-  //             setProductModal={setProductModal}
-  //           />
-  //           {/* <SelectCustomer /> */}
-
-  //           {customerId !== "guest" ? (
-  //             <div>
-  //               <p>Customer Name:{customerName} </p>
-  //               <p>Customer Phone Number:{customerPhoneNumber} </p>
-  //             </div>
-  //           ) : (
-  //             "Guest Checkout"
-  //           )}
-  //         </div>
-
-  //         <div className="lg:col-span-2">
-  //           <OrderItemTable />
-  //         </div>
-
-  //         <div className="col-start-3 row-start-2">
-  //           <OrderSummary />
-  //           <PaymentMethod />
-  //           <button
-  //             // disabled={isViewer}
-  //             onClick={handleCreateOrder}
-  //             type="submit"
-  //             className="bg-secondary-brand-surf-crest w-full rounded-lg p-5 text-xl font-bold hover:cursor-pointer disabled:cursor-not-allowed disabled:shadow-none dark:disabled:border-gray-700 dark:disabled:bg-gray-800/20"
-  //           >
-  //             Create Order
-  //           </button>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 }
-
-export default CreateOrder;

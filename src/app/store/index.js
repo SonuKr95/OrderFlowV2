@@ -8,7 +8,6 @@ const store = configureStore({
     auth: authReducer,
     cart: cartReducer,
     customer: customerReducer,
-    // Add other reducers here as you build them
   },
 });
 

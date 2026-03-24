@@ -90,6 +90,7 @@ const cartSlice = createSlice({
     selectPaymentMethod(state, action) {
       state.paymentMethod = action.payload;
     },
+    resetCart: () => initialState,
   },
 });
 
@@ -99,5 +100,6 @@ export const {
   decreaseQuantity,
   increaseQuantity,
   selectPaymentMethod,
+  resetCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

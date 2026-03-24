@@ -4,7 +4,7 @@ import ProductTable from "../components/ProductList/ProductTable";
 function ProductList() {
   const { data: products = [] } = useFetchActiveProductList();
   return (
-    <div className="p-6">
+    <div className="">
       <ProductTable products={products} />
     </div>
   );

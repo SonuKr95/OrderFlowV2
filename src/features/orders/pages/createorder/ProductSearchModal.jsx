@@ -13,7 +13,7 @@ export default function ProductSearchModal({ productModal, setProductModal }) {
 
   function selectProduct(p) {
     dispatch(addProduct(p));
-    setSearch("");
+    // setSearch("");
     setSelectedProductId(""); // reset after add
   }
   if (!productModal) return null;

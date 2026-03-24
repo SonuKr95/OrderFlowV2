@@ -5,7 +5,7 @@ import ActionButton from "./component/ActionButton";
 
 export default function Dashboard() {
   return (
-    <div className="min-h-screen space-y-6 bg-gray-50 p-6">
+    <div className="bg-background min-h-screen space-y-6 p-6">
       {/* 🔝 KPI CARDS */}
       <div className="grid grid-cols-4 gap-4">
         <Card title="Today's Sales" value="₹12,400" />
@@ -15,11 +15,13 @@ export default function Dashboard() {
       </div>
 
       {/* 📦 INVENTORY ALERTS */}
-      <div className="rounded-xl bg-white p-4 shadow">
-        <h2 className="mb-4 text-lg font-semibold">Inventory Alerts</h2>
+      <div className="bg-surface rounded-xl p-4 shadow">
+        <h2 className="text-text-primary mb-4 text-xl font-semibold">
+          Inventory Alerts
+        </h2>
 
-        <table className="w-full text-sm">
-          <thead className="text-left text-gray-500">
+        <table className="text-text-primary w-full text-sm">
+          <thead className="text-left">
             <tr>
               <th className="py-2">Product</th>
               <th>Stock</th>
@@ -37,7 +39,7 @@ export default function Dashboard() {
       {/* 🧾 ORDERS + 📈 GRAPH */}
       <div className="grid grid-cols-2 gap-4">
         {/* Recent Orders */}
-        <div className="rounded-xl bg-white p-4 shadow">
+        <div className="bg-surface text-text-primary rounded-xl p-4 shadow">
           <h2 className="mb-4 text-lg font-semibold">Recent Orders</h2>
 
           <ul className="space-y-3">
@@ -48,13 +50,13 @@ export default function Dashboard() {
         </div>
 
         {/* Sales Graph Placeholder */}
-        <div className="flex items-center justify-center rounded-xl bg-white p-4 shadow">
-          <p className="text-gray-400">Sales Graph (7 days)</p>
+        <div className="bg-surface flex items-center justify-center rounded-xl p-4 shadow">
+          <p className="text-text-primary">Sales Graph (7 days)</p>
         </div>
       </div>
 
       {/* ⚡ QUICK ACTIONS */}
-      <div className="rounded-xl bg-white p-4 shadow">
+      <div className="bg-surface text-text-primary rounded-xl p-4 shadow">
         <h2 className="mb-4 text-lg font-semibold">Quick Actions</h2>
 
         <div className="flex gap-4">

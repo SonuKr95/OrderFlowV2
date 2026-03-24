@@ -17,8 +17,6 @@ export function useAnonymousLoginSuccess() {
       authStatus: AUTH_STATUS.AUTHENTICATED,
     };
 
-    console.log(data);
-
     dispatch(setAuthUser(data));
     toast.success("Welcome Viewer");
     navigate(LOGIN_ROUTES.ANONYMOUS_DASHBOARD, { replace: true });

@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { AUTH_STATUS } from "../constants/authStatus";
 
 export function RequireRole({ allowedRoles }) {
-  // const { userRole, authStatus } = useSelector((state) => state.auth);
   let { userRole, authStatus } = useSelector((state) => state.auth);
 
   //For viewer testing only. only admin routes are enabled for the viewers

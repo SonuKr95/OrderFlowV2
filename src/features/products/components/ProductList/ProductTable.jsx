@@ -5,7 +5,7 @@ import ProductArchiveModal from "../Modals/ArchiveProductModal";
 import { useArchiveProductController } from "../../hooks/useArchiveProductController";
 import List from "../../../../components/ui/List";
 import ActiveProductTableRow from "./ActiveProductTableRow";
-function ProductTable({ products }) {
+export default function ProductTable({ products }) {
   const [updateTarget, setUpdateTarget] = useState(null);
   const {
     openArchiveModal,
@@ -45,5 +45,3 @@ function ProductTable({ products }) {
     </>
   );
 }
-
-export default ProductTable;

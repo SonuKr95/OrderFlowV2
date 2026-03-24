@@ -3,7 +3,7 @@ import LogoutModal from "../../features/auth/components/LogoutModal";
 import { useLogout } from "../../features/auth/session/useLogout";
 import { useState } from "react";
 
-function Navbar() {
+export default function Navbar() {
   const { userRole } = useSelector((state) => state.auth);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const logout = useLogout();
@@ -13,7 +13,7 @@ function Navbar() {
       <p className="text-text-primary text-xl font-semibold">Dashboard</p>
 
       <div className="flex items-center gap-4">
-        <span className="text-text-secondary text-sm">
+        <span className="text-text-primary text-lg font-bold">
           {userRole?.toUpperCase()}
         </span>
 
@@ -32,5 +32,3 @@ function Navbar() {
     </header>
   );
 }
-
-export default Navbar;
