@@ -58,7 +58,7 @@ const menu = [
     text: "Create Order",
     iconName: "arrowupdown",
     access: [ROLES.ADMIN, ROLES.VIEWER],
-    url: "dev",
+    url: "/createorder",
   },
 ];
 

@@ -50,7 +50,7 @@ export const Routes = [
         element: <RequireRole allowedRoles={PERMISSIONS.ADMIN_ONLY} />,
         children: [
           {
-            path: "dev",
+            path: "createorder",
             children: [{ index: true, element: <CreateOrder /> }],
           },
         ],
