@@ -1,59 +1,43 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectPaymentMethod } from "../../../../app/store/slices/_cartSliceold";
+import { selectPaymentMethod } from "../../../../app/store/slices/cartSlice";
 
-export function PaymentMethod() {
+export default function PaymentMethod() {
+  const baseClass = `
+w-full rounded-lg border border-border bg-background px-3 py-2 text-sm
+text-text-primary placeholder:text-text-muted
+focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent
+disabled:opacity-50 disabled:cursor-not-allowed
+transition
+`;
   const [selectedPaymentMethod, setselectedPaymentMethod] = useState("");
-
-  const { userRole } = useSelector((state) => state.auth);
-  const isViewer = userRole === "viewer";
   const dispatch = useDispatch();
 
   function handleChange(e) {
-    // console.log(e.target.value);
     const newValue = e.target.value;
     setselectedPaymentMethod(newValue);
     if (newValue) {
       dispatch(selectPaymentMethod(newValue));
     }
-    // dispatch(selectedPaymentMethod);
   }
 
-  // handleChange()=>dispatch(selectedPaymentMethod)
-
   return (
-    <div className="mt-5">
+    <div className="space-y-2">
+      <label className="text-text-primary text-sm font-medium">
+        Payment Method
+      </label>
+
       <select
-        disabled={isViewer}
-        name=""
-        id=""
         value={selectedPaymentMethod}
         onChange={handleChange}
-        className="w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:ring-2 focus:ring-green-500 focus:outline-none disabled:cursor-not-allowed disabled:text-gray-400"
+        className={`${baseClass} mt-1 appearance-none`}
       >
         <option value="" disabled>
-          Select a payment methid
+          Select payment method
         </option>
-        <option value="cod">Cash on delivery</option>
-        <option value="prepaid">Prepaid</option>
+        <option value="COD">Cash on delivery</option>
+        <option value="PREPAID">Prepaid</option>
       </select>
     </div>
   );
-}
-
-{
-  /* <select
-  name=""
-  id=""
-  value={selectedProduct}
-  onChange={handleChange}
-  className="w-full rounded-md border px-3 py-2 text-sm text-gray-900 focus:ring-2 focus:ring-green-500 focus:outline-none disabled:text-gray-400"
->
-  <option value="" disabled>
-    Select Product
-  </option>
-  {products?.map((product) => (
-    <option value={product.product_id}>{product.name}</option>
-  ))}
-</select>; */
 }

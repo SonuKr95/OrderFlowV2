@@ -19,7 +19,7 @@ function Navbar() {
 
         <button
           onClick={() => setShowLogoutModal(true)}
-          className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-700"
+          className="rounded bg-violet-600 px-4 py-2 text-sm font-medium text-white transition hover:cursor-pointer hover:bg-violet-700"
         >
           Logout
         </button>

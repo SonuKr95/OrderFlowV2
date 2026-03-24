@@ -5,7 +5,7 @@ import { inventoryTableColumns } from "../constants/inventoryTableColumns";
 import UpdateInventoryModal from "../components/UpdateInventoryModal";
 import InventoryTable from "../components/InventoryTable";
 
-function InventoryList() {
+export default function InventoryPage() {
   const { data: ActiveInventoryList = [] } = useFetchActiveInventory();
   const [adjustStock, setadjustStock] = useState(null);
   return (
@@ -20,6 +20,7 @@ function InventoryList() {
         {ActiveInventoryList?.map((inventoryRecord) => {
           return (
             <InventoryTable
+              key={inventoryRecord.id}
               inventoryRecord={inventoryRecord}
               setadjustStock={setadjustStock}
             />
@@ -29,5 +30,3 @@ function InventoryList() {
     </div>
   );
 }
-
-export default InventoryList;

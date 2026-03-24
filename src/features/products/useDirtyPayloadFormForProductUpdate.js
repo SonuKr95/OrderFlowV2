@@ -5,7 +5,6 @@ export function useDirtyPayloadFormForProductUpdate({
   fields,
   onPayload,
 }) {
-  console.log(product);
   const initialValues = useMemo(() => {
     return Object.fromEntries(
       fields.map((field) => [field, product?.[field] ?? ""]),

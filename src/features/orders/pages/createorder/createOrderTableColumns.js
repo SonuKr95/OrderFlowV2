@@ -1,6 +1,7 @@
-export const orderItemTableColumns = [
+export const createOrderTableColumns = [
   { key: "Product", label: "Product" },
+
+  { key: "Price", label: "Price" },
   { key: "Quantity", label: "Quantity" },
-  { key: "Price", label: "Price Per Unit" },
   { key: " Item Total Amount", label: " Item Total " },
 ];

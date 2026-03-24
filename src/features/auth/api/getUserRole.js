@@ -5,8 +5,7 @@ export async function getUserRole() {
   const { data, error } = await supabase.auth.getClaims();
   if (error) throw error;
   const user_role = data?.claims?.user_role;
-  console.log(user_role);
   if (!user_role) throw new Error(AUTH_ERRORS.USER_MISSING);
-  console.log(user_role);
+
   return user_role;
 }

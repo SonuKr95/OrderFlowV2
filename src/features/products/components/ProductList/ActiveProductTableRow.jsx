@@ -4,13 +4,13 @@ import { editicon, deleteicon } from "../../../../icons/_index";
 
 function ActiveProductTableRow({ product, onEdit, onArchive }) {
   const stock = getStockStatus(product.quantity);
-  const baseclass = "px-4 py-3 text-sm text-text-primary whitespace-nowrap";
+  const baseclass = "px-4 py-3 text-sm text-text-primary";
 
   return (
     <>
       <tr className="transition hover:bg-[#2a3447]">
-        <td className={baseclass}>{product.sku}</td>
-        <td className={baseclass}>{product.name}</td>
+        <td className={`${baseclass} whitespace-nowrap`}>{product.sku}</td>
+        <td className={`${baseclass} whitespace-pre-wrap`}>{product.name}</td>
         <td className={baseclass}>{product.category_name}</td>
         <td className={baseclass}>{product.selling_price}</td>
         <td className={baseclass}>{product.mrp}</td>

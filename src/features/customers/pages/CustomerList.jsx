@@ -12,7 +12,7 @@ function CustomerList() {
     <div className="grid-row-2 relative grid">
       <List columns={customerTableColumns} colStart={1} rowStart={3}>
         {customers?.map((customer) => {
-          return <CustomerRow customer={customer} />;
+          return <CustomerRow key={customer.id} customer={customer} />;
         })}
       </List>
     </div>

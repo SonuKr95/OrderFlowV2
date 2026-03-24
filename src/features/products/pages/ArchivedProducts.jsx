@@ -6,16 +6,13 @@ import { refresh } from "../../../icons/_index";
 import { useRestoreArchieveProductById } from "../hooks/useRestoreArchieveProductById";
 import toast from "react-hot-toast";
 import { queryClient } from "../../../app/queryClient";
-import { useSelector } from "react-redux";
 
 import { formatDateTime } from "../../../utils/dateFormat";
 
 function ArchivedProducts() {
-  const baseclass = "px-4 py-3 text-sm text-text-primary whitespace-nowrap";
+  const baseclass = "px-4 py-3 text-sm text-text-primary";
   const { data: archiveProducts = [] } = useFetchArchiveProductList();
   const restoreProductMutation = useRestoreArchieveProductById();
-  const { userRole } = useSelector((state) => state.auth);
-  const isViewer = userRole === "viewer";
 
   const handleRestoreProduct = (id) =>
     restoreProductMutation.mutate(id, {
@@ -39,8 +36,12 @@ function ArchivedProducts() {
         {archiveProducts?.map((product) => {
           return (
             <tr key={product.id} className="transition hover:bg-[#2a3447]">
-              <td className={baseclass}>{product.sku ?? null}</td>
-              <td className={baseclass}>{product.name ?? "null"}</td>
+              <td className={`${baseclass} whitespace-nowrap`}>
+                {product.sku ?? null}
+              </td>
+              <td className={`${baseclass} whitespace-pre-wrap`}>
+                {product.name ?? "null"}
+              </td>
               <td className={baseclass}>{product.category_name ?? null}</td>
               <td className={baseclass}>
                 {formatDateTime(product.deleted_at) ?? null}

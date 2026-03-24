@@ -8,7 +8,11 @@ import { setCustomerId } from "../../../app/store/slices/cartSlice";
 import { setCustomer } from "../../../app/store/slices/customerSlice";
 import { queryClient } from "../../../app/queryClient";
 
-function CustomerModal({ customerModal, setCustomerModal, setProductModal }) {
+export default function CustomerModal({
+  customerModal,
+  setCustomerModal,
+  setProductModal,
+}) {
   const baseClass = `
 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm
 text-text-primary placeholder:text-text-muted
@@ -254,4 +258,3 @@ transition
   //   </div>
   // );
 }
-export default CustomerModal;

@@ -11,7 +11,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setAuthUser(state, action) {
-      console.log(action);
       state.userRole = action.payload.userRole;
       state.authStatus = action.payload.authStatus;
     },

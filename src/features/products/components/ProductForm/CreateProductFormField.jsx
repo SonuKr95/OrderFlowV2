@@ -1,6 +1,4 @@
 function CreateProductFormField({ field, register, options, isViewer }) {
-  console.log(isViewer);
-  //createProductFormSections for referecnce
   const { name, placeholder, type, label, rows } = field;
   const baseClass = `
 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm

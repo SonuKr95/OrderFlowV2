@@ -4,10 +4,12 @@ import { settings } from "../../../icons/_index";
 
 export default function InventoryTable({ inventoryRecord, setadjustStock }) {
   const stock = getStockStatus(inventoryRecord.quantity);
-  const baseclass = "px-4 py-3 text-sm text-text-primary whitespace-nowrap";
+  const baseclass = "px-4 py-3 text-sm text-text-primary";
   return (
     <tr key={inventoryRecord.id} className="transition hover:bg-[#2a3447]">
-      <td className={baseclass}>{inventoryRecord.product_sku ?? null}</td>
+      <td className={`${baseclass} whitespace-pre-wrap`}>
+        {inventoryRecord.product_sku ?? null}
+      </td>
       <td className={baseclass}>{inventoryRecord.product_name ?? "null"}</td>
       <td className={baseclass}>{inventoryRecord.quantity ?? null}</td>
       <td className={baseclass}>

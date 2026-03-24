@@ -10,7 +10,7 @@ function OrdersPage() {
     <div className="grid-row-2 relative grid">
       <List columns={orderTableColumns} colStart={1} rowStart={3}>
         {orders?.map((order) => {
-          return <OrderRow order={order} />;
+          return <OrderRow key={order.id} order={order} />;
         })}
       </List>
     </div>

@@ -25,7 +25,7 @@ export default function ArchiveProductModal({
           {/* Cancel */}
           <button
             onClick={onClose}
-            className="border-border text-text-secondary rounded-lg border px-4 py-2 text-sm transition hover:bg-[#2a3447] disabled:cursor-not-allowed disabled:opacity-50"
+            className="border-border text-text-secondary rounded-lg border px-4 py-2 text-sm transition hover:cursor-pointer hover:bg-[#2a3447] disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isLoading}
           >
             Cancel
@@ -34,7 +34,7 @@ export default function ArchiveProductModal({
           {/* Archive */}
           <button
             onClick={onConfirm}
-            className={`$ rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700`}
+            className={`$ rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:cursor-pointer hover:bg-red-700`}
             disabled={isLoading}
           >
             {isLoading ? "Archiving..." : "Archive"}

@@ -24,6 +24,9 @@ export function useCreateProductForm() {
         form.reset();
         toast.success(`Product Created Successfully with SKU: ${sku}`);
       },
+      onError: ({ message }) => {
+        toast.error(`Error While Creating Product: ${message}`);
+      },
     });
   };
   return {

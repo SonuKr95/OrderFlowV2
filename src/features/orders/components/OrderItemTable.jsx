@@ -7,7 +7,7 @@ export default function OrderItemTable({ orderDetails }) {
   return (
     <List columns={orderItemTableColumns} colStart={1} rowStart={3}>
       {items?.map((item) => {
-        return <OrderItemTableRow item={item} />;
+        return <OrderItemTableRow key={item.id} item={item} />;
       })}
     </List>
   );

@@ -15,6 +15,9 @@ export default function UpdateProductModal({ isOpen, onClose, product }) {
           queryKey: ["products-with-inventory"],
         });
       },
+      onError: ({ message }) => {
+        toast.error(`Error While Updating Product: ${message}`);
+      },
     });
   };
 
@@ -24,8 +27,6 @@ export default function UpdateProductModal({ isOpen, onClose, product }) {
       fields: ["name", "selling_price", "mrp"],
       onPayload: handleProductUpdate,
     });
-
-  console.log(initialValues);
   if (!isOpen) return null;
 
   return (
@@ -114,10 +115,9 @@ export default function UpdateProductModal({ isOpen, onClose, product }) {
           <button
             onClick={onSubmit}
             className={`rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-violet-700`}
-            // disabled={isLoading || isFormDisabled}
+            disabled={updateProductMutation.isPending}
           >
-            Save
-            {/* {isLoading ? "Saving..." : "Save Changes"} */}
+            {updateProductMutation.isPending ? "Updating..." : "Update"}
           </button>
         </div>
       </div>
