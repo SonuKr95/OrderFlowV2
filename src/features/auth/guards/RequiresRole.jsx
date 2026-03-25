@@ -5,7 +5,10 @@ import { AUTH_STATUS } from "../constants/authStatus";
 export function RequireRole({ allowedRoles }) {
   let { userRole, authStatus } = useSelector((state) => state.auth);
 
-  //For viewer testing only. only admin routes are enabled for the viewers
+  //For viewer testing only.
+
+  //viewer and admin role they have same route, however CRUD is blocked on viewer role with RLS. this is done to access all routes for viewers as same as admin
+
   if (userRole === "viewer") {
     userRole = "admin";
   }
