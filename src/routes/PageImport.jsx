@@ -1,7 +1,7 @@
 import { lazy } from "react";
 export const AppLayout = lazy(() => import("../components/layout/AppLayout"));
 export const DashboardPage = lazy(
-  () => import("../features/dashboard/Dashboard"),
+  () => import("../features/dashboard/pages/Dashboard"),
 );
 export const AddProduct = lazy(
   () => import("../features/products/pages/AddProduct"),
