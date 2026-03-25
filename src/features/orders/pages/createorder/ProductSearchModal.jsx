@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../../../app/store/slices/cartSlice";
 import { useDebounce } from "../../../../hooks/useDebounce.js";
 import { useSearchProducts } from "../../../products/hooks/useSearchProducts";
+import { useUserRole } from "../../../../app/context/hook/useUserRole.jsx";
 
 export default function ProductSearchModal({ productModal, setProductModal }) {
+  const { userRole } = useUserRole();
+  const isViewer = userRole === "viewer";
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [selectedProductId, setSelectedProductId] = useState("");
@@ -41,7 +44,8 @@ export default function ProductSearchModal({ productModal, setProductModal }) {
             placeholder="Search product..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="text-text-primary w-full rounded-lg border px-3 py-2 text-base outline-none focus:ring-2 focus:ring-blue-500"
+            className="text-text-primary w-full rounded-lg border px-3 py-2 text-base outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-gray-500"
+            disabled={isViewer}
           />
 
           <ul className="mt-3 max-h-72 divide-y overflow-y-auto rounded-lg border">

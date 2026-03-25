@@ -4,7 +4,7 @@ export const inventoryTableColumns = [
   { key: "quantity", label: "Quantity Available" },
   { key: "", label: "Stock Health" },
   // { key: "updated_by", label: "Updated By" },
-  { key: "updated_at", label: "Updated At" },
+  { key: "updated_on", label: "Updated On" },
   {
     key: "actions",
     label: "Actions",

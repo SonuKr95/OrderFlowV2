@@ -5,7 +5,11 @@ import ProductArchiveModal from "../Modals/ArchiveProductModal";
 import { useArchiveProductController } from "../../hooks/useArchiveProductController";
 import List from "../../../../components/ui/List";
 import ActiveProductTableRow from "./ActiveProductTableRow";
+import { useUserRole } from "../../../../app/context/hook/useUserRole";
+
 export default function ProductTable({ products }) {
+  const { userRole } = useUserRole();
+  const isViewer = userRole === "viewer";
   const [updateTarget, setUpdateTarget] = useState(null);
   const {
     openArchiveModal,
@@ -33,6 +37,7 @@ export default function ProductTable({ products }) {
         isOpen={!!updateTarget}
         product={updateTarget}
         onClose={() => setUpdateTarget(null)}
+        isViewer={isViewer}
       />
       <ProductArchiveModal
         isOpen={!!archiveTarget}
@@ -41,6 +46,7 @@ export default function ProductTable({ products }) {
         title="Archive Product"
         message={`Are you sure you want to Archive ${archiveTarget?.name}?`}
         isLoading={isArchiveing}
+        isViewer={isViewer}
       />
     </>
   );

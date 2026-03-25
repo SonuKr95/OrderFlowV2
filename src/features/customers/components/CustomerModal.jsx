@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { setCustomerId } from "../../../app/store/slices/cartSlice";
 import { setCustomer } from "../../../app/store/slices/customerSlice";
 import { queryClient } from "../../../app/queryClient";
+import { useUserRole } from "../../../app/context/hook/useUserRole";
 
 export default function CustomerModal({
   customerModal,
@@ -20,6 +21,8 @@ focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent
 disabled:opacity-50 disabled:cursor-not-allowed
 transition
 `;
+  const { userRole } = useUserRole();
+  const isViewer = userRole === "viewer";
   const { data: customers = [] } = useFecthCustomers();
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
@@ -86,7 +89,8 @@ transition
               placeholder="Search customers..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="mb-4 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-transparent focus:ring-2 focus:ring-violet-500"
+              className="mb-4 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder-gray-500 outline-none focus:border-transparent focus:ring-2 focus:ring-violet-500 disabled:cursor-not-allowed disabled:bg-gray-300"
+              disabled={isViewer}
             />
 
             {/* List */}
@@ -155,7 +159,8 @@ transition
               {/* CTA */}
               <button
                 type="submit"
-                className={`rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-violet-700`}
+                className={`rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-violet-700 disabled:cursor-not-allowed disabled:bg-gray-400`}
+                disabled={isViewer}
               >
                 Create Customer
               </button>

@@ -4,7 +4,7 @@ export const orderTableColumns = [
   { key: "status", label: "Status" },
   { key: "total_amount", label: "Total Amount" },
   // { key: "updated_by", label: "Updated By" },
-  { key: "created_at", label: "Created At" },
+  { key: "created_on", label: "Created On" },
   {
     key: "actions",
     label: "View Details",

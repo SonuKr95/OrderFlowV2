@@ -3,9 +3,10 @@ import { CREATE_PRODUCT_FORM_SECTIONS } from "../../config/createProductFormSect
 import { useFetchProductCategories } from "../../hooks/useFetchProductCategories";
 import { useCreateProductForm } from "../../hooks/useCreateProductForm";
 import CreateProductFormSection from "./CreateProductFormSection";
+import { useUserRole } from "../../../../app/context/hook/useUserRole";
 
 function CreateProductForm() {
-  const { userRole } = useSelector((state) => state.auth);
+  const { userRole } = useUserRole();
   const isViewer = userRole === "viewer";
   const { data: categories = [] } = useFetchProductCategories();
   const { register, handleSubmit, onSubmit, createProduct } =
@@ -34,7 +35,7 @@ function CreateProductForm() {
 
         <div className="border-border mt-8 border-t pt-6">
           <button
-            disabled={createProduct.isPending}
+            disabled={createProduct.isPending || isViewer}
             onClick={handleSubmit(onSubmit)}
             className="mt-6 w-full rounded-lg bg-violet-600 py-2.5 text-sm font-medium text-white transition hover:cursor-pointer hover:bg-violet-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50"
           >

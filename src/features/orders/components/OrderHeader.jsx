@@ -1,12 +1,13 @@
-const STATUS_FLOW = {
-  pending: ["confirmed", "cancelled"],
-  confirmed: ["packed", "cancelled"],
-  packed: ["shipped"],
-  shipped: ["delivered"],
-};
+// const STATUS_FLOW = {
+//   pending: ["confirmed", "cancelled"],
+//   confirmed: ["packed", "cancelled"],
+//   packed: ["shipped"],
+//   shipped: ["delivered"],
+// };
+import { formatDateTime } from "../../../utils/dateFormat";
 
 export default function OrderHeader({ orderDetails }) {
-  const { order_number, created_at, payment_method, status } = orderDetails;
+  const { order_number, created_at, payment_method } = orderDetails;
 
   return (
     <div className="flex flex-col justify-between gap-4 rounded-2xl border border-white/10 bg-white/5 p-5 shadow-md backdrop-blur-xl md:flex-row md:items-center">
@@ -15,7 +16,8 @@ export default function OrderHeader({ orderDetails }) {
         <h2 className="text-lg font-semibold text-white">
           Order #{order_number}
         </h2>
-        <p className="text-sm text-gray-400">{created_at}</p>
+
+        <p className="text-sm text-gray-400">{formatDateTime(created_at)}</p>
         <p className="text-sm text-gray-400">Payment: {payment_method}</p>
       </div>
 

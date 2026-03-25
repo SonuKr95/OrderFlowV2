@@ -11,8 +11,11 @@ import OrderItemTable from "./OrderItemTable";
 import { selectCartProducts } from "../../../../app/store/selectors/cartSelectors";
 import { buildOrderPayload } from "./buildOrderPayload";
 import { useCreateOrder } from "../../hooks/useCreateOrder";
+import { useUserRole } from "../../../../app/context/hook/useUserRole";
 
 export default function CreateOrder() {
+  const { userRole } = useUserRole();
+  const isViewer = userRole === "viewer";
   const dispatch = useDispatch();
   const customerId = useSelector((state) => state.cart.customerId);
   const [customerModal, setCustomerModal] = useState(false);
@@ -126,7 +129,8 @@ export default function CreateOrder() {
 
         <button
           onClick={handleCreateOrder}
-          className="w-full rounded-lg bg-violet-600 py-4 text-lg font-semibold text-white shadow-md hover:cursor-pointer hover:bg-violet-700 active:scale-[0.98]"
+          className="w-full rounded-lg bg-violet-600 py-4 text-lg font-semibold text-white shadow-md hover:cursor-pointer hover:bg-violet-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-gray-400"
+          disabled={isViewer}
         >
           Create Order
         </button>

@@ -8,6 +8,7 @@ import {
 import { useUpdateInventory } from "../hooks/useUpdateInventory";
 import toast from "react-hot-toast";
 import { queryClient } from "../../../app/queryClient";
+import { useUserRole } from "../../../app/context/hook/useUserRole";
 
 export default function UpdateInventoryModal({
   isOpen,
@@ -21,6 +22,9 @@ focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent
 disabled:opacity-50 disabled:cursor-not-allowed
 transition
 `;
+  const { userRole } = useUserRole();
+  const isViewer = userRole === "viewer";
+
   const [selectedAdjustment, setSelectedAdjustment] = useState(null);
   const [updatedQuantity, setupdatedQuantity] = useState(null);
   const updateInventoryMutation = useUpdateInventory();
@@ -216,8 +220,8 @@ transition
 
           <button
             onClick={handleSubmit(payload)}
-            className={`rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-violet-700`}
-            disabled={updateInventoryMutation.isPending}
+            className={`rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-violet-700 disabled:cursor-not-allowed disabled:bg-gray-400`}
+            disabled={updateInventoryMutation.isPending || isViewer}
           >
             {selectedAdjustment === "ADD" && "Add"}
             {selectedAdjustment === "REDUCE" && "Reduce"} Quantity

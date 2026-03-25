@@ -2,7 +2,7 @@ export const ArchiveProductTableColumns = [
   { key: "sku", label: "SKU" },
   { key: "name", label: "Product Name" },
   { key: "category", label: "Category" },
-  { key: "deleted_at", label: "Deleted At" },
+  { key: "Archived_On", label: "Archived On" },
 
   {
     key: "actions",

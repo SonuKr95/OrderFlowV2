@@ -3,7 +3,12 @@ import { useDirtyPayloadFormForProductUpdate } from "../../useDirtyPayloadFormFo
 import toast from "react-hot-toast";
 import { queryClient } from "../../../../app/queryClient";
 
-export default function UpdateProductModal({ isOpen, onClose, product }) {
+export default function UpdateProductModal({
+  isOpen,
+  onClose,
+  product,
+  isViewer,
+}) {
   const updateProductMutation = useUpdateProductById();
 
   const handleProductUpdate = (payload) => {
@@ -114,8 +119,8 @@ export default function UpdateProductModal({ isOpen, onClose, product }) {
 
           <button
             onClick={onSubmit}
-            className={`rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-violet-700`}
-            disabled={updateProductMutation.isPending}
+            className={`rounded-lg bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:cursor-pointer hover:bg-violet-700 disabled:cursor-not-allowed disabled:bg-gray-400`}
+            disabled={updateProductMutation.isPending || isViewer}
           >
             {updateProductMutation.isPending ? "Updating..." : "Update"}
           </button>

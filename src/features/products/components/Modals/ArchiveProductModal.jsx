@@ -6,6 +6,7 @@ export default function ArchiveProductModal({
   title,
   message,
   isLoading,
+  isViewer,
 }) {
   const { userRole } = useSelector((state) => state.auth);
   if (!isOpen) return null;
@@ -34,8 +35,8 @@ export default function ArchiveProductModal({
           {/* Archive */}
           <button
             onClick={onConfirm}
-            className={`$ rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:cursor-pointer hover:bg-red-700`}
-            disabled={isLoading}
+            className={`$ rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:cursor-pointer hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-gray-400`}
+            disabled={isLoading || isViewer}
           >
             {isLoading ? "Archiving..." : "Archive"}
           </button>
