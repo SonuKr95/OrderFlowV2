@@ -18,6 +18,16 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       </div>
 
       <SidebarMenu collapsed={collapsed} />
+      {!collapsed && (
+        <p className="text-text-primary">
+          Developed and Managed By :{" "}
+          <span className="decoration-10px text-blue-500 underline">
+            <a target="_blank" href="https://www.facebook.com/sonukr095">
+              Sonu Kumar
+            </a>
+          </span>
+        </p>
+      )}
     </div>
   );
 }

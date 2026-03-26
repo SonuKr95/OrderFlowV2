@@ -6,7 +6,7 @@ export async function getUserRole() {
   // console.log(data);
   if (error) throw error;
   const user_role = data?.claims?.user_role;
-  console.log(user_role);
+  // console.log(user_role);
   if (!user_role) throw new Error(AUTH_ERRORS.USER_MISSING);
 
   return user_role;
