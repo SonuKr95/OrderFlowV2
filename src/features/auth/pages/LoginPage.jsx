@@ -82,6 +82,23 @@ export default function LoginPage() {
         >
           Continue as Guest
         </button>
+        <p className="text-primary mt-3.5 font-mono font-bold">
+          This is a read-only preview. Interactive features (Add/Edit/Delete)
+          require an authorized account. Please contact the admin to request
+          full access.
+        </p>
+        <p className="text-text-secondary mt-3.5 text-center">
+          Developed and Managed By :{" "}
+          <span className="text-text-primary font-semibold underline underline-offset-2">
+            <a
+              target="_blank"
+              href="https://www.facebook.com/sonukr095"
+              title="Contact Administrator  "
+            >
+              Sonu Kumar
+            </a>
+          </span>
+        </p>
       </div>
     </div>
   );
