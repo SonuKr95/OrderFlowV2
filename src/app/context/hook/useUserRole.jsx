@@ -27,7 +27,6 @@ function UserRoleProvider({ children }) {
   );
 }
 
-// 2. The Custom Hook
 function useUserRole() {
   const context = useContext(userRoleContext);
 

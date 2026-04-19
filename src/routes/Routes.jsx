@@ -19,21 +19,26 @@ export const Routes = [
   {
     element: <AppLayout />,
     children: [
-      // ✅ Admin-only routes
+      // ✅ Admin + Viewer routes
+      //Viewer and Admin role they have same route, however CRUD is blocked on viewer role with RLS. this is done in order to let anonymyous user allow to see the app full functionality
+
       {
-        element: <RequireRole allowedRoles={PERMISSIONS.ADMIN_ONLY} />,
-        children: [{ path: "dashboard", element: <DashboardPage /> }],
+        element: (
+          <RequireRole allowedRoles={[PERMISSIONS.ADMIN, PERMISSIONS.VIEWER]} />
+        ),
+        children: [
+          { path: "dashboard", element: <DashboardPage /> },
+          { path: "inventory", element: <InventoryPage /> },
+          { path: "customer", element: <CustomerPage /> },
+        ],
       },
 
-      // ✅ Admin + Staff routes
+      // ✅ Admin + Staff + Viewer routes
       {
-        element: <RequireRole allowedRoles={PERMISSIONS.ADMIN_STAFF} />,
+        element: <RequireRole allowedRoles={PERMISSIONS.ADMIN_STAFF_VIEWER} />,
         children: [
-          { path: "inventory", element: <InventoryPage /> },
           { path: "productlist", element: <ProductList /> },
           { path: "addproduct", element: <AddProduct /> },
-          { path: "customer", element: <CustomerPage /> },
-
           { path: "product/archived", element: <ArchivedProducts /> },
           {
             path: "orders",
@@ -45,15 +50,9 @@ export const Routes = [
         ],
       },
 
-      // Dev route example
       {
-        element: <RequireRole allowedRoles={PERMISSIONS.ADMIN_ONLY} />,
-        children: [
-          {
-            path: "createorder",
-            children: [{ index: true, element: <CreateOrder /> }],
-          },
-        ],
+        element: <RequireRole allowedRoles={PERMISSIONS.ADMIN_STAFF_VIEWER} />,
+        children: [{ path: "createorder", element: <CreateOrder /> }],
       },
     ],
   },

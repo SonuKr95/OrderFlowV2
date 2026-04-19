@@ -27,7 +27,7 @@ const menu = [
     text: "Inventory Management",
     iconName: "categories",
     url: "/inventory",
-    access: [ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
+    access: [ROLES.ADMIN, ROLES.VIEWER],
   },
 
   {
@@ -52,7 +52,7 @@ const menu = [
   {
     text: "Create Order",
     iconName: "arrowupdown",
-    access: [ROLES.ADMIN, ROLES.VIEWER],
+    access: [ROLES.ADMIN, ROLES.VIEWER, ROLES.STAFF],
     url: "/createorder",
   },
 ];

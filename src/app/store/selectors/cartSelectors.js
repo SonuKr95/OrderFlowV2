@@ -19,6 +19,3 @@ export const selectItemTotal = (state) => {
 
   return subtotal - tax;
 };
-
-// export const selectTotalPayable = (state) =>
-//   selectSubtotal(state) + selectTax(state) + state.cart.shipping;

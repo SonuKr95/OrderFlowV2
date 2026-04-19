@@ -22,6 +22,4 @@ export function GuestOnlyRoute({ children }) {
     const defaultPath = ROLE_REDIRECT_MAP[userRole] ?? "/";
     return <Navigate to={defaultPath} replace />;
   }
-
-  // return <Navigate to={ROLE_REDIRECT_MAP[userRole] ?? "/"} replace />;
 }

@@ -92,8 +92,8 @@ export default function LoginPage() {
           <span className="text-text-primary font-semibold underline underline-offset-2">
             <a
               target="_blank"
-              href="https://www.facebook.com/sonukr095"
-              title="Contact Administrator  "
+              href="https://www.linkedin.com/in/sonukr095"
+              title="Contact Sonu on LinkedIn"
             >
               Sonu Kumar
             </a>
