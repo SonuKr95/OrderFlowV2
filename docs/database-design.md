@@ -124,6 +124,10 @@
 
 ---
 
+## 🗺 Schema Overview
+
+![Database Schema](./schema.png)
+
 ## ⚠️ Trade-offs
 
 - No multi-warehouse support (single inventory source)
