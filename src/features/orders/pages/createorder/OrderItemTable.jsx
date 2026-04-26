@@ -16,12 +16,18 @@ export default function OrderItemTable() {
       {products?.map((product) => {
         return (
           <>
-            <tr className="text-text-primary hover:bg-border hover:cursor-pointer">
+            <tr
+              key={product.id}
+              className="text-text-primary hover:bg-border hover:cursor-pointer"
+            >
               <td className="px-4 py-2 font-medium whitespace-pre-wrap">
                 <div className="flex flex-col">
                   <span>{product.name}</span>
                   <span className="text-text-secondary text-xs">
                     {product.sku}
+                  </span>
+                  <span className="text-text-secondary text-xs">
+                    {product.id.slice(0, 5)}
                   </span>
                 </div>
               </td>

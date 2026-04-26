@@ -55,7 +55,6 @@ const cartSlice = createSlice({
       });
     },
     decreaseQuantity(state, action) {
-      console.log(action.payload);
       const product = findProduct(action.payload, state.products);
       if (!product) return;
       if (product.quantityCount === 1) {

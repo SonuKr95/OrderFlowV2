@@ -61,6 +61,9 @@ export default function CreateOrder() {
         dispatch(resetCart());
         dispatch(resetCustomer());
       },
+      onError: async ({ message }) => {
+        toast.error(`Error While Creating Order ${message}`);
+      },
     });
   }
 

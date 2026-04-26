@@ -51,8 +51,6 @@ export default function UpdateProductModal({
             <input
               name="name"
               {...register("name")}
-              // defaultValue={initialValues.name}
-              // value={initialValues.name}
               className={`border-border bg-background text-text-primary w-full rounded-lg border px-3 py-2 text-sm focus:ring-2 focus:ring-violet-500`}
             />
           </div>
@@ -62,10 +60,8 @@ export default function UpdateProductModal({
             <label className="text-text-secondary text-sm">SKU</label>
             <input
               name="sku"
-              // {...register("sku")}
               disabled
               value={product.sku}
-              // onChange={handleChange}
               className={`border-border text-text-primary w-full rounded-lg border bg-slate-500 px-3 py-2 text-sm disabled:cursor-not-allowed`}
             />
           </div>
@@ -87,8 +83,6 @@ export default function UpdateProductModal({
             <input
               name="selling_price"
               {...register("selling_price")}
-              // defaultValue={initialValues.selling_price}
-              // onChange={handleChange}
               className={`border-border bg-background text-text-primary w-full rounded-lg border px-3 py-2 text-sm disabled:cursor-not-allowed`}
             />
           </div>
@@ -99,9 +93,6 @@ export default function UpdateProductModal({
             <input
               name="mrp"
               {...register("mrp")}
-              // defaultValue={initialValues.mrp}
-              // value={formData.mrp}
-              // onChange={handleChange}
               className={`border-border bg-background text-text-primary w-full rounded-lg border px-3 py-2 text-sm disabled:cursor-not-allowed`}
             />
           </div>
@@ -112,7 +103,6 @@ export default function UpdateProductModal({
           <button
             onClick={onClose}
             className="border-border text-text-secondary rounded-lg border px-4 py-2 text-sm hover:cursor-pointer hover:bg-[#2a3447]"
-            // disabled={isLoading}
           >
             Cancel
           </button>

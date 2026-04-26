@@ -1,11 +1,11 @@
 export const ACTIVE_MENU_PATH_MAP = {
   "/dashboard": "Dashboard",
-  "/orders": "Order Management ",
+  "/orders": "Manage Orders  ",
   "/orders/": "Order Details",
-  "/inventory": "Inventory Management",
+  "/inventory": "Manage Inventory",
   "/customer": "Customer Details",
-  "/addproduct": "Add Product Form",
-  "/productlist": "Product Management ",
-  "/product/archived": "Archived Product Management",
-  "/createorder": "Order Creation Panel",
+  "/addproduct": "Add Product",
+  "/productlist": "Manage Products ",
+  "/product/archived": "Manage Archived Products",
+  "/createorder": "Create Order",
 };

@@ -21,10 +21,10 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       {!collapsed && (
         <p className="text-text-secondary mt-3.5 text-center">
           Developed and Managed By :{" "}
-          <span className="text-text-primary font-semibold underline underline-offset-2">
+          <span className="text-text-primary font-semibold">
             <a
               target="_blank"
-              href="https://www.linkedin.com/in/sonukr095"
+              href="https://linkedin.com/in/sonukr095"
               title="Contact Sonu on LinkedIn"
             >
               Sonu Kumar

@@ -20,7 +20,7 @@ export function useLoginSuccess() {
     };
 
     dispatch(setAuthUser(data));
-    toast.success("Logged In");
+    toast.success(`Welcome ${userRole}`);
 
     if (userRole === ROLES.ADMIN || userRole === ROLES.VIEWER) {
       navigate(LOGIN_ROUTES.ADMIN_DASHBOARD, { replace: true });

@@ -25,10 +25,56 @@ export default function LoginPage() {
           <p className="mt-1 text-sm text-gray-400">
             Manage your orders efficiently
           </p>
+          <p className="mt-1 text-sm text-gray-400">Try the app instantly</p>
+        </div>
+
+        {/* Admin Demo Login */}
+
+        <button
+          onClick={() =>
+            handleSubmitLogin({
+              email: "admin@example.com",
+              password: "7?CXva$76sw!",
+            })
+          }
+          className="bg-primary hover:bg-primary/90 mb-2.5 w-full rounded-lg border border-white/10 py-2.5 font-medium text-white shadow-lg transition hover:cursor-pointer disabled:opacity-50"
+          disabled={loginMutation.isPending}
+        >
+          Login as Admin (Demo)
+        </button>
+
+        {/* Staff Demo Login */}
+
+        <button
+          onClick={() =>
+            handleSubmitLogin({
+              email: "staff@example.com",
+              password: "7+5p4]Uud2",
+            })
+          }
+          className="bg-primary/60 hover:bg-primary/70 mb-2.5 w-full rounded-lg border border-white/10 py-2.5 font-medium text-white opacity-90 shadow-sm transition hover:cursor-pointer disabled:opacity-50"
+          disabled={loginMutation.isPending}
+        >
+          Login as Staff (Demo)
+        </button>
+
+        {/* Anonymous Viewer login */}
+        <button
+          onClick={() => anonymousSignIn.mutate()}
+          className="bg-primary/30 hover:bg-primary/60 mb-2.5 w-full rounded-lg border border-white/10 py-2.5 font-medium text-white opacity-90 transition hover:cursor-pointer disabled:opacity-50"
+          disabled={anonymousSignIn.isPending}
+        >
+          Continue as Viewer
+        </button>
+
+        {/* Divider */}
+        <div className="my-5 flex items-center gap-2">
+          <div className="h-px flex-1 bg-white/10" />
+          <span className="text-xs text-gray-500">OR</span>
+          <div className="h-px flex-1 bg-white/10" />
         </div>
 
         {/* Form */}
-
         <form onSubmit={handleSubmit(handleSubmitLogin)} className="space-y-4">
           {/* Email */}
           <div>
@@ -63,41 +109,14 @@ export default function LoginPage() {
           <button
             disabled={loginMutation.isPending}
             type="submit"
-            className="bg-primary w-full rounded-lg py-2.5 font-semibold text-white transition hover:cursor-pointer hover:bg-indigo-600 disabled:opacity-50"
+            className="bg-primary/10 hover:bg-primary/30 w-full rounded-lg py-2.5 font-medium text-white transition hover:cursor-pointer disabled:opacity-50"
           >
-            {loginMutation.isPending ? "Logging in..." : "Login"}
+            Login
           </button>
         </form>
 
-        {/* Divider */}
-        <div className="my-5 flex items-center gap-2">
-          <div className="h-px flex-1 bg-white/10" />
-          <span className="text-xs text-gray-500">OR</span>
-          <div className="h-px flex-1 bg-white/10" />
-        </div>
-        {/* Guest login */}
-        <button
-          onClick={() => anonymousSignIn.mutate()}
-          className="w-full rounded-lg border border-white/10 bg-white/5 py-2.5 font-medium text-gray-300 transition hover:cursor-pointer hover:bg-white/10"
-        >
-          Continue as Guest
-        </button>
         <p className="text-primary mt-3.5 font-mono font-bold">
-          This is a read-only preview. Interactive features (Add/Edit/Delete)
-          require an authorized account. Please contact the admin to request
-          full access.
-        </p>
-        <p className="text-text-secondary mt-3.5 text-center">
-          Developed and Managed By :{" "}
-          <span className="text-text-primary font-semibold underline underline-offset-2">
-            <a
-              target="_blank"
-              href="https://www.linkedin.com/in/sonukr095"
-              title="Contact Sonu on LinkedIn"
-            >
-              Sonu Kumar
-            </a>
-          </span>
+          Demo data resets periodically to maintain consistency.
         </p>
       </div>
     </div>
