@@ -22,10 +22,9 @@ export default function LoginPage() {
 
         <div className="mb-6 text-center">
           <h1 className="text-3xl font-bold text-white">Order Flow</h1>
-          <p className="mt-1 text-sm text-gray-400">
-            Manage your orders efficiently
+          <p className="mt-1 text-xs text-gray-400">
+            Inventory & Order Management System with role-based access
           </p>
-          <p className="mt-1 text-sm text-gray-400">Try the app instantly</p>
         </div>
 
         {/* Admin Demo Login */}
