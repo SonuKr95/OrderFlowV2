@@ -1,6 +1,6 @@
 ## 🚀 Order Flow
 
-**Manage your orders efficiently**
+**Inventory & Order Management System with role-based access**
 
 <img width="1920" height="911" alt="Image" src="https://github.com/user-attachments/assets/eca5c887-8172-495e-a60f-30e5e1e28d39" />
 
