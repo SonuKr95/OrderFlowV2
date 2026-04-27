@@ -8,7 +8,7 @@
 
 ## 🌐 Live Demo
 
-👉 **[View Live App](https://orderflow.sonukr.com)**
+👉 **[View Live App](https://ubiquitous-torrone-a4837b.netlify.app)**
 
 ---
 
