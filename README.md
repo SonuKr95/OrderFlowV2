@@ -2,7 +2,7 @@
 
 **Manage your orders efficiently**
 
-<img width="1920" height="911" alt="Image" src="https://github.com/user-attachments/assets/f710235a-a482-4d49-8e3d-745d6b91d121" />
+<img width="1920" height="911" alt="Image" src="https://github.com/user-attachments/assets/eca5c887-8172-495e-a60f-30e5e1e28d39" />
 
 ---
 
